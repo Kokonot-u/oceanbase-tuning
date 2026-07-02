@@ -7,6 +7,9 @@ data/
 # Large upstream OceanBase source mirror; keep out of this project repo.
 oceanbase/
 
+# Downloaded benchmark tool distributions.
+tools/
+
 # MLflow experiments
 experiments/mlflow/
 

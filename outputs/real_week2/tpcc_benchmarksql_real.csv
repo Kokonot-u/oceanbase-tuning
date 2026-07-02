@@ -1,0 +1,2 @@
+run_id,timestamp,db_host,tenant,database,workload,elapsed_ms,tpmc,tpm_total,qps_or_tps,avg_latency_ms,p95_latency_ms,p99_latency_ms,transaction_count,error_count,status,notes,log_file
+benchmarksql_tpcc_20260702_171628,2026-07-02T09:22:59Z,100.83.22.21,test,week2_bench_wang,BenchmarkSQL_TPC-C,,46.95,109.56,1.826,312.3,716.0,726.0,20,0,real_run_completed,Parsed from BenchmarkSQL 5.0 log and result.csv; qps_or_tps is measured tpmTOTAL/60,logs/real_week2/benchmarksql_tpcc_20260702_171628.log

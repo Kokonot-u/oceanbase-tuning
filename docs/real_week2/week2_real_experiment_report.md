@@ -81,7 +81,13 @@ Top5 输出见：
 
 ## 7. Workload 设计
 
-项目中没有可直接运行的 BenchmarkSQL/tpch-obs，因此没有伪造 BenchmarkSQL/TPC-C/TPC-H 结果。本次实现轻量真实 SQL workload：
+本次已经补充三类真实 workload：
+
+1. 轻量真实 SQL workload：用于快速验证连接、建表、插入、点查、范围查询、聚合、更新和混合读写。
+2. BenchmarkSQL / TPC-C：下载 BenchmarkSQL 5.0，加入 OceanBase MySQL 模式兼容配置和 MySQL JDBC driver，执行 1 warehouse、1 terminal、20 transaction 的短测试。
+3. TPC-H 22 查询：创建 TPC-H 八张表，生成小规模确定性数据集，执行 22 条 TPC-H 风格查询。该部分是真实 SQL 执行，但不是官方 dbgen scale factor 数据集。
+
+轻量真实 SQL workload 包含：
 
 1. 建表 `workload_kv`
 2. 批量插入 1000 行
@@ -91,11 +97,11 @@ Top5 输出见：
 6. UPDATE
 7. 混合读写循环
 
-每条 SQL 均通过 Docker 容器内 `obclient` 真实连接远端 OceanBase 执行。
+轻量 SQL 和 TPC-H 每条 SQL 均通过 Docker 容器内 `obclient` 真实连接远端 OceanBase 执行。BenchmarkSQL 通过本机 Java/JDBC 连接远端 OceanBase。
 
 ## 8. 真实实验结果
 
-真实 baseline 结果：
+真实轻量 SQL baseline 结果：
 
 | 指标 | 值 |
 | -- | -- |
@@ -111,14 +117,46 @@ Top5 输出见：
 | rows_read | 21606 |
 | rows_updated | 54 |
 
+真实 BenchmarkSQL / TPC-C 结果：
+
+| 指标 | 值 |
+| -- | -- |
+| run_id | benchmarksql_tpcc_20260702_171628 |
+| warehouses | 1 |
+| terminals | 1 |
+| transaction_count | 20 |
+| measured_tpmC | 46.95 |
+| measured_tpmTOTAL | 109.56 |
+| qps_or_tps | 1.826 |
+| avg_latency_ms | 312.3 |
+| p95_latency_ms | 716.0 |
+| p99_latency_ms | 726.0 |
+| error_count | 0 |
+
+真实 TPC-H 22 查询结果：
+
+| 指标 | 值 |
+| -- | -- |
+| run_id | tpch_22_real_20260702_172556 |
+| query_count | 22 |
+| total_elapsed_ms | 3370.68 |
+| avg_elapsed_ms | 153.213 |
+| qps_or_tps | 6.5269 |
+| p95_latency_ms | 192.592 |
+| p99_latency_ms | 285.852 |
+| failed_queries | 0 |
+
 结果文件：
 
 - `outputs/real_week2/workload_baseline_real.csv`
 - `outputs/real_week2/workload_summary_real.csv`
+- `outputs/real_week2/tpcc_benchmarksql_real.csv`
+- `outputs/real_week2/tpch_22_real.csv`
+- `outputs/real_week2/tpch_22_summary_real.csv`
 - `outputs/real_week2/param_perf_dataset_real.csv`
 - `outputs/real_week2/param_perf_summary_real.csv`
 
-说明：延迟包含 `docker exec + obclient` 调用开销，因此适合第二周流程验证和相对对比，后续正式 benchmark 应改成长连接客户端或 BenchmarkSQL。
+说明：轻量 SQL 和 TPC-H 延迟包含 `docker exec + obclient` 调用开销；BenchmarkSQL 使用 Java/JDBC 长连接，更接近 TPC-C benchmark 测试方式。
 
 ## 9. 与旧 dry-run 文件的区别
 
@@ -133,8 +171,8 @@ Top5 输出见：
 
 ## 10. 未完成项和原因
 
-- BenchmarkSQL/TPC-C 未执行：项目中未找到可直接运行的 BenchmarkSQL。
-- TPC-H/tpch-obs 未执行：项目中未找到可直接运行的 tpch-obs。
+- BenchmarkSQL/TPC-C 已执行小规模真实测试。后续可扩大 warehouses、terminals、runMins。
+- TPC-H 已执行 22 条真实 SQL 查询。当前数据集为脚本生成的小规模确定性数据，不是官方 dbgen 10GB 标准数据。
 - 参数修改实验未执行：当前为同事共享 test 租户，安全要求是不直接改参数；已生成变更计划和 rollback SQL。
 - DBA_OB_PARAMETERS 查询失败：该视图/表在当前环境不存在。
 
@@ -142,9 +180,9 @@ Top5 输出见：
 
 1. 是否允许在 test 租户执行可恢复动态参数变更。
 2. 允许修改的具体参数、范围和时间窗口。
-3. 是否提供 BenchmarkSQL/tpch-obs 工具目录。
-4. 是否需要单独创建压力测试租户，避免影响同事共享环境。
-5. 是否接受当前轻量 SQL workload 作为第二周真实 baseline。
+3. 是否允许扩大 BenchmarkSQL 参数，例如 warehouses=5/10、runMins=5/10。
+4. 是否提供官方 tpch-obs/dbgen 工具目录，用于替换当前小规模确定性 TPC-H 数据集。
+5. 是否需要单独创建压力测试租户，避免影响同事共享环境。
 
 ## 12. 截图占位符
 

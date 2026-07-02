@@ -1,0 +1,225 @@
+run_id=benchmarksql_tpcc_20260702_171628
+start_time=2026-07-02T09:16:28Z
+host=100.83.22.21 port=2881 user=root@test database=week2_bench_wang
+java=openjdk version "26.0.1" 2026-04-21
+benchmarksql_dir=/Users/wzh/Documents/DBdoctor/oceanbase-tuning/tools/benchmarksql
+dropping only project-owned bmsql_* tables in week2_bench_wang
+bash: warning: setlocale: LC_ALL: cannot change locale (en_US.UTF-8)
+## runDatabaseBuild
+# ------------------------------------------------------------
+# Loading SQL file ./sql.oceanbase/tableCreates.sql
+# ------------------------------------------------------------
+create table bmsql_config (
+cfg_name    varchar(30) primary key,
+cfg_value   varchar(50)
+);
+create table bmsql_warehouse (
+w_id        integer   not null,
+w_ytd       decimal(12,2),
+w_tax       decimal(4,4),
+w_name      varchar(10),
+w_street_1  varchar(20),
+w_street_2  varchar(20),
+w_city      varchar(20),
+w_state     char(2),
+w_zip       char(9)
+);
+create table bmsql_district (
+d_w_id       integer       not null,
+d_id         integer       not null,
+d_ytd        decimal(12,2),
+d_tax        decimal(4,4),
+d_next_o_id  integer,
+d_name       varchar(10),
+d_street_1   varchar(20),
+d_street_2   varchar(20),
+d_city       varchar(20),
+d_state      char(2),
+d_zip        char(9)
+);
+create table bmsql_customer (
+c_w_id         integer        not null,
+c_d_id         integer        not null,
+c_id           integer        not null,
+c_discount     decimal(4,4),
+c_credit       char(2),
+c_last         varchar(16),
+c_first        varchar(16),
+c_credit_lim   decimal(12,2),
+c_balance      decimal(12,2),
+c_ytd_payment  decimal(12,2),
+c_payment_cnt  integer,
+c_delivery_cnt integer,
+c_street_1     varchar(20),
+c_street_2     varchar(20),
+c_city         varchar(20),
+c_state        char(2),
+c_zip          char(9),
+c_phone        char(16),
+c_since        timestamp,
+c_middle       char(2),
+c_data         varchar(500)
+);
+create table bmsql_history (
+hist_id  integer not null auto_increment primary key,
+h_c_id   integer,
+h_c_d_id integer,
+h_c_w_id integer,
+h_d_id   integer,
+h_w_id   integer,
+h_date   timestamp,
+h_amount decimal(6,2),
+h_data   varchar(24)
+);
+create table bmsql_new_order (
+no_w_id  integer   not null,
+no_d_id  integer   not null,
+no_o_id  integer   not null
+);
+create table bmsql_oorder (
+o_w_id       integer      not null,
+o_d_id       integer      not null,
+o_id         integer      not null,
+o_c_id       integer,
+o_carrier_id integer,
+o_ol_cnt     integer,
+o_all_local  integer,
+o_entry_d    timestamp
+);
+create table bmsql_order_line (
+ol_w_id         integer   not null,
+ol_d_id         integer   not null,
+ol_o_id         integer   not null,
+ol_number       integer   not null,
+ol_i_id         integer   not null,
+ol_delivery_d   timestamp,
+ol_amount       decimal(6,2),
+ol_supply_w_id  integer,
+ol_quantity     integer,
+ol_dist_info    char(24)
+);
+create table bmsql_item (
+i_id     integer      not null,
+i_name   varchar(24),
+i_price  decimal(5,2),
+i_data   varchar(50),
+i_im_id  integer
+);
+create table bmsql_stock (
+s_w_id       integer       not null,
+s_i_id       integer       not null,
+s_quantity   integer,
+s_ytd        integer,
+s_order_cnt  integer,
+s_remote_cnt integer,
+s_data       varchar(50),
+s_dist_01    char(24),
+s_dist_02    char(24),
+s_dist_03    char(24),
+s_dist_04    char(24),
+s_dist_05    char(24),
+s_dist_06    char(24),
+s_dist_07    char(24),
+s_dist_08    char(24),
+s_dist_09    char(24),
+s_dist_10    char(24)
+);
+Starting BenchmarkSQL LoadData
+
+driver=com.mysql.cj.jdbc.Driver
+conn=jdbc:mysql://100.83.22.21:2881/week2_bench_wang?useSSL=false&allowPublicKeyRetrieval=true&rewriteBatchedStatements=true&serverTimezone=UTC&sessionVariables=ob_query_timeout=60000000
+user=root@test
+password=***********
+warehouses=1
+loadWorkers=2
+fileLocation (not defined)
+csvNullValue (not defined - using default 'NULL')
+
+Worker 000: Loading ITEM
+Worker 001: Loading Warehouse      1
+Worker 000: Loading ITEM done
+Worker 001: Loading Warehouse      1 done
+# ------------------------------------------------------------
+# Loading SQL file ./sql.common/indexCreates.sql
+# ------------------------------------------------------------
+alter table bmsql_warehouse add constraint bmsql_warehouse_pkey
+primary key (w_id);
+alter table bmsql_district add constraint bmsql_district_pkey
+primary key (d_w_id, d_id);
+alter table bmsql_customer add constraint bmsql_customer_pkey
+primary key (c_w_id, c_d_id, c_id);
+create index bmsql_customer_idx1
+on  bmsql_customer (c_w_id, c_d_id, c_last, c_first);
+alter table bmsql_oorder add constraint bmsql_oorder_pkey
+primary key (o_w_id, o_d_id, o_id);
+create unique index bmsql_oorder_idx1
+on  bmsql_oorder (o_w_id, o_d_id, o_carrier_id, o_id);
+alter table bmsql_new_order add constraint bmsql_new_order_pkey
+primary key (no_w_id, no_d_id, no_o_id);
+alter table bmsql_order_line add constraint bmsql_order_line_pkey
+primary key (ol_w_id, ol_d_id, ol_o_id, ol_number);
+alter table bmsql_stock add constraint bmsql_stock_pkey
+primary key (s_w_id, s_i_id);
+alter table bmsql_item add constraint bmsql_item_pkey
+primary key (i_id);
+# ------------------------------------------------------------
+# Loading SQL file ./sql.oceanbase/foreignKeys.sql
+# ------------------------------------------------------------
+-- skipped for OceanBase MySQL mode compatibility in shared test tenant
+# ------------------------------------------------------------
+# Loading SQL file ./sql.oceanbase/extraHistID.sql
+# ------------------------------------------------------------
+-- hist_id uses AUTO_INCREMENT in sql.oceanbase/tableCreates.sql
+# ------------------------------------------------------------
+# Loading SQL file ./sql.common/buildFinish.sql
+# ------------------------------------------------------------
+-- ----
+-- Extra commands to run after the tables are created, loaded,
+-- indexes built and extra's created.
+-- ----
+## runBenchmark
+17:21:08,452 [main] INFO   jTPCC : Term-00, 
+17:21:08,453 [main] INFO   jTPCC : Term-00, +-------------------------------------------------------------+
+17:21:08,454 [main] INFO   jTPCC : Term-00,      BenchmarkSQL v5.0
+17:21:08,454 [main] INFO   jTPCC : Term-00, +-------------------------------------------------------------+
+17:21:08,454 [main] INFO   jTPCC : Term-00,  (c) 2003, Raul Barbosa
+17:21:08,454 [main] INFO   jTPCC : Term-00,  (c) 2004-2016, Denis Lussier
+17:21:08,454 [main] INFO   jTPCC : Term-00,  (c) 2016, Jan Wieck
+17:21:08,454 [main] INFO   jTPCC : Term-00, +-------------------------------------------------------------+
+17:21:08,454 [main] INFO   jTPCC : Term-00, 
+17:21:08,455 [main] INFO   jTPCC : Term-00, db=oceanbase
+17:21:08,455 [main] INFO   jTPCC : Term-00, driver=com.mysql.cj.jdbc.Driver
+17:21:08,455 [main] INFO   jTPCC : Term-00, conn=jdbc:mysql://100.83.22.21:2881/week2_bench_wang?useSSL=false&allowPublicKeyRetrieval=true&rewriteBatchedStatements=true&serverTimezone=UTC&sessionVariables=ob_query_timeout=60000000
+17:21:08,455 [main] INFO   jTPCC : Term-00, user=root@test
+17:21:08,455 [main] INFO   jTPCC : Term-00, 
+17:21:08,455 [main] INFO   jTPCC : Term-00, warehouses=1
+17:21:08,455 [main] INFO   jTPCC : Term-00, terminals=1
+17:21:08,455 [main] INFO   jTPCC : Term-00, runTxnsPerTerminal=20
+17:21:08,455 [main] INFO   jTPCC : Term-00, limitTxnsPerMin=120
+17:21:08,455 [main] INFO   jTPCC : Term-00, terminalWarehouseFixed=true
+17:21:08,455 [main] INFO   jTPCC : Term-00, 
+17:21:08,455 [main] INFO   jTPCC : Term-00, newOrderWeight=45
+17:21:08,455 [main] INFO   jTPCC : Term-00, paymentWeight=43
+17:21:08,455 [main] INFO   jTPCC : Term-00, orderStatusWeight=4
+17:21:08,455 [main] INFO   jTPCC : Term-00, deliveryWeight=4
+17:21:08,455 [main] INFO   jTPCC : Term-00, stockLevelWeight=4
+17:21:08,455 [main] INFO   jTPCC : Term-00, 
+17:21:08,455 [main] INFO   jTPCC : Term-00, resultDirectory=benchmarksql_tpcc_20260702_171628
+17:21:08,455 [main] INFO   jTPCC : Term-00, osCollectorScript=null
+17:21:08,455 [main] INFO   jTPCC : Term-00, 
+17:21:08,459 [main] INFO   jTPCC : Term-00, copied /Users/wzh/Documents/DBdoctor/oceanbase-tuning/tools/benchmarksql/run/props.ob.runtime to benchmarksql_tpcc_20260702_171628/run.properties
+17:21:08,460 [main] INFO   jTPCC : Term-00, created benchmarksql_tpcc_20260702_171628/data/runInfo.csv for runID 2
+17:21:08,460 [main] INFO   jTPCC : Term-00, writing per transaction results to benchmarksql_tpcc_20260702_171628/data/result.csv
+17:21:08,460 [main] INFO   jTPCC : Term-00,
+17:21:08,714 [main] INFO   jTPCC : Term-00, C value for C_LAST during load: 178
+17:21:08,714 [main] INFO   jTPCC : Term-00, C value for C_LAST this run:    71
+17:21:08,714 [main] INFO   jTPCC : Term-00, 
+Term-00, Running Average tpmTOTAL: 0.00    Current tpmTOTAL: 0    Memory Usage: 12MB / 48MB          Term-00, Running Average tpmTOTAL: 60000.00    Current tpmTOTAL: 12    Memory Usage: 12MB / 48MB          Term-00, Running Average tpmTOTAL: 104.59    Current tpmTOTAL: 36    Memory Usage: 16MB / 48MB          Term-00, Running Average tpmTOTAL: 105.21    Current tpmTOTAL: 48    Memory Usage: 17MB / 48MB          Term-00, Running Average tpmTOTAL: 119.88    Current tpmTOTAL: 60    Memory Usage: 17MB / 48MB          Term-00, Running Average tpmTOTAL: 119.70    Current tpmTOTAL: 72    Memory Usage: 17MB / 48MB          Term-00, Running Average tpmTOTAL: 114.81    Current tpmTOTAL: 96    Memory Usage: 17MB / 48MB          Term-00, Running Average tpmTOTAL: 108.16    Current tpmTOTAL: 96    Memory Usage: 18MB / 48MB          Term-00, Running Average tpmTOTAL: 109.90    Current tpmTOTAL: 120    Memory Usage: 19MB / 48MB          Term-00, Running Average tpmTOTAL: 113.63    Current tpmTOTAL: 120    Memory Usage: 19MB / 48MB          Term-00, Running Average tpmTOTAL: 113.00    Current tpmTOTAL: 144    Memory Usage: 19MB / 48MB          Term-00, Running Average tpmTOTAL: 108.92    Current tpmTOTAL: 156    Memory Usage: 19MB / 48MB          Term-00, Running Average tpmTOTAL: 111.71    Current tpmTOTAL: 168    Memory Usage: 20MB / 48MB          
+17:21:20,344 [Thread-0] INFO   jTPCC : Term-00, 
+17:21:20,348 [Thread-0] INFO   jTPCC : Term-00, 
+17:21:20,349 [Thread-0] INFO   jTPCC : Term-00, Measured tpmC (NewOrders) = 46.95
+17:21:20,349 [Thread-0] INFO   jTPCC : Term-00, Measured tpmTOTAL = 109.56
+17:21:20,349 [Thread-0] INFO   jTPCC : Term-00, Session Start     = 2026-07-02 17:21:08
+17:21:20,349 [Thread-0] INFO   jTPCC : Term-00, Session End       = 2026-07-02 17:21:20
+17:21:20,354 [Thread-0] INFO   jTPCC : Term-00, Transaction Count = 20
+end_time=2026-07-02T09:21:20Z

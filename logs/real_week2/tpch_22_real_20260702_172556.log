@@ -1,0 +1,379 @@
+run_id=tpch_22_real_20260702_172556
+start_time=2026-07-02T09:25:56Z
+
+[2026-07-02T09:25:58Z] elapsed_ms=1404.978
+
+DROP TABLE IF EXISTS tpch_lineitem;
+DROP TABLE IF EXISTS tpch_orders;
+DROP TABLE IF EXISTS tpch_partsupp;
+DROP TABLE IF EXISTS tpch_part;
+DROP TABLE IF EXISTS tpch_supplier;
+DROP TABLE IF EXISTS tpch_customer;
+DROP TABLE IF EXISTS tpch_nation;
+DROP TABLE IF EXISTS tpch_region;
+
+CREATE TABLE tpch_region (r_regionkey INT PRIMARY KEY, r_name VARCHAR(25));
+CREATE TABLE tpch_nation (n_nationkey INT PRIMARY KEY, n_name VARCHAR(25), n_regionkey INT);
+CREATE TABLE tpch_customer (c_custkey INT PRIMARY KEY, c_name VARCHAR(25), c_nationkey INT, c_acctbal DECIMAL(12,2), c_mktsegment VARCHAR(20));
+CREATE TABLE tpch_supplier (s_suppkey INT PRIMARY KEY, s_name VARCHAR(25), s_nationkey INT, s_acctbal DECIMAL(12,2));
+CREATE TABLE tpch_part (p_partkey INT PRIMARY KEY, p_name VARCHAR(55), p_mfgr VARCHAR(25), p_brand VARCHAR(10), p_type VARCHAR(25), p_size INT, p_container VARCHAR(10), p_retailprice DECIMAL(12,2));
+CREATE TABLE tpch_partsupp (ps_partkey INT, ps_suppkey INT, ps_availqty INT, ps_supplycost DECIMAL(12,2), PRIMARY KEY(ps_partkey, ps_suppkey));
+CREATE TABLE tpch_orders (o_orderkey INT PRIMARY KEY, o_custkey INT, o_orderstatus CHAR(1), o_totalprice DECIMAL(12,2), o_orderdate DATE, o_orderpriority VARCHAR(15), o_clerk VARCHAR(15), o_shippriority INT);
+CREATE TABLE tpch_lineitem (l_orderkey INT, l_partkey INT, l_suppkey INT, l_linenumber INT, l_quantity DECIMAL(12,2), l_extendedprice DECIMAL(12,2), l_discount DECIMAL(12,2), l_tax DECIMAL(12,2), l_returnflag CHAR(1), l_linestatus CHAR(1), l_shipdate DATE, l_commitdate DATE, l_receiptdate DATE, l_shipmode VARCHAR(10), PRIMARY KEY(l_orderkey, l_linenumber));
+INSERT INTO tpch_region (r_regionkey,r_name) VALUES
+(0,'AFRICA'),
+(1,'AMERICA'),
+(2,'ASIA'),
+(3,'EUROPE'),
+(4,'MIDDLE EAST');
+INSERT INTO tpch_nation (n_nationkey,n_name,n_regionkey) VALUES
+(0,'NATION0',0),
+(1,'NATION1',1),
+(2,'NATION2',2),
+(3,'NATION3',3),
+(4,'NATION4',4),
+(5,'NATION5',0),
+(6,'NATION6',1),
+(7,'NATION7',2),
+(8,'NATION8',3),
+(9,'NATION9',4),
+(10,'NATION10',0)
+bash: warning: setlocale: LC_ALL: cannot change locale (en_US.UTF-8)
+
+[2026-07-02T09:25:58Z] elapsed_ms=148.529
+SELECT l_returnflag,l_linestatus,SUM(l_quantity),SUM(l_extendedprice),AVG(l_discount),COUNT(*) FROM tpch_lineitem WHERE l_shipdate <= DATE '1998-09-02' GROUP BY l_returnflag,l_linestatus ORDER BY l_returnflag,l_linestatus;
+l_returnflag	l_linestatus	SUM(l_quantity)	SUM(l_extendedprice)	AVG(l_discount)	COUNT(*)
+A	F	4055.00	662191.38	0.052138	159
+A	O	3955.00	678515.91	0.038734	158
+N	F	3749.00	616210.79	0.048912	147
+N	O	3677.00	568665.75	0.046187	139
+R	F	3685.00	609203.12	0.052157	153
+R	O	3850.00	636508.82	0.047179	156
+bash: warning: setlocale: LC_ALL: cannot change locale (en_US.UTF-8)
+
+[2026-07-02T09:25:58Z] elapsed_ms=141.347
+SELECT s.s_acctbal,s.s_name,n.n_name,p.p_partkey,p.p_mfgr FROM tpch_part p JOIN tpch_partsupp ps ON p.p_partkey=ps.ps_partkey JOIN tpch_supplier s ON s.s_suppkey=ps.ps_suppkey JOIN tpch_nation n ON s.s_nationkey=n.n_nationkey WHERE p.p_size=15 ORDER BY s.s_acctbal DESC LIMIT 10;
+s_acctbal	s_name	n_name	p_partkey	p_mfgr
+7456.43	Supplier#1	NATION1	78	MFGR#3
+7456.43	Supplier#1	NATION1	36	MFGR#1
+6769.51	Supplier#2	NATION2	78	MFGR#3
+6769.51	Supplier#2	NATION2	36	MFGR#1
+5986.41	Supplier#5	NATION5	78	MFGR#3
+5986.41	Supplier#5	NATION5	36	MFGR#1
+5261.86	Supplier#4	NATION4	36	MFGR#1
+5261.86	Supplier#4	NATION4	78	MFGR#3
+4392.07	Supplier#3	NATION3	78	MFGR#3
+4392.07	Supplier#3	NATION3	36	MFGR#1
+bash: warning: setlocale: LC_ALL: cannot change locale (en_US.UTF-8)
+
+[2026-07-02T09:25:58Z] elapsed_ms=189.811
+SELECT l.l_orderkey,SUM(l.l_extendedprice*(1-l.l_discount)) revenue,o.o_orderdate FROM tpch_customer c JOIN tpch_orders o ON c.c_custkey=o.o_custkey JOIN tpch_lineitem l ON l.l_orderkey=o.o_orderkey WHERE c.c_mktsegment='BUILDING' GROUP BY l.l_orderkey,o.o_orderdate ORDER BY revenue DESC LIMIT 10;
+l_orderkey	revenue	o_orderdate
+70	39371.7085	1997-10-23
+58	31900.4111	1996-07-08
+107	31235.3174	1993-04-27
+213	30870.7807	1996-10-03
+178	28228.9757	1995-02-14
+3	26027.5570	1996-10-27
+141	25760.0529	1995-06-24
+82	24431.3722	1994-04-19
+55	24331.1975	1993-06-14
+260	24113.0000	1997-10-01
+bash: warning: setlocale: LC_ALL: cannot change locale (en_US.UTF-8)
+
+[2026-07-02T09:25:58Z] elapsed_ms=144.731
+SELECT o_orderpriority,COUNT(*) FROM tpch_orders WHERE o_orderdate >= DATE '1994-01-01' AND o_orderdate < DATE '1994-04-01' GROUP BY o_orderpriority ORDER BY o_orderpriority;
+o_orderpriority	COUNT(*)
+1-URGENT	4
+2-HIGH	5
+4-NOT SPECIFIED	3
+bash: warning: setlocale: LC_ALL: cannot change locale (en_US.UTF-8)
+
+[2026-07-02T09:25:59Z] elapsed_ms=133.847
+SELECT n.n_name,SUM(l.l_extendedprice*(1-l.l_discount)) revenue FROM tpch_customer c JOIN tpch_orders o ON c.c_custkey=o.o_custkey JOIN tpch_lineitem l ON o.o_orderkey=l.l_orderkey JOIN tpch_supplier s ON l.l_suppkey=s.s_suppkey JOIN tpch_nation n ON s.s_nationkey=n.n_nationkey GROUP BY n.n_name ORDER BY revenue DESC;
+n_name	revenue
+NATION16	241963.1445
+NATION6	216996.5803
+NATION3	216346.3920
+NATION10	210960.0631
+NATION17	199442.2556
+NATION14	198294.4409
+NATION5	186269.6528
+NATION15	182906.5075
+NATION1	180507.1646
+NATION11	180351.6276
+NATION7	175172.9979
+NATION2	174619.7737
+NATION12	168444.0750
+NATION8	162310.9801
+NATION20	160085.5430
+NATION13	158222.5037
+NATION18	155457.3043
+NATION19	144668.4929
+NATION4	143806.8416
+NATION9	138461.3997
+bash: warning: setlocale: LC_ALL: cannot change locale (en_US.UTF-8)
+
+[2026-07-02T09:25:59Z] elapsed_ms=121.601
+SELECT SUM(l_extendedprice*l_discount) revenue FROM tpch_lineitem WHERE l_shipdate >= DATE '1994-01-01' AND l_discount BETWEEN 0.05 AND 0.07 AND l_quantity < 24;
+revenue
+15877.7774
+bash: warning: setlocale: LC_ALL: cannot change locale (en_US.UTF-8)
+
+[2026-07-02T09:25:59Z] elapsed_ms=169.486
+SELECT supp_n.n_name, cust_n.n_name, YEAR(l.l_shipdate), SUM(l.l_extendedprice*(1-l.l_discount)) FROM tpch_supplier s JOIN tpch_lineitem l ON s.s_suppkey=l.l_suppkey JOIN tpch_orders o ON o.o_orderkey=l.l_orderkey JOIN tpch_customer c ON c.c_custkey=o.o_custkey JOIN tpch_nation supp_n ON s.s_nationkey=supp_n.n_nationkey JOIN tpch_nation cust_n ON c.c_nationkey=cust_n.n_nationkey GROUP BY supp_n.n_name,cust_n.n_name,YEAR(l.l_shipdate) LIMIT 20;
+n_name	n_name	YEAR(l.l_shipdate)	SUM(l.l_extendedprice*(1-l.l_discount))
+NATION15	NATION22	1997	8277.1470
+NATION8	NATION10	1995	5759.7740
+NATION20	NATION10	1995	7534.8681
+NATION6	NATION10	1995	12760.2700
+NATION16	NATION10	1995	354.2091
+NATION11	NATION11	1996	3385.1520
+NATION8	NATION11	1996	9907.5060
+NATION6	NATION11	1997	7855.8958
+NATION12	NATION11	1996	6426.9270
+NATION6	NATION11	1996	1220.2920
+NATION12	NATION9	1993	11737.7100
+NATION11	NATION12	1996	1002.6490
+NATION3	NATION12	1996	8951.3592
+NATION9	NATION12	1996	2382.5800
+NATION15	NATION12	1996	1090.3041
+NATION14	NATION12	1996	4174.5780
+NATION3	NATION20	1993	214.3400
+NATION15	NATION20	1993	866.8080
+NATION14	NATION20	1993	3792.6945
+NATION18	NATION12	1993	1291.2774
+bash: warning: setlocale: LC_ALL: cannot change locale (en_US.UTF-8)
+
+[2026-07-02T09:25:59Z] elapsed_ms=145.645
+SELECT YEAR(o.o_orderdate),SUM(CASE WHEN n.n_name='NATION1' THEN l.l_extendedprice*(1-l.l_discount) ELSE 0 END)/SUM(l.l_extendedprice*(1-l.l_discount)) FROM tpch_part p JOIN tpch_lineitem l ON p.p_partkey=l.l_partkey JOIN tpch_orders o ON l.l_orderkey=o.o_orderkey JOIN tpch_supplier s ON s.s_suppkey=l.l_suppkey JOIN tpch_nation n ON n.n_nationkey=s.s_nationkey GROUP BY YEAR(o.o_orderdate);
+YEAR(o.o_orderdate)	SUM(CASE WHEN n.n_name='NATION1' THEN l.l_extendedprice*(1-l.l_discount) ELSE 0 END)/SUM(l.l_extendedprice*(1-l.l_discount))
+1997	0.04762734
+1995	0.06925315
+1996	0.02313762
+1993	0.08373482
+1994	0.02366698
+bash: warning: setlocale: LC_ALL: cannot change locale (en_US.UTF-8)
+
+[2026-07-02T09:25:59Z] elapsed_ms=127.810
+SELECT n.n_name,YEAR(o.o_orderdate),SUM(l.l_extendedprice*(1-l.l_discount)-ps.ps_supplycost*l.l_quantity) profit FROM tpch_part p JOIN tpch_lineitem l ON p.p_partkey=l.l_partkey JOIN tpch_partsupp ps ON ps.ps_partkey=l.l_partkey AND ps.ps_suppkey=l.l_suppkey JOIN tpch_orders o ON o.o_orderkey=l.l_orderkey JOIN tpch_supplier s ON s.s_suppkey=l.l_suppkey JOIN tpch_nation n ON n.n_nationkey=s.s_nationkey GROUP BY n.n_name,YEAR(o.o_orderdate) LIMIT 20;
+n_name	YEAR(o.o_orderdate)	profit
+NATION3	1996	-50884.4384
+NATION3	1993	-18724.4156
+NATION1	1995	-44553.5596
+NATION4	1994	-9198.0041
+NATION3	1994	-16060.8473
+NATION5	1995	-27356.0795
+NATION5	1997	-3413.1954
+NATION3	1997	-43756.6055
+NATION2	1996	-1712.8829
+NATION2	1995	-13413.7702
+NATION4	1995	-130.3076
+NATION1	1993	5912.0291
+NATION5	1993	5217.7574
+NATION2	1993	-34673.9920
+NATION2	1997	-10663.2577
+NATION3	1995	-38959.6412
+NATION4	1996	-41034.8522
+NATION4	1993	-49006.5658
+NATION1	1994	-18146.4732
+NATION1	1996	-11938.8717
+bash: warning: setlocale: LC_ALL: cannot change locale (en_US.UTF-8)
+
+[2026-07-02T09:25:59Z] elapsed_ms=145.722
+SELECT c.c_custkey,c.c_name,SUM(l.l_extendedprice*(1-l.l_discount)) revenue FROM tpch_customer c JOIN tpch_orders o ON c.c_custkey=o.o_custkey JOIN tpch_lineitem l ON l.l_orderkey=o.o_orderkey WHERE l.l_returnflag='R' GROUP BY c.c_custkey,c.c_name ORDER BY revenue DESC LIMIT 20;
+c_custkey	c_name	revenue
+90	Customer#90	64276.0422
+100	Customer#100	45852.8778
+91	Customer#91	36941.1256
+55	Customer#55	35456.0764
+71	Customer#71	35455.4052
+87	Customer#87	34190.1734
+34	Customer#34	33135.8191
+88	Customer#88	30672.8724
+79	Customer#79	30594.3460
+53	Customer#53	30006.0576
+22	Customer#22	29216.7307
+54	Customer#54	24353.1286
+16	Customer#16	23877.9152
+92	Customer#92	22415.7676
+82	Customer#82	22301.4746
+26	Customer#26	22299.1040
+27	Customer#27	22179.4075
+95	Customer#95	21268.3859
+98	Customer#98	19379.9306
+51	Customer#51	18844.2636
+bash: warning: setlocale: LC_ALL: cannot change locale (en_US.UTF-8)
+
+[2026-07-02T09:25:59Z] elapsed_ms=141.047
+SELECT ps_partkey,SUM(ps_supplycost*ps_availqty) value FROM tpch_partsupp GROUP BY ps_partkey HAVING value > 10000 ORDER BY value DESC LIMIT 20;
+ps_partkey	value
+43	13839674.35
+5	11773367.62
+15	11627066.80
+72	11228292.28
+11	10661225.30
+14	10572542.69
+67	8920982.18
+6	8917444.70
+37	8665535.59
+22	8586394.18
+62	8577197.92
+27	8572643.02
+31	8430574.55
+82	8383450.99
+52	8307813.53
+8	8246377.89
+13	8084875.15
+90	8051150.37
+35	8025669.67
+26	7805076.11
+bash: warning: setlocale: LC_ALL: cannot change locale (en_US.UTF-8)
+
+[2026-07-02T09:26:00Z] elapsed_ms=310.604
+SELECT l_shipmode,SUM(CASE WHEN o_orderpriority IN ('1-URGENT','2-HIGH') THEN 1 ELSE 0 END),SUM(CASE WHEN o_orderpriority NOT IN ('1-URGENT','2-HIGH') THEN 1 ELSE 0 END) FROM tpch_orders o JOIN tpch_lineitem l ON o.o_orderkey=l.l_orderkey GROUP BY l_shipmode;
+l_shipmode	SUM(CASE WHEN o_orderpriority IN ('1-URGENT','2-HIGH') THEN 1 ELSE 0 END)	SUM(CASE WHEN o_orderpriority NOT IN ('1-URGENT','2-HIGH') THEN 1 ELSE 0 END)
+RAIL	120	115
+AIR	129	113
+MAIL	116	109
+SHIP	107	103
+bash: warning: setlocale: LC_ALL: cannot change locale (en_US.UTF-8)
+
+[2026-07-02T09:26:00Z] elapsed_ms=192.738
+SELECT c_count,COUNT(*) custdist FROM (SELECT c.c_custkey,COUNT(o.o_orderkey) c_count FROM tpch_customer c LEFT JOIN tpch_orders o ON c.c_custkey=o.o_custkey GROUP BY c.c_custkey) x GROUP BY c_count ORDER BY custdist DESC,c_count DESC;
+c_count	custdist
+3	26
+4	21
+2	18
+1	16
+5	9
+0	4
+6	3
+8	2
+7	1
+bash: warning: setlocale: LC_ALL: cannot change locale (en_US.UTF-8)
+
+[2026-07-02T09:26:00Z] elapsed_ms=144.424
+SELECT 100.00*SUM(CASE WHEN p.p_type LIKE 'PROMO%' THEN l.l_extendedprice*(1-l.l_discount) ELSE 0 END)/SUM(l.l_extendedprice*(1-l.l_discount)) promo_revenue FROM tpch_lineitem l JOIN tpch_part p ON l.l_partkey=p.p_partkey;
+promo_revenue
+21.7910400136
+bash: warning: setlocale: LC_ALL: cannot change locale (en_US.UTF-8)
+
+[2026-07-02T09:26:00Z] elapsed_ms=148.164
+SELECT s.s_suppkey,s.s_name,SUM(l.l_extendedprice*(1-l.l_discount)) revenue FROM tpch_supplier s JOIN tpch_lineitem l ON s.s_suppkey=l.l_suppkey GROUP BY s.s_suppkey,s.s_name ORDER BY revenue DESC LIMIT 10;
+s_suppkey	s_name	revenue
+16	Supplier#16	241963.1445
+6	Supplier#6	216996.5803
+3	Supplier#3	216346.3920
+10	Supplier#10	210960.0631
+17	Supplier#17	199442.2556
+14	Supplier#14	198294.4409
+5	Supplier#5	186269.6528
+15	Supplier#15	182906.5075
+1	Supplier#1	180507.1646
+11	Supplier#11	180351.6276
+bash: warning: setlocale: LC_ALL: cannot change locale (en_US.UTF-8)
+
+[2026-07-02T09:26:00Z] elapsed_ms=137.124
+SELECT p_brand,p_type,p_size,COUNT(DISTINCT ps_suppkey) supplier_cnt FROM tpch_partsupp ps JOIN tpch_part p ON p.p_partkey=ps.ps_partkey GROUP BY p_brand,p_type,p_size ORDER BY supplier_cnt DESC LIMIT 20;
+p_brand	p_type	p_size	supplier_cnt
+Brand#1	PROMO	27	5
+Brand#1	ECONOMY	46	5
+Brand#0	STANDARD	27	5
+Brand#9	PROMO	30	5
+Brand#8	STANDARD	8	5
+Brand#7	SMALL ANODIZED	30	5
+Brand#6	SMALL ANODIZED	20	5
+Brand#5	PROMO	6	5
+Brand#4	STANDARD	13	5
+Brand#2	LARGE BRASS	26	5
+Brand#1	PROMO	21	5
+Brand#0	SMALL ANODIZED	9	5
+Brand#9	LARGE BRASS	25	5
+Brand#8	PROMO	25	5
+Brand#7	ECONOMY	43	5
+Brand#6	SMALL ANODIZED	37	5
+Brand#5	ECONOMY	25	5
+Brand#4	LARGE BRASS	32	5
+Brand#3	LARGE BRASS	6	5
+Brand#2	STANDARD	20	5
+bash: warning: setlocale: LC_ALL: cannot change locale (en_US.UTF-8)
+
+[2026-07-02T09:26:01Z] elapsed_ms=143.037
+SELECT SUM(l.l_extendedprice)/7.0 avg_yearly FROM tpch_lineitem l JOIN tpch_part p ON p.p_partkey=l.l_partkey WHERE p.p_brand='Brand1' AND l.l_quantity < 30;
+avg_yearly
+NULL
+bash: warning: setlocale: LC_ALL: cannot change locale (en_US.UTF-8)
+
+[2026-07-02T09:26:01Z] elapsed_ms=154.521
+SELECT c.c_name,o.o_orderkey,o.o_orderdate,o.o_totalprice,SUM(l.l_quantity) FROM tpch_customer c JOIN tpch_orders o ON c.c_custkey=o.o_custkey JOIN tpch_lineitem l ON o.o_orderkey=l.l_orderkey GROUP BY c.c_name,o.o_orderkey,o.o_orderdate,o.o_totalprice HAVING SUM(l.l_quantity)>100 ORDER BY o.o_totalprice DESC LIMIT 20;
+c_name	o_orderkey	o_orderdate	o_totalprice	SUM(l.l_quantity)
+Customer#90	68	1993-12-13	40823.77	162.00
+Customer#66	70	1997-10-23	39930.48	174.00
+Customer#90	123	1993-08-02	36950.06	166.00
+Customer#90	191	1994-07-16	35625.16	177.00
+Customer#98	169	1997-01-05	34279.31	155.00
+Customer#73	107	1993-04-27	33131.91	177.00
+Customer#10	58	1996-07-08	32906.04	129.00
+Customer#91	213	1996-10-03	32044.16	165.00
+Customer#22	10	1996-01-12	31516.11	198.00
+Customer#67	111	1996-01-14	30993.61	159.00
+Customer#20	201	1997-08-06	30752.97	140.00
+Customer#71	39	1993-10-08	29789.49	122.00
+Customer#100	178	1995-02-14	29297.77	163.00
+Customer#28	170	1993-07-11	27069.87	151.00
+Customer#12	141	1995-06-24	26992.52	141.00
+Customer#82	57	1995-02-15	26893.05	122.00
+Customer#87	227	1997-05-12	26810.20	132.00
+Customer#86	3	1996-10-27	26552.75	147.00
+Customer#34	112	1995-07-23	26539.09	129.00
+Customer#53	106	1996-04-06	25787.08	142.00
+bash: warning: setlocale: LC_ALL: cannot change locale (en_US.UTF-8)
+
+[2026-07-02T09:26:01Z] elapsed_ms=120.677
+SELECT SUM(l.l_extendedprice*(1-l.l_discount)) revenue FROM tpch_lineitem l JOIN tpch_part p ON p.p_partkey=l.l_partkey WHERE p.p_brand IN ('Brand1','Brand2','Brand3') AND l.l_quantity BETWEEN 1 AND 30;
+revenue
+NULL
+bash: warning: setlocale: LC_ALL: cannot change locale (en_US.UTF-8)
+
+[2026-07-02T09:26:01Z] elapsed_ms=132.763
+SELECT s.s_name,s.s_suppkey FROM tpch_supplier s WHERE s.s_suppkey IN (SELECT ps.ps_suppkey FROM tpch_partsupp ps JOIN tpch_lineitem l ON ps.ps_partkey=l.l_partkey AND ps.ps_suppkey=l.l_suppkey GROUP BY ps.ps_suppkey HAVING SUM(l.l_quantity)>100) ORDER BY s.s_name;
+s_name	s_suppkey
+Supplier#1	1
+Supplier#2	2
+Supplier#3	3
+Supplier#4	4
+Supplier#5	5
+bash: warning: setlocale: LC_ALL: cannot change locale (en_US.UTF-8)
+
+[2026-07-02T09:26:01Z] elapsed_ms=123.445
+SELECT s.s_name,COUNT(*) numwait FROM tpch_supplier s JOIN tpch_lineitem l ON s.s_suppkey=l.l_suppkey JOIN tpch_orders o ON o.o_orderkey=l.l_orderkey WHERE o.o_orderstatus='F' GROUP BY s.s_name ORDER BY numwait DESC LIMIT 20;
+s_name	numwait
+Supplier#3	21
+Supplier#13	20
+Supplier#16	20
+Supplier#14	19
+Supplier#6	19
+Supplier#2	16
+Supplier#12	16
+Supplier#15	15
+Supplier#10	15
+Supplier#18	14
+Supplier#1	13
+Supplier#8	13
+Supplier#17	13
+Supplier#4	12
+Supplier#11	12
+Supplier#5	12
+Supplier#7	11
+Supplier#19	10
+Supplier#20	10
+Supplier#9	10
+bash: warning: setlocale: LC_ALL: cannot change locale (en_US.UTF-8)
+
+[2026-07-02T09:26:01Z] elapsed_ms=153.607
+SELECT SUBSTRING(c.c_name,1,8) cntrycode,COUNT(*),SUM(c.c_acctbal) FROM tpch_customer c WHERE c.c_acctbal > (SELECT AVG(c_acctbal) FROM tpch_customer) GROUP BY SUBSTRING(c.c_name,1,8) ORDER BY cntrycode;
+cntrycode	COUNT(*)	SUM(c.c_acctbal)
+Customer	52	387111.79
+bash: warning: setlocale: LC_ALL: cannot change locale (en_US.UTF-8)
+end_time=2026-07-02T09:26:01Z

@@ -1,2 +1,4 @@
-run_id,timestamp,db_host,tenant,database,workload,parameter_name,parameter_value,elapsed_ms,qps_or_tps,avg_latency_ms,p95_latency_ms,p99_latency_ms,error_count,notes
-real_week2_20260702_153400,2026-07-02T07:34:31Z,100.83.22.21,test,week2_bench_wang,lightweight_real_sql,baseline,current_real_values,30820.778,7.17,139.228,178.12,239.711,0,真实 baseline；未修改参数
+workload,parameter_name,parameter_value,runs,avg_qps_or_tps,avg_latency_ms,p95_latency_ms,p99_latency_ms,error_count
+BenchmarkSQL_TPC-C,baseline,current_real_values,1,1.826,312.3,716.0,726.0,0
+TPC-H-22-lightweight-real,baseline,current_real_values,1,6.5269,153.213,192.592,285.852,0
+lightweight_real_sql,baseline,current_real_values,1,7.17,139.228,178.12,239.711,0

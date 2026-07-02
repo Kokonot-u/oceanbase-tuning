@@ -1,0 +1,23 @@
+run_id,timestamp,db_host,tenant,database,workload,query_id,elapsed_ms,result_rows,status,error_count,notes
+tpch_22_real_20260702_172556,2026-07-02T09:25:58Z,100.83.22.21,test,week2_bench_wang,TPC-H-22-lightweight-real,Q01,148.529,6,success,0,Real OceanBase SQL execution on deterministic small TPC-H style dataset
+tpch_22_real_20260702_172556,2026-07-02T09:25:58Z,100.83.22.21,test,week2_bench_wang,TPC-H-22-lightweight-real,Q02,141.347,10,success,0,Real OceanBase SQL execution on deterministic small TPC-H style dataset
+tpch_22_real_20260702_172556,2026-07-02T09:25:58Z,100.83.22.21,test,week2_bench_wang,TPC-H-22-lightweight-real,Q03,189.811,10,success,0,Real OceanBase SQL execution on deterministic small TPC-H style dataset
+tpch_22_real_20260702_172556,2026-07-02T09:25:58Z,100.83.22.21,test,week2_bench_wang,TPC-H-22-lightweight-real,Q04,144.731,3,success,0,Real OceanBase SQL execution on deterministic small TPC-H style dataset
+tpch_22_real_20260702_172556,2026-07-02T09:25:59Z,100.83.22.21,test,week2_bench_wang,TPC-H-22-lightweight-real,Q05,133.847,20,success,0,Real OceanBase SQL execution on deterministic small TPC-H style dataset
+tpch_22_real_20260702_172556,2026-07-02T09:25:59Z,100.83.22.21,test,week2_bench_wang,TPC-H-22-lightweight-real,Q06,121.601,1,success,0,Real OceanBase SQL execution on deterministic small TPC-H style dataset
+tpch_22_real_20260702_172556,2026-07-02T09:25:59Z,100.83.22.21,test,week2_bench_wang,TPC-H-22-lightweight-real,Q07,169.486,20,success,0,Real OceanBase SQL execution on deterministic small TPC-H style dataset
+tpch_22_real_20260702_172556,2026-07-02T09:25:59Z,100.83.22.21,test,week2_bench_wang,TPC-H-22-lightweight-real,Q08,145.645,5,success,0,Real OceanBase SQL execution on deterministic small TPC-H style dataset
+tpch_22_real_20260702_172556,2026-07-02T09:25:59Z,100.83.22.21,test,week2_bench_wang,TPC-H-22-lightweight-real,Q09,127.81,20,success,0,Real OceanBase SQL execution on deterministic small TPC-H style dataset
+tpch_22_real_20260702_172556,2026-07-02T09:25:59Z,100.83.22.21,test,week2_bench_wang,TPC-H-22-lightweight-real,Q10,145.722,20,success,0,Real OceanBase SQL execution on deterministic small TPC-H style dataset
+tpch_22_real_20260702_172556,2026-07-02T09:25:59Z,100.83.22.21,test,week2_bench_wang,TPC-H-22-lightweight-real,Q11,141.047,20,success,0,Real OceanBase SQL execution on deterministic small TPC-H style dataset
+tpch_22_real_20260702_172556,2026-07-02T09:26:00Z,100.83.22.21,test,week2_bench_wang,TPC-H-22-lightweight-real,Q12,310.604,4,success,0,Real OceanBase SQL execution on deterministic small TPC-H style dataset
+tpch_22_real_20260702_172556,2026-07-02T09:26:00Z,100.83.22.21,test,week2_bench_wang,TPC-H-22-lightweight-real,Q13,192.738,9,success,0,Real OceanBase SQL execution on deterministic small TPC-H style dataset
+tpch_22_real_20260702_172556,2026-07-02T09:26:00Z,100.83.22.21,test,week2_bench_wang,TPC-H-22-lightweight-real,Q14,144.424,1,success,0,Real OceanBase SQL execution on deterministic small TPC-H style dataset
+tpch_22_real_20260702_172556,2026-07-02T09:26:00Z,100.83.22.21,test,week2_bench_wang,TPC-H-22-lightweight-real,Q15,148.164,10,success,0,Real OceanBase SQL execution on deterministic small TPC-H style dataset
+tpch_22_real_20260702_172556,2026-07-02T09:26:00Z,100.83.22.21,test,week2_bench_wang,TPC-H-22-lightweight-real,Q16,137.124,20,success,0,Real OceanBase SQL execution on deterministic small TPC-H style dataset
+tpch_22_real_20260702_172556,2026-07-02T09:26:01Z,100.83.22.21,test,week2_bench_wang,TPC-H-22-lightweight-real,Q17,143.037,1,success,0,Real OceanBase SQL execution on deterministic small TPC-H style dataset
+tpch_22_real_20260702_172556,2026-07-02T09:26:01Z,100.83.22.21,test,week2_bench_wang,TPC-H-22-lightweight-real,Q18,154.521,20,success,0,Real OceanBase SQL execution on deterministic small TPC-H style dataset
+tpch_22_real_20260702_172556,2026-07-02T09:26:01Z,100.83.22.21,test,week2_bench_wang,TPC-H-22-lightweight-real,Q19,120.677,1,success,0,Real OceanBase SQL execution on deterministic small TPC-H style dataset
+tpch_22_real_20260702_172556,2026-07-02T09:26:01Z,100.83.22.21,test,week2_bench_wang,TPC-H-22-lightweight-real,Q20,132.763,5,success,0,Real OceanBase SQL execution on deterministic small TPC-H style dataset
+tpch_22_real_20260702_172556,2026-07-02T09:26:01Z,100.83.22.21,test,week2_bench_wang,TPC-H-22-lightweight-real,Q21,123.445,20,success,0,Real OceanBase SQL execution on deterministic small TPC-H style dataset
+tpch_22_real_20260702_172556,2026-07-02T09:26:01Z,100.83.22.21,test,week2_bench_wang,TPC-H-22-lightweight-real,Q22,153.607,1,success,0,Real OceanBase SQL execution on deterministic small TPC-H style dataset
