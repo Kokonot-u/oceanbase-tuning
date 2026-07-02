@@ -1,0 +1,11 @@
+SVR_IP	SVR_PORT	ZONE	SCOPE	TENANT_ID	NAME	DATA_TYPE	VALUE	INFO	SECTION	EDIT_LEVEL	DEFAULT_VALUE	ISDEFAULT
+172.17.0.2	2882	zone1	CLUSTER	NULL	syslog_sync_size_threshold	CAPACITY	0M	When the accumulated syslog data reaches this threshold, the system automatically performs disk synchronization.Value 0 disables this function.	OBSERVER	DYNAMIC_EFFECTIVE	0M	YES
+172.17.0.2	2882	zone1	CLUSTER	NULL	_enable_randomize_redo_logging_slot	BOOL	False	specifies whether enable randomize redo logging slot when parallel logging is enabled	OBSERVER	DYNAMIC_EFFECTIVE	False	YES
+172.17.0.2	2882	zone1	CLUSTER	NULL	ob_enable_utl_http	BOOL	False	controls whether UTL_HTTP is enabled	OBSERVER	DYNAMIC_EFFECTIVE	False	YES
+172.17.0.2	2882	zone1	CLUSTER	NULL	ob_python_home	STRING		specifies the python home path	OBSERVER	DYNAMIC_EFFECTIVE		YES
+172.17.0.2	2882	zone1	CLUSTER	NULL	_object_storage_condition_put_mode	STRING	none	Set the conditional put mode in object storage."none": no conditional put."if-match": conditional put with if-match.	OBSERVER	DYNAMIC_EFFECTIVE	none	YES
+172.17.0.2	2882	zone1	CLUSTER	NULL	async_ps_cursor_max_count	INT	0	the max count of async ps cursor. The default value is 0. Range: [0, 1024] in integer	OBSERVER	DYNAMIC_EFFECTIVE	0	YES
+172.17.0.2	2882	zone1	CLUSTER	NULL	external_table_disk_cache_max_percentage	INT	50	The maximum ratio of external table disk space to datafile_size in shared-nothing mode, ranges from [0, 95] in integer, with a default of 50	SSTABLE	DYNAMIC_EFFECTIVE	50	YES
+172.17.0.2	2882	zone1	CLUSTER	NULL	_ob_enable_pl_dynamic_stack_check	BOOL	True	Enable or disable dynamic stack check when executing PL.	OBSERVER	DYNAMIC_EFFECTIVE	False	NO
+172.17.0.2	2882	zone1	CLUSTER	NULL	_enable_numa_aware	BOOL	False	NUMA awareness switch, which, when enabled, allows threads to bind cores with NUMA affinity.	OBSERVER	STATIC_EFFECTIVE	False	YES
+172.17.0.2	2882	zone1	CLUSTER	NULL	_restore_io_max_retry_count	INT	3	max retry times for restore when encounting io errorRange: [0,64] in integer	OBSERVER	DYNAMIC_EFFECTIVE	3	YES

@@ -1,0 +1,480 @@
+- experiment_id: 1
+  param_name: cpu_quota_concurrency
+  category: CPU调度
+  original_value: '10'
+  test_value: '4'
+  workload_type: tpcc
+  test_round: 1
+  expected_impact: 影响并发执行、后台任务调度和高负载下排队时间
+  risk_level: medium
+  need_restart: 'no'
+  status: pending
+  note: 需要人工确认官方文档默认值和范围；脚本不会自动执行 ALTER SYSTEM SET
+- experiment_id: 2
+  param_name: cpu_quota_concurrency
+  category: CPU调度
+  original_value: '10'
+  test_value: '4'
+  workload_type: tpch
+  test_round: 1
+  expected_impact: 影响并发执行、后台任务调度和高负载下排队时间
+  risk_level: medium
+  need_restart: 'no'
+  status: pending
+  note: 需要人工确认官方文档默认值和范围；脚本不会自动执行 ALTER SYSTEM SET
+- experiment_id: 3
+  param_name: cpu_quota_concurrency
+  category: CPU调度
+  original_value: '10'
+  test_value: '8'
+  workload_type: tpcc
+  test_round: 2
+  expected_impact: 影响并发执行、后台任务调度和高负载下排队时间
+  risk_level: medium
+  need_restart: 'no'
+  status: pending
+  note: 需要人工确认官方文档默认值和范围；脚本不会自动执行 ALTER SYSTEM SET
+- experiment_id: 4
+  param_name: cpu_quota_concurrency
+  category: CPU调度
+  original_value: '10'
+  test_value: '8'
+  workload_type: tpch
+  test_round: 2
+  expected_impact: 影响并发执行、后台任务调度和高负载下排队时间
+  risk_level: medium
+  need_restart: 'no'
+  status: pending
+  note: 需要人工确认官方文档默认值和范围；脚本不会自动执行 ALTER SYSTEM SET
+- experiment_id: 5
+  param_name: cpu_quota_concurrency
+  category: CPU调度
+  original_value: '10'
+  test_value: '10'
+  workload_type: tpcc
+  test_round: 3
+  expected_impact: 影响并发执行、后台任务调度和高负载下排队时间
+  risk_level: medium
+  need_restart: 'no'
+  status: pending
+  note: 需要人工确认官方文档默认值和范围；脚本不会自动执行 ALTER SYSTEM SET
+- experiment_id: 6
+  param_name: cpu_quota_concurrency
+  category: CPU调度
+  original_value: '10'
+  test_value: '10'
+  workload_type: tpch
+  test_round: 3
+  expected_impact: 影响并发执行、后台任务调度和高负载下排队时间
+  risk_level: medium
+  need_restart: 'no'
+  status: pending
+  note: 需要人工确认官方文档默认值和范围；脚本不会自动执行 ALTER SYSTEM SET
+- experiment_id: 7
+  param_name: cpu_quota_concurrency
+  category: CPU调度
+  original_value: '10'
+  test_value: '16'
+  workload_type: tpcc
+  test_round: 4
+  expected_impact: 影响并发执行、后台任务调度和高负载下排队时间
+  risk_level: medium
+  need_restart: 'no'
+  status: pending
+  note: 需要人工确认官方文档默认值和范围；脚本不会自动执行 ALTER SYSTEM SET
+- experiment_id: 8
+  param_name: cpu_quota_concurrency
+  category: CPU调度
+  original_value: '10'
+  test_value: '16'
+  workload_type: tpch
+  test_round: 4
+  expected_impact: 影响并发执行、后台任务调度和高负载下排队时间
+  risk_level: medium
+  need_restart: 'no'
+  status: pending
+  note: 需要人工确认官方文档默认值和范围；脚本不会自动执行 ALTER SYSTEM SET
+- experiment_id: 9
+  param_name: memstore_limit_percentage
+  category: 内存管理
+  original_value: '0'
+  test_value: '0'
+  workload_type: tpcc
+  test_round: 1
+  expected_impact: 影响缓存命中、冻结频率和内存压力
+  risk_level: medium
+  need_restart: 'no'
+  status: pending
+  note: 需要人工确认官方文档默认值和范围；脚本不会自动执行 ALTER SYSTEM SET
+- experiment_id: 10
+  param_name: memstore_limit_percentage
+  category: 内存管理
+  original_value: '0'
+  test_value: '0'
+  workload_type: tpch
+  test_round: 1
+  expected_impact: 影响缓存命中、冻结频率和内存压力
+  risk_level: medium
+  need_restart: 'no'
+  status: pending
+  note: 需要人工确认官方文档默认值和范围；脚本不会自动执行 ALTER SYSTEM SET
+- experiment_id: 11
+  param_name: memstore_limit_percentage
+  category: 内存管理
+  original_value: '0'
+  test_value: '20'
+  workload_type: tpcc
+  test_round: 2
+  expected_impact: 影响缓存命中、冻结频率和内存压力
+  risk_level: medium
+  need_restart: 'no'
+  status: pending
+  note: 需要人工确认官方文档默认值和范围；脚本不会自动执行 ALTER SYSTEM SET
+- experiment_id: 12
+  param_name: memstore_limit_percentage
+  category: 内存管理
+  original_value: '0'
+  test_value: '20'
+  workload_type: tpch
+  test_round: 2
+  expected_impact: 影响缓存命中、冻结频率和内存压力
+  risk_level: medium
+  need_restart: 'no'
+  status: pending
+  note: 需要人工确认官方文档默认值和范围；脚本不会自动执行 ALTER SYSTEM SET
+- experiment_id: 13
+  param_name: memstore_limit_percentage
+  category: 内存管理
+  original_value: '0'
+  test_value: '40'
+  workload_type: tpcc
+  test_round: 3
+  expected_impact: 影响缓存命中、冻结频率和内存压力
+  risk_level: medium
+  need_restart: 'no'
+  status: pending
+  note: 需要人工确认官方文档默认值和范围；脚本不会自动执行 ALTER SYSTEM SET
+- experiment_id: 14
+  param_name: memstore_limit_percentage
+  category: 内存管理
+  original_value: '0'
+  test_value: '40'
+  workload_type: tpch
+  test_round: 3
+  expected_impact: 影响缓存命中、冻结频率和内存压力
+  risk_level: medium
+  need_restart: 'no'
+  status: pending
+  note: 需要人工确认官方文档默认值和范围；脚本不会自动执行 ALTER SYSTEM SET
+- experiment_id: 15
+  param_name: memstore_limit_percentage
+  category: 内存管理
+  original_value: '0'
+  test_value: '60'
+  workload_type: tpcc
+  test_round: 4
+  expected_impact: 影响缓存命中、冻结频率和内存压力
+  risk_level: medium
+  need_restart: 'no'
+  status: pending
+  note: 需要人工确认官方文档默认值和范围；脚本不会自动执行 ALTER SYSTEM SET
+- experiment_id: 16
+  param_name: memstore_limit_percentage
+  category: 内存管理
+  original_value: '0'
+  test_value: '60'
+  workload_type: tpch
+  test_round: 4
+  expected_impact: 影响缓存命中、冻结频率和内存压力
+  risk_level: medium
+  need_restart: 'no'
+  status: pending
+  note: 需要人工确认官方文档默认值和范围；脚本不会自动执行 ALTER SYSTEM SET
+- experiment_id: 17
+  param_name: clog_io_isolation_mode
+  category: 磁盘IO
+  original_value: '1'
+  test_value: '1'
+  workload_type: tpcc
+  test_round: 1
+  expected_impact: 影响日志写入、刷盘、压缩和磁盘吞吐
+  risk_level: medium
+  need_restart: 'no'
+  status: pending
+  note: 需要人工确认官方文档默认值和范围；脚本不会自动执行 ALTER SYSTEM SET
+- experiment_id: 18
+  param_name: clog_io_isolation_mode
+  category: 磁盘IO
+  original_value: '1'
+  test_value: '1'
+  workload_type: tpch
+  test_round: 1
+  expected_impact: 影响日志写入、刷盘、压缩和磁盘吞吐
+  risk_level: medium
+  need_restart: 'no'
+  status: pending
+  note: 需要人工确认官方文档默认值和范围；脚本不会自动执行 ALTER SYSTEM SET
+- experiment_id: 19
+  param_name: clog_io_isolation_mode
+  category: 磁盘IO
+  original_value: '1'
+  test_value: '2'
+  workload_type: tpcc
+  test_round: 2
+  expected_impact: 影响日志写入、刷盘、压缩和磁盘吞吐
+  risk_level: medium
+  need_restart: 'no'
+  status: pending
+  note: 需要人工确认官方文档默认值和范围；脚本不会自动执行 ALTER SYSTEM SET
+- experiment_id: 20
+  param_name: clog_io_isolation_mode
+  category: 磁盘IO
+  original_value: '1'
+  test_value: '2'
+  workload_type: tpch
+  test_round: 2
+  expected_impact: 影响日志写入、刷盘、压缩和磁盘吞吐
+  risk_level: medium
+  need_restart: 'no'
+  status: pending
+  note: 需要人工确认官方文档默认值和范围；脚本不会自动执行 ALTER SYSTEM SET
+- experiment_id: 21
+  param_name: clog_io_isolation_mode
+  category: 磁盘IO
+  original_value: '1'
+  test_value: '1'
+  workload_type: tpcc
+  test_round: 3
+  expected_impact: 影响日志写入、刷盘、压缩和磁盘吞吐
+  risk_level: medium
+  need_restart: 'no'
+  status: pending
+  note: 需要人工确认官方文档默认值和范围；脚本不会自动执行 ALTER SYSTEM SET
+- experiment_id: 22
+  param_name: clog_io_isolation_mode
+  category: 磁盘IO
+  original_value: '1'
+  test_value: '1'
+  workload_type: tpch
+  test_round: 3
+  expected_impact: 影响日志写入、刷盘、压缩和磁盘吞吐
+  risk_level: medium
+  need_restart: 'no'
+  status: pending
+  note: 需要人工确认官方文档默认值和范围；脚本不会自动执行 ALTER SYSTEM SET
+- experiment_id: 23
+  param_name: clog_io_isolation_mode
+  category: 磁盘IO
+  original_value: '1'
+  test_value: '1'
+  workload_type: tpcc
+  test_round: 4
+  expected_impact: 影响日志写入、刷盘、压缩和磁盘吞吐
+  risk_level: medium
+  need_restart: 'no'
+  status: pending
+  note: 需要人工确认官方文档默认值和范围；脚本不会自动执行 ALTER SYSTEM SET
+- experiment_id: 24
+  param_name: clog_io_isolation_mode
+  category: 磁盘IO
+  original_value: '1'
+  test_value: '1'
+  workload_type: tpch
+  test_round: 4
+  expected_impact: 影响日志写入、刷盘、压缩和磁盘吞吐
+  risk_level: medium
+  need_restart: 'no'
+  status: pending
+  note: 需要人工确认官方文档默认值和范围；脚本不会自动执行 ALTER SYSTEM SET
+- experiment_id: 25
+  param_name: enable_sql_audit
+  category: SQL执行
+  original_value: 'True'
+  test_value: conservative
+  workload_type: tpcc
+  test_round: 1
+  expected_impact: 影响 SQL 执行路径、审计开销和长查询调度
+  risk_level: medium
+  need_restart: 'no'
+  status: pending
+  note: 需要人工确认官方文档默认值和范围；脚本不会自动执行 ALTER SYSTEM SET
+- experiment_id: 26
+  param_name: enable_sql_audit
+  category: SQL执行
+  original_value: 'True'
+  test_value: conservative
+  workload_type: tpch
+  test_round: 1
+  expected_impact: 影响 SQL 执行路径、审计开销和长查询调度
+  risk_level: medium
+  need_restart: 'no'
+  status: pending
+  note: 需要人工确认官方文档默认值和范围；脚本不会自动执行 ALTER SYSTEM SET
+- experiment_id: 27
+  param_name: enable_sql_audit
+  category: SQL执行
+  original_value: 'True'
+  test_value: 'True'
+  workload_type: tpcc
+  test_round: 2
+  expected_impact: 影响 SQL 执行路径、审计开销和长查询调度
+  risk_level: medium
+  need_restart: 'no'
+  status: pending
+  note: 需要人工确认官方文档默认值和范围；脚本不会自动执行 ALTER SYSTEM SET
+- experiment_id: 28
+  param_name: enable_sql_audit
+  category: SQL执行
+  original_value: 'True'
+  test_value: 'True'
+  workload_type: tpch
+  test_round: 2
+  expected_impact: 影响 SQL 执行路径、审计开销和长查询调度
+  risk_level: medium
+  need_restart: 'no'
+  status: pending
+  note: 需要人工确认官方文档默认值和范围；脚本不会自动执行 ALTER SYSTEM SET
+- experiment_id: 29
+  param_name: enable_sql_audit
+  category: SQL执行
+  original_value: 'True'
+  test_value: aggressive
+  workload_type: tpcc
+  test_round: 3
+  expected_impact: 影响 SQL 执行路径、审计开销和长查询调度
+  risk_level: medium
+  need_restart: 'no'
+  status: pending
+  note: 需要人工确认官方文档默认值和范围；脚本不会自动执行 ALTER SYSTEM SET
+- experiment_id: 30
+  param_name: enable_sql_audit
+  category: SQL执行
+  original_value: 'True'
+  test_value: aggressive
+  workload_type: tpch
+  test_round: 3
+  expected_impact: 影响 SQL 执行路径、审计开销和长查询调度
+  risk_level: medium
+  need_restart: 'no'
+  status: pending
+  note: 需要人工确认官方文档默认值和范围；脚本不会自动执行 ALTER SYSTEM SET
+- experiment_id: 31
+  param_name: enable_sql_audit
+  category: SQL执行
+  original_value: 'True'
+  test_value: manual_confirm
+  workload_type: tpcc
+  test_round: 4
+  expected_impact: 影响 SQL 执行路径、审计开销和长查询调度
+  risk_level: medium
+  need_restart: 'no'
+  status: pending
+  note: 需要人工确认官方文档默认值和范围；脚本不会自动执行 ALTER SYSTEM SET
+- experiment_id: 32
+  param_name: enable_sql_audit
+  category: SQL执行
+  original_value: 'True'
+  test_value: manual_confirm
+  workload_type: tpch
+  test_round: 4
+  expected_impact: 影响 SQL 执行路径、审计开销和长查询调度
+  risk_level: medium
+  need_restart: 'no'
+  status: pending
+  note: 需要人工确认官方文档默认值和范围；脚本不会自动执行 ALTER SYSTEM SET
+- experiment_id: 33
+  param_name: large_query_worker_percentage
+  category: CPU调度
+  original_value: '30'
+  test_value: '10'
+  workload_type: tpcc
+  test_round: 1
+  expected_impact: 影响并发执行、后台任务调度和高负载下排队时间
+  risk_level: medium
+  need_restart: 'no'
+  status: pending
+  note: 需要人工确认官方文档默认值和范围；脚本不会自动执行 ALTER SYSTEM SET
+- experiment_id: 34
+  param_name: large_query_worker_percentage
+  category: CPU调度
+  original_value: '30'
+  test_value: '10'
+  workload_type: tpch
+  test_round: 1
+  expected_impact: 影响并发执行、后台任务调度和高负载下排队时间
+  risk_level: medium
+  need_restart: 'no'
+  status: pending
+  note: 需要人工确认官方文档默认值和范围；脚本不会自动执行 ALTER SYSTEM SET
+- experiment_id: 35
+  param_name: large_query_worker_percentage
+  category: CPU调度
+  original_value: '30'
+  test_value: '20'
+  workload_type: tpcc
+  test_round: 2
+  expected_impact: 影响并发执行、后台任务调度和高负载下排队时间
+  risk_level: medium
+  need_restart: 'no'
+  status: pending
+  note: 需要人工确认官方文档默认值和范围；脚本不会自动执行 ALTER SYSTEM SET
+- experiment_id: 36
+  param_name: large_query_worker_percentage
+  category: CPU调度
+  original_value: '30'
+  test_value: '20'
+  workload_type: tpch
+  test_round: 2
+  expected_impact: 影响并发执行、后台任务调度和高负载下排队时间
+  risk_level: medium
+  need_restart: 'no'
+  status: pending
+  note: 需要人工确认官方文档默认值和范围；脚本不会自动执行 ALTER SYSTEM SET
+- experiment_id: 37
+  param_name: large_query_worker_percentage
+  category: CPU调度
+  original_value: '30'
+  test_value: '30'
+  workload_type: tpcc
+  test_round: 3
+  expected_impact: 影响并发执行、后台任务调度和高负载下排队时间
+  risk_level: medium
+  need_restart: 'no'
+  status: pending
+  note: 需要人工确认官方文档默认值和范围；脚本不会自动执行 ALTER SYSTEM SET
+- experiment_id: 38
+  param_name: large_query_worker_percentage
+  category: CPU调度
+  original_value: '30'
+  test_value: '30'
+  workload_type: tpch
+  test_round: 3
+  expected_impact: 影响并发执行、后台任务调度和高负载下排队时间
+  risk_level: medium
+  need_restart: 'no'
+  status: pending
+  note: 需要人工确认官方文档默认值和范围；脚本不会自动执行 ALTER SYSTEM SET
+- experiment_id: 39
+  param_name: large_query_worker_percentage
+  category: CPU调度
+  original_value: '30'
+  test_value: '40'
+  workload_type: tpcc
+  test_round: 4
+  expected_impact: 影响并发执行、后台任务调度和高负载下排队时间
+  risk_level: medium
+  need_restart: 'no'
+  status: pending
+  note: 需要人工确认官方文档默认值和范围；脚本不会自动执行 ALTER SYSTEM SET
+- experiment_id: 40
+  param_name: large_query_worker_percentage
+  category: CPU调度
+  original_value: '30'
+  test_value: '40'
+  workload_type: tpch
+  test_round: 4
+  expected_impact: 影响并发执行、后台任务调度和高负载下排队时间
+  risk_level: medium
+  need_restart: 'no'
+  status: pending
+  note: 需要人工确认官方文档默认值和范围；脚本不会自动执行 ALTER SYSTEM SET

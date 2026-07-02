@@ -1,0 +1,7 @@
+bash: warning: setlocale: LC_ALL: cannot change locale (en_US.UTF-8)
+workload_rows
+1000
+workload_runs
+1
+id	name	created_at
+1	real week2 connection from wzh docker obclient	2026-07-02 15:30:49

@@ -1,0 +1,60 @@
+version: '3.8'
+
+services:
+  oceanbase:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: oceanbase-single:latest
+    container_name: ob-node
+    hostname: ob-node
+
+    # 资源限制
+    deploy:
+      resources:
+        limits:
+          cpus: '4'
+          memory: 12G
+
+    # 端口映射
+    ports:
+      - "2881:2881"  # MySQL协议端口
+      - "2882:2882"  # RPC端口
+      - "8080:8080"  # 管理端口
+
+    # 卷挂载
+    volumes:
+      - ~/oceanbase-data:/home/admin/oceanbase-data
+      - ./scripts:/scripts
+
+    # 环境变量
+    environment:
+      - TZ=Asia/Shanghai
+      - LC_ALL=en_US.UTF-8
+
+    # 重启策略
+    restart: unless-stopped
+
+    # 网络配置
+    networks:
+      - ob-network
+
+    # 健康检查
+    healthcheck:
+      test: ["CMD-SHELL", "echo 'Container is running'"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+    # 权限配置
+    cap_add:
+      - SYS_PTRACE
+
+    # 安全配置
+    security_opt:
+      - seccomp:unconfined
+
+networks:
+  ob-network:
+    driver: bridge

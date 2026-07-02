@@ -1,0 +1,12 @@
+experiment_id,parameter_name,old_value,test_value,workload_name,repeat_id,expected_effect,risk,rollback_sql,status,notes
+0,baseline,N/A,N/A,lightweight_real_sql,1,真实基线 workload，不修改参数,LOW,N/A,executed_baseline,安全模式已执行
+1,cpu_quota_concurrency,4,4,lightweight_real_sql,1,影响并发度、后台线程调度、排队和高负载响应时间,LOW,-- planned rollback: ALTER SYSTEM SET cpu_quota_concurrency = '4';,planned_not_executed_due_to_shared_tenant_or_permission,未执行参数修改；需确认权限与影响范围
+2,cpu_quota_concurrency,4,8,lightweight_real_sql,1,影响并发度、后台线程调度、排队和高负载响应时间,LOW,-- planned rollback: ALTER SYSTEM SET cpu_quota_concurrency = '4';,planned_not_executed_due_to_shared_tenant_or_permission,未执行参数修改；需确认权限与影响范围
+3,memstore_limit_percentage,0,20,lightweight_real_sql,1,影响缓存、冻结、内存水位和租户资源使用,MEDIUM,-- planned rollback: ALTER SYSTEM SET memstore_limit_percentage = '0';,planned_not_executed_due_to_shared_tenant_or_permission,未执行参数修改；需确认权限与影响范围
+4,memstore_limit_percentage,0,40,lightweight_real_sql,1,影响缓存、冻结、内存水位和租户资源使用,MEDIUM,-- planned rollback: ALTER SYSTEM SET memstore_limit_percentage = '0';,planned_not_executed_due_to_shared_tenant_or_permission,未执行参数修改；需确认权限与影响范围
+5,clog_io_isolation_mode,1,1,lightweight_real_sql,1,影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,MEDIUM,-- planned rollback: ALTER SYSTEM SET clog_io_isolation_mode = '1';,planned_not_executed_due_to_shared_tenant_or_permission,未执行参数修改；需确认权限与影响范围
+6,clog_io_isolation_mode,1,2,lightweight_real_sql,1,影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,MEDIUM,-- planned rollback: ALTER SYSTEM SET clog_io_isolation_mode = '1';,planned_not_executed_due_to_shared_tenant_or_permission,未执行参数修改；需确认权限与影响范围
+7,enable_sql_audit,True,True,lightweight_real_sql,1,影响 SQL 计划、审计、长查询调度和执行超时,MEDIUM,-- planned rollback: ALTER SYSTEM SET enable_sql_audit = 'True';,planned_not_executed_due_to_shared_tenant_or_permission,未执行参数修改；需确认权限与影响范围
+8,enable_sql_audit,True,False,lightweight_real_sql,1,影响 SQL 计划、审计、长查询调度和执行超时,MEDIUM,-- planned rollback: ALTER SYSTEM SET enable_sql_audit = 'True';,planned_not_executed_due_to_shared_tenant_or_permission,未执行参数修改；需确认权限与影响范围
+9,large_query_worker_percentage,30,20,lightweight_real_sql,1,影响并发度、后台线程调度、排队和高负载响应时间,MEDIUM,-- planned rollback: ALTER SYSTEM SET large_query_worker_percentage = '30';,planned_not_executed_due_to_shared_tenant_or_permission,未执行参数修改；需确认权限与影响范围
+10,large_query_worker_percentage,30,40,lightweight_real_sql,1,影响并发度、后台线程调度、排队和高负载响应时间,MEDIUM,-- planned rollback: ALTER SYSTEM SET large_query_worker_percentage = '30';,planned_not_executed_due_to_shared_tenant_or_permission,未执行参数修改；需确认权限与影响范围

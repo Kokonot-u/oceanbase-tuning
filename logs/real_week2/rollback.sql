@@ -1,0 +1,12 @@
+-- Rollback SQL for real week-2 parameter experiments.
+-- No parameter changes were executed in this run.
+-- planned rollback: ALTER SYSTEM SET cpu_quota_concurrency = '4';
+-- planned rollback: ALTER SYSTEM SET cpu_quota_concurrency = '4';
+-- planned rollback: ALTER SYSTEM SET memstore_limit_percentage = '0';
+-- planned rollback: ALTER SYSTEM SET memstore_limit_percentage = '0';
+-- planned rollback: ALTER SYSTEM SET clog_io_isolation_mode = '1';
+-- planned rollback: ALTER SYSTEM SET clog_io_isolation_mode = '1';
+-- planned rollback: ALTER SYSTEM SET enable_sql_audit = 'True';
+-- planned rollback: ALTER SYSTEM SET enable_sql_audit = 'True';
+-- planned rollback: ALTER SYSTEM SET large_query_worker_percentage = '30';
+-- planned rollback: ALTER SYSTEM SET large_query_worker_percentage = '30';

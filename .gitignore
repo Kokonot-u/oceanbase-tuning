@@ -1,0 +1,73 @@
+# Database configuration (contains sensitive information)
+config/db_config.yaml
+
+# Data directories
+data/
+
+# Large upstream OceanBase source mirror; keep out of this project repo.
+oceanbase/
+
+# MLflow experiments
+experiments/mlflow/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Virtual environment
+venv/
+ENV/
+env/
+
+# Environment variables
+.env
+.venv
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+~$*
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# Logs
+logs/
+*.log
+!logs/
+!logs/real_week2/
+!logs/real_week2/**
+
+# MLflow
+mlruns/
+
+# Model files
+models/
+*.pkl
+*.pt
+*.pth
+*.onnx
+
+# Benchmark results
+benchmarks/
+results/
+
+# Temporary files
+tmp/
+temp/
+*.tmp

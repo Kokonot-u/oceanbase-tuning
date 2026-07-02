@@ -1,0 +1,18 @@
+show_parameters SUCCESS
+show_parameters_cpu SUCCESS
+show_parameters_memory SUCCESS
+show_parameters_mem SUCCESS
+show_parameters_io SUCCESS
+show_parameters_sql SUCCESS
+gv_ob_parameters_sample SUCCESS
+dba_ob_parameters_sample FAILED
+       0 /Users/wzh/Documents/DBdoctor/oceanbase-tuning/outputs/real_week2/dba_ob_parameters_sample.tsv
+      11 /Users/wzh/Documents/DBdoctor/oceanbase-tuning/outputs/real_week2/gv_ob_parameters_sample.tsv
+     356 /Users/wzh/Documents/DBdoctor/oceanbase-tuning/outputs/real_week2/ob_parameters_real.tsv
+     356 /Users/wzh/Documents/DBdoctor/oceanbase-tuning/outputs/real_week2/show_parameters.tsv
+      11 /Users/wzh/Documents/DBdoctor/oceanbase-tuning/outputs/real_week2/show_parameters_cpu.tsv
+      82 /Users/wzh/Documents/DBdoctor/oceanbase-tuning/outputs/real_week2/show_parameters_io.tsv
+      15 /Users/wzh/Documents/DBdoctor/oceanbase-tuning/outputs/real_week2/show_parameters_mem.tsv
+      11 /Users/wzh/Documents/DBdoctor/oceanbase-tuning/outputs/real_week2/show_parameters_memory.tsv
+      19 /Users/wzh/Documents/DBdoctor/oceanbase-tuning/outputs/real_week2/show_parameters_sql.tsv
+     861 total

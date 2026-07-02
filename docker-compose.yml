@@ -1,0 +1,4 @@
+# Convenience entrypoint for week-2 local experiments.
+# The maintained Docker setup remains in docker/docker-compose.yml.
+include:
+  - docker/docker-compose.yml

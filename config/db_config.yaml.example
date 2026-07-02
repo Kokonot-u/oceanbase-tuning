@@ -1,0 +1,8 @@
+# OceanBase Database Connection
+
+host: ""        # OceanBase IP address
+port: 2881      # Default port
+user: ""        # Username, format: user@tenant
+password: ""    # Password
+database: ""    # Database name
+charset: utf8mb4

@@ -1,0 +1,5 @@
+[2026-07-02T07:31:29Z] SQL: SELECT * FROM oceanbase.DBA_OB_PARAMETERS LIMIT 10
+bash: warning: setlocale: LC_ALL: cannot change locale (en_US.UTF-8)
+ERROR 1146 (42S02) at line 1: Table 'oceanbase.dba_ob_parameters' doesn't exist
+[172.17.0.2:2882] [2026-07-02 07:31:30.133352] [YB42AC110002-0006559B50AB70FC-0-0]
+FAILED dba_ob_parameters_sample

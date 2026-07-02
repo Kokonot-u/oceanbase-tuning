@@ -1,0 +1,191 @@
+category,name,current_value,info,section,edit_level,reason
+CPU调度,attach_shared_sstable_thread_score,0,"the current work thread score of attach shared sstable to local storage Range: [0,100] in integer. Especially, 0 means default value",OBSERVER,DYNAMIC_EFFECTIVE,关键词匹配: thread
+内存管理,bf_cache_priority,1,"bf cache priority. Range:[1, )",CACHE,DYNAMIC_EFFECTIVE,关键词匹配: cache_priority
+内存管理,cache_wash_threshold,4GB,"size of remaining memory at which cache eviction will be triggered. Range: [0,+∞)",OBSERVER,DYNAMIC_EFFECTIVE,关键词匹配: cache_wash
+磁盘IO,clog_io_isolation_mode,1,"Specifies the I/O isolation mode for Commit Log (clog). Values: 1 - Non-isolation mode (disable I/O isolation), 2 - Full isolation mode (enable I/O isolation). Example: 1=Off, 2=On",OBSERVER,DYNAMIC_EFFECTIVE,"关键词匹配: io_, clog, _io_"
+磁盘IO,clog_sync_time_warn_threshold,100ms,"the time given to the commit log synchronization between a leader and its followers before a \'warning\' message is printed in the log file.  Range: [1ms,1000ms]",TRANS,DYNAMIC_EFFECTIVE,关键词匹配: clog
+CPU调度,compaction_high_thread_score,0,"the current work thread score of high priority compaction. Range: [0,100] in integer. Especially, 0 means default value",TENANT,DYNAMIC_EFFECTIVE,关键词匹配: thread
+CPU调度,compaction_low_thread_score,0,"the current work thread score of low priority compaction. Range: [0,100] in integer. Especially, 0 means default value",TENANT,DYNAMIC_EFFECTIVE,关键词匹配: thread
+CPU调度,compaction_mid_thread_score,0,"the current work thread score of middle priority compaction. Range: [0,100] in integer. Especially, 0 means default value",TENANT,DYNAMIC_EFFECTIVE,关键词匹配: thread
+CPU调度,cpu_count,4,"the number of CPU\'s in the system. If this parameter is set to zero, the number will be set according to sysconf; otherwise, this parameter is used. Range: [0,+∞) in integer",OBSERVER,DYNAMIC_EFFECTIVE,关键词匹配: cpu
+CPU调度,cpu_quota_concurrency,10,"max allowed concurrency for 1 CPU quota. Range: [1,20]",TENANT,DYNAMIC_EFFECTIVE,"关键词匹配: cpu, concurrency"
+磁盘IO,datafile_disk_percentage,0,"the percentage of disk space used by the data files. Range: [0,99] in integer",SSTABLE,DYNAMIC_EFFECTIVE,"关键词匹配: disk_, datafile"
+磁盘IO,datafile_maxsize,0,"the auto extend max size. Range: [0, +∞)",SSTABLE,DYNAMIC_EFFECTIVE,关键词匹配: datafile
+磁盘IO,datafile_next,0,"the auto extend step. Range: [0, +∞)",SSTABLE,DYNAMIC_EFFECTIVE,关键词匹配: datafile
+磁盘IO,datafile_size,20G,"size of the data file. Range: [0, +∞)",SSTABLE,DYNAMIC_EFFECTIVE,关键词匹配: datafile
+磁盘IO,data_disk_usage_limit_percentage,90,"the safe use percentage of data diskRange: [50,100] in integer",OBSERVER,DYNAMIC_EFFECTIVE,"关键词匹配: disk_, data_disk"
+内存管理,data_disk_write_limit_percentage,0,"used to stop user write operations. When the user data disk reaches this watermark, SQL requests will report that the disk is full. The configuration should be greater than data_disk_usage_limit_perce",TENANT,DYNAMIC_EFFECTIVE,关键词匹配: info:memstore
+CPU调度,ddl_high_thread_score,0,"the current work thread score of ddl high thread. Range: [0,100] in integer. Especially, 0 means default value",OBSERVER,DYNAMIC_EFFECTIVE,关键词匹配: thread
+CPU调度,ddl_thread_score,0,"the current work thread score of ddl thread. Range: [0,100] in integer. Especially, 0 means default value",OBSERVER,DYNAMIC_EFFECTIVE,关键词匹配: thread
+CPU调度,disk_io_thread_count,8,"The number of io threads on each disk. The default value is 8. Range: [2,32] in even integer",OBSERVER,DYNAMIC_EFFECTIVE,关键词匹配: thread
+SQL执行,enable_adaptive_plan_cache,False,enable/disable adaptive plan cache,TENANT,DYNAMIC_EFFECTIVE,"关键词匹配: plan_cache, adaptive_plan_cache"
+SQL执行,enable_sql_audit,True,specifies whether SQL audit is turned on. The default value is TRUE. Value: TRUE: turned on FALSE: turned off,OBSERVER,DYNAMIC_EFFECTIVE,关键词匹配: sql_audit
+SQL执行,enable_sql_operator_dump,True,specifies whether sql operators (sort/hash join/material/window function/interm result/...) allowed to write to disk,OBSERVER,DYNAMIC_EFFECTIVE,关键词匹配: sql_operator_dump
+磁盘IO,external_table_disk_cache_max_percentage,50,"The maximum ratio of external table disk space to datafile_size in shared-nothing mode, ranges from [0, 95] in integer, with a default of 50",SSTABLE,DYNAMIC_EFFECTIVE,"关键词匹配: disk_, info:datafile"
+磁盘IO,external_table_io_hole_size,1M,"deternimistic the maximum distance in bytes between two consecutive ranges; beyond this value, ranges are not combined",TENANT,DYNAMIC_EFFECTIVE,"关键词匹配: io_, _io_"
+磁盘IO,external_table_io_range_size,8M,"deternimistic the maximum size in bytes of a combined range; if combining two consecutive ranges would produce a range of a size greater than this, they are not combined",TENANT,DYNAMIC_EFFECTIVE,"关键词匹配: io_, _io_"
+磁盘IO,freeze_trigger_percentage,20,"the threshold of the size of the mem store when freeze will be triggered. Rang:(0,100)",TENANT,DYNAMIC_EFFECTIVE,关键词匹配: freeze_trigger
+内存管理,fuse_row_cache_priority,1,"fuse row cache priority. Range:[1, )",CACHE,DYNAMIC_EFFECTIVE,"关键词匹配: cache_priority, row_cache, fuse_row_cache"
+CPU调度,global_background_cpu_quota,-1,"When enable_global_background_resource_isolation is True, specify the number of vCPUs allocated to the background tasks-1 for the CPU is not limited by the cgroup",OBSERVER,DYNAMIC_EFFECTIVE,关键词匹配: cpu
+CPU调度,ha_high_thread_score,0,"the current work thread score of high availability high thread. Range: [0,100] in integer. Especially, 0 means default value",OBSERVER,DYNAMIC_EFFECTIVE,关键词匹配: thread
+CPU调度,ha_low_thread_score,0,"the current work thread score of high availability low thread. Range: [0,100] in integer. Especially, 0 means default value",OBSERVER,DYNAMIC_EFFECTIVE,关键词匹配: thread
+CPU调度,ha_mid_thread_score,0,"the current work thread score of high availability mid thread. Range: [0,100] in integer. Especially, 0 means default value",OBSERVER,DYNAMIC_EFFECTIVE,关键词匹配: thread
+CPU调度,high_priority_net_thread_count,0,"the number of rpc I/O threads for high priority messages, 0 means set off. Range: [0, 64] in integer",OBSERVER,STATIC_EFFECTIVE,关键词匹配: thread
+CPU调度,inc_sstable_upload_thread_score,0,"the current work thread score of upload incremental sstable to shared storage Range: [0,100] in integer. Especially, 0 means default value",OBSERVER,DYNAMIC_EFFECTIVE,关键词匹配: thread
+内存管理,index_block_cache_priority,10,"index cache priority. Range:[1, )",CACHE,DYNAMIC_EFFECTIVE,"关键词匹配: cache_priority, block_cache, index_block_cache"
+CPU调度,io_scheduler_thread_count,4,"Range: [1, 16] in integer. This parameter is used to adjust the number of threads in the I/O scheduler. The default value is 4. You can set it within the range of 1 to 16 to control the concurrency le",OBSERVER,STATIC_EFFECTIVE,"关键词匹配: thread, info:concurrency, scheduler"
+CPU调度,job_queue_processes,1000,specifies the maximum number of job slaves per instance that can be created for the execution of DBMS_JOB jobs and Oracle Scheduler (DBMS_SCHEDULER) jobs.,OBSERVER,DYNAMIC_EFFECTIVE,"关键词匹配: queue, info:scheduler"
+SQL执行,large_query_threshold,600s,"threshold for execution time beyond which a request may be paused and rescheduled as a \'large request\', 0ms means disable \'large request\'. Range: [0ms, +∞)",TENANT,DYNAMIC_EFFECTIVE,关键词匹配: large_query
+CPU调度,large_query_worker_percentage,30,"the percentage of the workers reserved to serve large query request. Range: [0, 100] in percentage",TENANT,DYNAMIC_EFFECTIVE,关键词匹配: worker
+内存管理,lob_enable_block_cache_threshold,256K,"For outrow-stored LOBs, if the length is less than or equal to that threshold, they can be admitted into the block cache to speed up the next query.",TENANT,DYNAMIC_EFFECTIVE,关键词匹配: block_cache
+CPU调度,location_cache_cpu_quota,5,"the number of vCPUs allocated for the requests regarding location info of the core tables. Range: [0,10] in integer",TENANT,DYNAMIC_EFFECTIVE,关键词匹配: cpu
+CPU调度,location_fetch_concurrency,20,"the maximum number of the tasks for fetching location cache concurrently. Range: [1, 1000]",LOCATION_CACHE,DYNAMIC_EFFECTIVE,关键词匹配: concurrency
+CPU调度,location_refresh_thread_count,2,"the number of threads for fetching location cache in the background. Range: (1, 64]",LOCATION_CACHE,DYNAMIC_EFFECTIVE,关键词匹配: thread
+磁盘IO,log_disk_percentage,0,"the percentage of disk space used by the log files. Range: [0,99] in integer;only effective when parameter log_disk_size is 0;when log_disk_percentage is 0: a) if the data and the log are on the same ",LOGSERVICE,DYNAMIC_EFFECTIVE,"关键词匹配: disk_, log_disk"
+磁盘IO,log_disk_size,15G,"the size of disk space used by the log files. Range: [0, +∞)",LOGSERVICE,DYNAMIC_EFFECTIVE,"关键词匹配: disk_, log_disk"
+磁盘IO,log_disk_throttling_maximum_duration,2h,"maximum duration of log disk throttling, that is the time remaining until the log disk space is exhausted after log disk throttling triggered.",LOGSERVICE,DYNAMIC_EFFECTIVE,"关键词匹配: disk_, log_disk"
+磁盘IO,log_disk_throttling_percentage,60,"the threshold of the size of the log disk when writing_limit will be triggered. Rang:[40,100]. setting 100 means turn off writing limit",LOGSERVICE,DYNAMIC_EFFECTIVE,"关键词匹配: disk_, log_disk"
+磁盘IO,log_disk_utilization_limit_threshold,95,"maximum of log disk usage percentage before stop submitting or receiving logs, should be bigger than log_disk_utilization_threshold. Range: [80, 100]",LOGSERVICE,DYNAMIC_EFFECTIVE,"关键词匹配: disk_, log_disk"
+磁盘IO,log_disk_utilization_threshold,80,"log disk utilization threshold before reuse log files, should be smaller than log_disk_utilization_limit_threshold. Range: [10, 100)",LOGSERVICE,DYNAMIC_EFFECTIVE,"关键词匹配: disk_, log_disk"
+磁盘IO,major_compact_trigger,0,"specifies how many minor freeze should be triggered between two major freeze, Range: [0,65535] in integer",TENANT,DYNAMIC_EFFECTIVE,关键词匹配: major_compact
+CPU调度,mds_compaction_high_thread_score,0,"the current work thread score of mds high priority compaction. Range: [0,100] in integer. Especially, 0 means default value",TENANT,DYNAMIC_EFFECTIVE,关键词匹配: thread
+CPU调度,mds_compaction_mid_thread_score,0,"the current work thread score of mds middle priority compaction. Range: [0,100] in integer. Especially, 0 means default value",TENANT,DYNAMIC_EFFECTIVE,关键词匹配: thread
+磁盘IO,mds_minor_compact_trigger,2,"minor_compact_trigger, Range: [2,16] in integer",TENANT,DYNAMIC_EFFECTIVE,关键词匹配: minor_compact
+内存管理,memory_chunk_cache_size,0M,"the maximum size of memory cached by memory chunk cache. Range: [0M,], 0 stands for adaptive",OBSERVER,DYNAMIC_EFFECTIVE,关键词匹配: memory_chunk_cache
+内存管理,memory_limit,11G,"the size of the memory reserved for internal use(for testing purpose), 0 means follow memory_limit_percentage. Range: 0, [1G,).",OBSERVER,DYNAMIC_EFFECTIVE,关键词匹配: memory_limit
+内存管理,memory_limit_percentage,80,"the size of the memory reserved for internal use(for testing purpose). Range: [10, 95]",OBSERVER,DYNAMIC_EFFECTIVE,关键词匹配: memory_limit
+内存管理,memory_reserved,500M,"the size of the system memory reserved for emergency internal use. Range: [10M, total size of memory]",SSTABLE,DYNAMIC_EFFECTIVE,关键词匹配: memory_reserved
+内存管理,memstore_limit_percentage,0,"used in calculating the value of MEMSTORE_LIMIT parameter: memstore_limit_percentage = memstore_limit / memory_size, where MEMORY_SIZE is determined when the tenant is created. Range: [0, 100). 1. the",TENANT,DYNAMIC_EFFECTIVE,关键词匹配: memstore
+磁盘IO,minor_compact_trigger,2,"minor_compact_trigger, Range: [0,16] in integer",TENANT,DYNAMIC_EFFECTIVE,关键词匹配: minor_compact
+CPU调度,net_thread_count,0,"the number of rpc/mysql I/O threads for Libeasy. Range: [0, 128] in integer, 0 stands for max(6, CPU_NUM/8)",OBSERVER,DYNAMIC_EFFECTIVE,"关键词匹配: info:cpu, thread"
+内存管理,ob_result_cache_evict_percentage,90,"result cache hold memory over xx%(defalut 90) of total memory, try to evict cache obj.",OBSERVER,DYNAMIC_EFFECTIVE,关键词匹配: result_cache
+内存管理,ob_vector_memory_limit_percentage,0,"Used to control the upper limit percentage of memory resources that the vector_index module can use. Range:[0, 100).The system will adjust automatically if ob_vector_memory_limit_percentage set to 0(b",TENANT,DYNAMIC_EFFECTIVE,"关键词匹配: memory_limit, ob_vector_memory"
+SQL执行,optimizer_index_cost_adj,0,adjust costing of index scan,TENANT,DYNAMIC_EFFECTIVE,关键词匹配: optimizer_index
+内存管理,opt_tab_stat_cache_priority,1,"tab stat cache priority. Range:[1, )",CACHE,DYNAMIC_EFFECTIVE,关键词匹配: cache_priority
+SQL执行,plan_cache_evict_interval,5s,"time interval for periodic plan cache eviction. Range: [0s, +∞)",TENANT,DYNAMIC_EFFECTIVE,"关键词匹配: plan_cache, plan_cache_evict"
+CPU调度,px_workers_per_cpu_quota,10,"the ratio(integer) between the number of system allocated px workers vs the maximum number of threads that can be scheduled concurrently. Range: [0, 20]",TENANT,DYNAMIC_EFFECTIVE,"关键词匹配: cpu, worker, info:thread"
+内存管理,query_memory_limit_percentage,50,"the percentage of tenant memory that can be used by a single SQL. The default value is 50. Range: [0,100]",OBSERVER,DYNAMIC_EFFECTIVE,"关键词匹配: memory_limit, query_memory_limit"
+CPU调度,recover_table_concurrency,0,"The maximum number of tables that can be recovered concurrently during the cross-tenant table import stage of tables recovery.Range: [0,16] in integer. Especially, 0 means default value",OBSERVER,DYNAMIC_EFFECTIVE,关键词匹配: concurrency
+CPU调度,recover_table_dop,0,"The maximum degree of parallel of the single table recovery during the cross-tenant table import stage of tables recovery.Range: [0,) in integer. Especially, 0 means default value",OBSERVER,DYNAMIC_EFFECTIVE,关键词匹配: info:parallel
+内存管理,result_cache_max_result,5,result_cache_max_result specifies the percentage of result_cache_max_size that any single result can use.,OBSERVER,DYNAMIC_EFFECTIVE,关键词匹配: result_cache
+内存管理,result_cache_max_size,64M,"result cache can use max size memory(in bytes) of library cache. if it's zero, disable result cache",TENANT,DYNAMIC_EFFECTIVE,关键词匹配: result_cache
+CPU调度,rootservice_async_task_queue_size,16384,"the size of the queue for all asynchronous tasks at rootserver. Range: [8, 131072] in integer",ROOT_SERVICE,DYNAMIC_EFFECTIVE,关键词匹配: queue
+CPU调度,rootservice_async_task_thread_count,4,"maximum of threads allowed for executing asynchronous task at rootserver. Range: [1, 10]",ROOT_SERVICE,DYNAMIC_EFFECTIVE,关键词匹配: thread
+内存管理,rpc_memory_limit_percentage,0,"maximum memory for rpc in a tenant, as a percentage of total tenant memory, and 0 means no limit to rpc memory",RPC,DYNAMIC_EFFECTIVE,"关键词匹配: memory_limit, rpc_memory_limit"
+磁盘IO,server_balance_critical_disk_waterlevel,80,disk water level to determine server balance strategy,LOAD_BALANCE,DYNAMIC_EFFECTIVE,关键词匹配: disk_
+磁盘IO,server_balance_disk_tolerance_percent,1,specifies the tolerance (in percentage) of the unbalance of the disk space utilization among all servers. The average disk space utilization is calculated by dividing the total space by the number of ,LOAD_BALANCE,DYNAMIC_EFFECTIVE,关键词匹配: disk_
+CPU调度,server_cpu_quota_max,0,"the number of maximal vCPUs allocated to the server tenant(a special internal tenant that exists on every observer). 0 stands for adaptive. Range: [0, 16]",TENANT,DYNAMIC_EFFECTIVE,关键词匹配: cpu
+CPU调度,server_cpu_quota_min,0,"the number of minimal vCPUs allocated to the server tenant(a special internal tenant that exists on every observer). 0 stands for adaptive. Range: [0, 16]",TENANT,DYNAMIC_EFFECTIVE,关键词匹配: cpu
+SQL执行,spill_compression_codec,NONE,"specific the compression algorithm type to compress the spilled data in temp block store during the sql execution phase. The supported compression codecs are: ZSTD, LZ4, SNAPPY, ZLIB. NONE means no co",OBSERVER,DYNAMIC_EFFECTIVE,关键词匹配: spill_
+CPU调度,sql_login_thread_count,0,"the number of threads for sql login request. Range: [0, 32] in integer, 0 stands for use default thread count defined in TG.the default thread count for login request in TG is normal:6 mini-mode:2",OBSERVER,DYNAMIC_EFFECTIVE,关键词匹配: thread
+CPU调度,sql_net_thread_count,0,"the number of global mysql I/O threads. Range: [0, 64] in integer, default value is 0, 0 stands for old value GCONF.net_thread_count",OBSERVER,DYNAMIC_EFFECTIVE,关键词匹配: thread
+内存管理,sql_work_area,1G,Work area memory limitation for tenant,OBSERVER,STATIC_EFFECTIVE,关键词匹配: sql_work_area
+CPU调度,ss_cache_maxsize_percpu,128G,"the maximum allowed local cache disk size per CPU per server in shared storage mode. Range: (0, +∞)",SSTABLE,DYNAMIC_EFFECTIVE,关键词匹配: cpu
+磁盘IO,ss_cache_max_percentage,30,"the maximum percentage of local cache disk space to total data in shared storage mode. Range: (0,100] in integer",SSTABLE,DYNAMIC_EFFECTIVE,关键词匹配: ss_cache
+内存管理,storage_meta_cache_priority,10,"storage meta cache priority. Range:[1, )",CACHE,DYNAMIC_EFFECTIVE,关键词匹配: cache_priority
+CPU调度,sync_io_thread_count,0,"The number of io threads for synchronizing request on each device. The default value is 0. Range: [0,1024] in integer",OBSERVER,DYNAMIC_EFFECTIVE,关键词匹配: thread
+内存管理,tablet_ls_cache_priority,1000,"tablet ls cache priority. Range:[1, )",CACHE,DYNAMIC_EFFECTIVE,关键词匹配: cache_priority
+磁盘IO,temporary_file_max_disk_size,0M,"maximum disk usage of temporary file on a single node, 0 means no limit. Range: [0,+∞)",TENANT,DYNAMIC_EFFECTIVE,关键词匹配: disk_
+CPU调度,tenant_sql_login_thread_count,0,"the number of threads for sql login request of each tenant. Range: [0, 32] in integer, 0 stands for unit_min_cpu",TENANT,DYNAMIC_EFFECTIVE,"关键词匹配: info:cpu, thread"
+CPU调度,tenant_sql_net_thread_count,0,"the number of mysql I/O threads for a tenant. Range: [0, 64] in integer, 0 stands for unit_min_cpu",TENANT,DYNAMIC_EFFECTIVE,"关键词匹配: info:cpu, thread"
+CPU调度,tenant_task_queue_size,16384,"the size of the task queue for each tenant. Range: [1024,+∞)",OBSERVER,DYNAMIC_EFFECTIVE,关键词匹配: queue
+SQL执行,trace_log_slow_query_watermark,1s,"the threshold of execution time (in milliseconds) of a query beyond which it is considered to be \'slow query\'. Range: [1ms,+∞)",OBSERVER,DYNAMIC_EFFECTIVE,关键词匹配: trace_log_slow
+CPU调度,ttl_thread_score,0,"the current work thread score of ttl thread. Range: [0,100] in integer. Especially, 0 means default value",OBSERVER,DYNAMIC_EFFECTIVE,关键词匹配: thread
+内存管理,user_block_cache_priority,1,"user block cache priority. Range:[1, )",CACHE,DYNAMIC_EFFECTIVE,"关键词匹配: cache_priority, block_cache"
+内存管理,user_row_cache_priority,1,"user row cache priority. Range:[1, )",CACHE,DYNAMIC_EFFECTIVE,"关键词匹配: cache_priority, row_cache"
+CPU调度,vector_index_optimization_concurrency,2,"the vector index async task parallelism. Range: [1,256] in integer. Especially, 2 means default value",OBSERVER,DYNAMIC_EFFECTIVE,"关键词匹配: concurrency, info:parallel"
+CPU调度,workers_per_cpu_quota,10,"the ratio(integer) between the number of system allocated workers vs the maximum number of threads that can be scheduled concurrently. Range: [2, 20]",TENANT,DYNAMIC_EFFECTIVE,"关键词匹配: cpu, worker, info:thread"
+磁盘IO,writing_throttling_maximum_duration,2h,"maximum duration of writting throttling(in minutes), max value is 3 days",TRANS,DYNAMIC_EFFECTIVE,关键词匹配: writing_throttling
+磁盘IO,writing_throttling_trigger_percentage,60,"the threshold of the size of the mem store when writing_limit will be triggered. Rang:(0,100]. setting 100 means turn off writing limit",TRANS,DYNAMIC_EFFECTIVE,关键词匹配: writing_throttling
+SQL执行,_bloom_filter_enabled,True,enable join bloom filter,OBSERVER,DYNAMIC_EFFECTIVE,关键词匹配: bloom_filter
+SQL执行,_bloom_filter_ratio,3,"The px bloom filter false-positive rate. Range: [0,100]",TENANT,DYNAMIC_EFFECTIVE,关键词匹配: bloom_filter
+内存管理,_cache_wash_interval,200ms,specify interval of cache background wash,OBSERVER,DYNAMIC_EFFECTIVE,关键词匹配: cache_wash
+内存管理,_chunk_row_store_mem_limit,0M,"the maximum size of memory used by ChunkRowStore, 0 means follow operator's setting. Range: [0, +∞)",OBSERVER,DYNAMIC_EFFECTIVE,"关键词匹配: mem_limit, _chunk_row_store"
+内存管理,_ctx_memory_limit,,specifies tenant ctx memory limit.,TENANT,DYNAMIC_EFFECTIVE,"关键词匹配: memory_limit, _ctx_memory"
+磁盘IO,_datafile_usage_lower_bound_percentage,10,"the percentage of disk space usage lower bound to trigger datafile shrink. Range: [5,99] in integer",SSTABLE,DYNAMIC_EFFECTIVE,关键词匹配: datafile
+磁盘IO,_datafile_usage_upper_bound_percentage,90,"the percentage of disk space usage upper bound to trigger datafile extend. Range: [5,99] in integer",SSTABLE,DYNAMIC_EFFECTIVE,关键词匹配: datafile
+磁盘IO,_data_storage_io_timeout,10s,"io timeout for data storage, Range [1s,600s]. The default value is 10s",OBSERVER,DYNAMIC_EFFECTIVE,"关键词匹配: io_, _io_"
+磁盘IO,_disable_record_outrow_lob_in_clog,False,Whether to force outrow lob data to be written to CLOG for OBCDC synchronization when lob columns are not updated,TENANT,DYNAMIC_EFFECTIVE,关键词匹配: clog
+CPU调度,_dop_of_collect_external_table_statistics,0,parallelism of pull statistics of external table,TENANT,DYNAMIC_EFFECTIVE,关键词匹配: info:parallel
+CPU调度,_enable_ddl_worker_isolation,False,a switch controling ddl thread isolation,ROOT_SERVICE,DYNAMIC_EFFECTIVE,"关键词匹配: worker, info:thread"
+磁盘IO,_enable_external_table_disk_cache,True,enable external table disk cache,OBSERVER,DYNAMIC_EFFECTIVE,关键词匹配: disk_
+SQL执行,_enable_hash_join_hasher,1,"which hash function to choose for hash join 1: murmurhash, 2: crc, 4: xxhash",TENANT,DYNAMIC_EFFECTIVE,关键词匹配: hash_join
+SQL执行,_enable_hash_join_processor,7,"which path to process for hash join, default 7 to auto choose 1: nest loop, 2: recursive, 4: in-memory",TENANT,DYNAMIC_EFFECTIVE,关键词匹配: hash_join
+SQL执行,_enable_index_merge,False,enable index merge optimization,OBSERVER,DYNAMIC_EFFECTIVE,关键词匹配: index_merge
+SQL执行,_enable_index_merge_intersect_bitmap,True,enable bitmap optimization for index merge intersect,OBSERVER,DYNAMIC_EFFECTIVE,关键词匹配: index_merge
+CPU调度,_enable_more_aggressive_dynamic_worker,True,specifies whether worker count increases more aggressive.,TENANT,DYNAMIC_EFFECTIVE,关键词匹配: worker
+CPU调度,_enable_numa_aware,False,"NUMA awareness switch, which, when enabled, allows threads to bind cores with NUMA affinity.",OBSERVER,STATIC_EFFECTIVE,关键词匹配: info:thread
+CPU调度,_enable_parallel_das_dml,False,"By default, the das service is allowed to use multiple threads to submit das tasks",OBSERVER,DYNAMIC_EFFECTIVE,"关键词匹配: info:thread, parallel"
+CPU调度,_enable_parallel_minor_merge,True,specifies whether enable parallel minor merge. Value: True:turned on;  False: turned off,TENANT,DYNAMIC_EFFECTIVE,关键词匹配: parallel
+CPU调度,_enable_parallel_redo_logging,True,enable parallel write redo log.,OBSERVER,DYNAMIC_EFFECTIVE,关键词匹配: parallel
+CPU调度,_enable_parallel_table_creation,True,specifies whether create table parallelly. Value:  True: create table parallelly;  False: create table serially,ROOT_SERVICE,DYNAMIC_EFFECTIVE,关键词匹配: parallel
+CPU调度,_enable_parallel_tenant_creation,True,Enable or disable parallel create meta and user tenants.,OBSERVER,DYNAMIC_EFFECTIVE,关键词匹配: parallel
+SQL执行,_enable_plan_cache_mem_diagnosis,False,wether turn plan cache ref count diagnosis on,OBSERVER,DYNAMIC_EFFECTIVE,关键词匹配: plan_cache
+SQL执行,_enable_sql_audit_filter_pushdown,True,Enable or disable sql audit filter pushdown.,OBSERVER,DYNAMIC_EFFECTIVE,关键词匹配: sql_audit
+SQL执行,_enable_sql_audit_query_sql,False,Control whether to use sql_audit_query_sql.,OBSERVER,DYNAMIC_EFFECTIVE,关键词匹配: sql_audit
+CPU调度,_enable_tenant_sql_net_thread,True,"Dispatch mysql request to each tenant with True, or disable with False",OBSERVER,DYNAMIC_EFFECTIVE,关键词匹配: thread
+CPU调度,_enable_tree_based_io_scheduler,True,A switch that allows enabling the tree-based IO scheduler.Value: True: allowed; False: disabled,OBSERVER,DYNAMIC_EFFECTIVE,关键词匹配: scheduler
+SQL执行,_enable_two_phase_fts_index_merge,False,Control whether to enable two-phase execution for index-merge-and with full-text index and scalar index,OBSERVER,DYNAMIC_EFFECTIVE,关键词匹配: index_merge
+CPU调度,_faststack_req_queue_size_threshold,0,"When the size of the req_queue reaches this threshold, the obstack will be collected automatically. Default: 0, means set off. Range: [0, +∞)",OBSERVER,DYNAMIC_EFFECTIVE,关键词匹配: queue
+SQL执行,_force_hash_join_spill,False,force hash join to dump after get all build hash table Value:  True:turned on  False: turned off,TENANT,DYNAMIC_EFFECTIVE,关键词匹配: hash_join
+内存管理,_fuse_row_cache_activate_threshold,6,Determine if queries should use fuse_row_cache based on a configurable cache hit rate threshold.,TENANT,DYNAMIC_EFFECTIVE,"关键词匹配: row_cache, fuse_row_cache"
+内存管理,_hash_area_size,32M,"size of maximum memory that could be used by HASH JOIN. Range: [4M,+∞)",OBSERVER,DYNAMIC_EFFECTIVE,关键词匹配: _hash_area
+SQL执行,_hash_join_enabled,True,enable/disable hash join,TENANT,DYNAMIC_EFFECTIVE,关键词匹配: hash_join
+CPU调度,_io_callback_thread_count,0,"The number of io callback threads. The default value is 0. Range: [0,128] in integer. If not specified, The number of threads is dynamically configured according to the memory size",OBSERVER,DYNAMIC_EFFECTIVE,关键词匹配: thread
+磁盘IO,_io_read_batch_size,0K,"Maximum batch size in one read io request. Range:[0K,16M]",SSTABLE,DYNAMIC_EFFECTIVE,"关键词匹配: io_, _io_"
+磁盘IO,_io_read_redundant_limit_percentage,0,"Maximum percentage of redundant size in one read io request, redundant data means blocks in the middle of the batch that hit in cache or filtered by skipping index but must be read. Range:[0,99]",SSTABLE,DYNAMIC_EFFECTIVE,"关键词匹配: io_, _io_"
+CPU调度,_log_writer_parallelism,3,the number of parallel log writer threads that can be used to write redo log entries to disk. ,LOGSERVICE,STATIC_EFFECTIVE,"关键词匹配: info:thread, parallel"
+CPU调度,_max_px_workers_per_cpu,1,"The upper limit of PX workers that each CPU can carry. Range: [1,30]",OBSERVER,DYNAMIC_EFFECTIVE,"关键词匹配: cpu, worker"
+内存管理,_mds_memory_limit_percentage,10,"Used to control the upper limit percentage of memory resources that the Mds module can use. Range:(0, 100)",TENANT,DYNAMIC_EFFECTIVE,"关键词匹配: memory_limit, _mds_memory"
+内存管理,_memstore_limit_percentage,0,"used in calculating the value of MEMSTORE_LIMIT parameter: _memstore_limit_percentage = memstore_limit / memory_size, where MEMORY_SIZE is determined when the tenant is created. Range: [0, 100). 1. th",TENANT,DYNAMIC_EFFECTIVE,关键词匹配: memstore
+磁盘IO,_minor_compaction_amplification_factor,0,"thre L1 compaction write amplification factor, 0 means default 25, Range: [0,100] in integer",TENANT,DYNAMIC_EFFECTIVE,关键词匹配: minor_compact
+SQL执行,_ndv_runtime_bloom_filter_size,True,whether to use NDV to build a bloom filter in runtime filter.Value:  True:turned on  False: turned off,OBSERVER,DYNAMIC_EFFECTIVE,关键词匹配: bloom_filter
+SQL执行,_nested_loop_join_enabled,True,enable/disable nested loop join,TENANT,DYNAMIC_EFFECTIVE,关键词匹配: nested_loop
+磁盘IO,_no_logging,False,set true to skip writing ddl clog when all server using the same oss in shared storage mode,TENANT,DYNAMIC_EFFECTIVE,关键词匹配: info:clog
+磁盘IO,_object_storage_io_timeout,20s,"io timeout for object storage, Range [1s,1200s]. The default value is 20s",OBSERVER,DYNAMIC_EFFECTIVE,"关键词匹配: io_, _io_"
+磁盘IO,_ob_ash_disk_write_enable,True,enable active session history early flush,OBSERVER,DYNAMIC_EFFECTIVE,关键词匹配: disk_
+CPU调度,_ob_enable_background_thread_auto_adapt,True,specifies whether the tenant's background thread auto adapt is enabledValue: True:turned on;  False: turned off,TENANT,DYNAMIC_EFFECTIVE,关键词匹配: thread
+CPU调度,_ob_enable_dynamic_worker,True,specifies whether worker count increases when all workers were in blocking.,TENANT,DYNAMIC_EFFECTIVE,关键词匹配: worker
+CPU调度,_ob_enable_standby_db_parallel_log_transport,True,Specifies whether the parallel log transport protocol is enabled on the standby database. The parallel log transport protocol is enabled only if this parameter is true and the primary database is comp,LOGSERVICE,DYNAMIC_EFFECTIVE,关键词匹配: parallel
+CPU调度,_ob_max_thread_num,0,"ob max thread number upper limit of observer thread count. Range: [0, 10000), 0 means no limit.",TENANT,DYNAMIC_EFFECTIVE,关键词匹配: thread
+SQL执行,_ob_plan_cache_auto_flush_interval,0s,"time interval for auto periodic flush plan cache. Range: [0s, +∞)",OBSERVER,DYNAMIC_EFFECTIVE,"关键词匹配: plan_cache, plan_cache_auto_flush"
+SQL执行,_ob_plan_cache_gc_strategy,REPORT,"OFF: disabled, REPORT: check leaked cache object infos only, AUTO: check and release leaked cache obj.",OBSERVER,DYNAMIC_EFFECTIVE,"关键词匹配: plan_cache, plan_cache_gc"
+CPU调度,_ob_pl_compile_max_concurrency,4,The maximum number of threads that an observer node can compile PL concurrently.,OBSERVER,DYNAMIC_EFFECTIVE,"关键词匹配: info:thread, concurrency"
+SQL执行,_optimizer_sortmerge_join_enabled,True,enable/disable merge join,TENANT,DYNAMIC_EFFECTIVE,关键词匹配: sortmerge_join
+CPU调度,_parallel_ddl_control,,switch for parallel capability of parallel DDL,ROOT_SERVICE,DYNAMIC_EFFECTIVE,关键词匹配: parallel
+CPU调度,_parallel_max_active_sessions,0,"max active parallel sessions allowed for tenant. Range: [0,+∞)",OBSERVER,DYNAMIC_EFFECTIVE,关键词匹配: parallel
+CPU调度,_parallel_min_message_pool,16M,"DTL message buffer pool reserve the mininum size after extend the size. Range: [16M,8G]",TENANT,DYNAMIC_EFFECTIVE,关键词匹配: parallel
+CPU调度,_parallel_redo_logging_trigger,16M,"size of single transaction's pending redo log to trigger parallel writes redo log. Range: [0B,+∞)",OBSERVER,DYNAMIC_EFFECTIVE,关键词匹配: parallel
+CPU调度,_parallel_server_sleep_time,1,"sleep time between get channel data in millisecond. Range: [0, 2000]",TENANT,DYNAMIC_EFFECTIVE,关键词匹配: parallel
+磁盘IO,_pc_adaptive_effectiveness_ratio_threshold,5,"minimum effectiveness ratio threshold for enabling adaptive plan cache. Range:[0, +∞]",TENANT,DYNAMIC_EFFECTIVE,关键词匹配: io_
+SQL执行,_pc_adaptive_min_exec_time_threshold,1s,"minimum execution time threshold for enabling adaptive plan cache. Range: [0, +∞]",TENANT,DYNAMIC_EFFECTIVE,关键词匹配: pc_adaptive
+CPU调度,_pdml_thread_cache_size,2M,"The cache size of per pdml thread.Range:[1B, )",OBSERVER,DYNAMIC_EFFECTIVE,关键词匹配: thread
+内存管理,_pipelined_table_function_memory_limit,524288000,"pipeline table function result set memory size limit. default 524288000 (500M), Range: [1024,18446744073709551615]",OBSERVER,DYNAMIC_EFFECTIVE,关键词匹配: memory_limit
+SQL执行,_preset_runtime_bloom_filter_size,False,Whether build runtime bloom filter with row count estimated by optimizor.Value:  True:turned on  False: turned off,OBSERVER,DYNAMIC_EFFECTIVE,关键词匹配: bloom_filter
+磁盘IO,_private_buffer_size,16K,"[0B,)the trigger remaining data size within transaction for immediate logging, 0B represents not trigger immediate loggingRange: [0B, total size of memory]",OBSERVER,DYNAMIC_EFFECTIVE,关键词匹配: _private_buffer
+SQL执行,_px_bloom_filter_group_size,auto,"specifies the px bloom filter each group size in sending to the other sqcRange: [1, +∞) or auto, the default value is auto",OBSERVER,DYNAMIC_EFFECTIVE,关键词匹配: bloom_filter
+CPU调度,_px_join_skew_handling,True,enables skew handling for parallel joins. The  default value is True.,OBSERVER,DYNAMIC_EFFECTIVE,关键词匹配: info:parallel
+CPU调度,_px_join_skew_minfreq,30,"sets minimum frequency(%) for skewed value for parallel joins. Range: [1, 100] in integer",OBSERVER,DYNAMIC_EFFECTIVE,关键词匹配: info:parallel
+内存管理,_px_max_message_pool_pct,40,"The maxinum percent of tenant memory that DTL message buffer pool can alloc memory. Range: [0,90]",TENANT,DYNAMIC_EFFECTIVE,关键词匹配: _px_max_message
+CPU调度,_px_max_pipeline_depth,2,"max parallel execution pipeline depth, range: [2,3]",TENANT,DYNAMIC_EFFECTIVE,关键词匹配: info:parallel
+CPU调度,_px_object_sampling,200,"[1, 100000]parallel query sampling for base objects (100000 = 100%)",OBSERVER,DYNAMIC_EFFECTIVE,关键词匹配: info:parallel
+CPU调度,_px_worker_share_plan_enabled,True,Enable parallel execution optimization by sharing plan and only serializing necessary expressions.,OBSERVER,DYNAMIC_EFFECTIVE,"关键词匹配: worker, info:parallel"
+SQL执行,_query_record_size_limit,65536,"set sql_audit and plan stat query sql size. Range: [0,67108864] in integer in integer.",OBSERVER,DYNAMIC_EFFECTIVE,关键词匹配: info:sql_audit
+磁盘IO,_rebuild_replica_log_lag_threshold,0M,"size of clog files that a replica lag behind leader to trigger rebuild, 0 means never trigger rebuild on purpose. Range: [0, +∞)",TRANS,DYNAMIC_EFFECTIVE,关键词匹配: info:clog
+磁盘IO,_restore_io_max_retry_count,3,"max retry times for restore when encounting io errorRange: [0,64] in integer",OBSERVER,DYNAMIC_EFFECTIVE,"关键词匹配: io_, _io_"
+SQL执行,_send_bloom_filter_size,1024,"Set send bloom filter slice sizeRange: [1, +∞)",OBSERVER,DYNAMIC_EFFECTIVE,关键词匹配: bloom_filter
+CPU调度,_server_full_schema_refresh_parallelism,REQUEST,"specifies whether observer's full schema refresh is request-level parallelism or object-level parallelism.values: REQUEST, OBJECT",OBSERVER,DYNAMIC_EFFECTIVE,关键词匹配: parallel
+内存管理,_sort_area_size,32M,"size of maximum memory that could be used by SORT. Range: [2M,+∞)",OBSERVER,DYNAMIC_EFFECTIVE,关键词匹配: _sort_area
+内存管理,_ss_mem_macro_cache_memory_limit_percentage,5,"the maximum percentage of tenant memory size used by mem_macro_cache in shared_stoarge mode, Range: [0, 50]",TENANT,DYNAMIC_EFFECTIVE,关键词匹配: memory_limit
+内存管理,_ss_micro_cache_memory_percentage,20,"the percentage of tenant memory size used by microblock_cache in shared_stoarge mode, Range: [1, 50]",TENANT,DYNAMIC_EFFECTIVE,关键词匹配: info:block_cache
+CPU调度,_stall_threshold_for_dynamic_worker,3ms,threshold of dynamic worker works,OBSERVER,DYNAMIC_EFFECTIVE,关键词匹配: worker
+内存管理,_storage_meta_memory_limit_percentage,20,"maximum memory for storage meta, as a percentage of total tenant memory. Range: [0, 50), percentage, 0 means no limit to storage meta memory",TENANT,DYNAMIC_EFFECTIVE,"关键词匹配: memory_limit, storage_meta_mem"
+CPU调度,_stream_rpc_max_wait_timeout,1200s,the maximum timeout for a tenant worker thread to wait for the next request while processing streaming RPC,RPC,DYNAMIC_EFFECTIVE,"关键词匹配: info:worker, info:thread"
+内存管理,_temporary_file_io_area_size,1,"memory buffer size of temporary file, as a percentage of total tenant memory. Range: [0, 50), percentage",TENANT,DYNAMIC_EFFECTIVE,关键词匹配: _temporary_file_io_area
+CPU调度,_trx_max_log_cb_limit,16,Control the upper limit of TxLogCbs involved in the participant to manage the maximum concurrency of  submiting logs in a transaction,TENANT,DYNAMIC_EFFECTIVE,关键词匹配: info:concurrency
+内存管理,_tx_data_memory_limit_percentage,20,"used to control the upper limit percentage of memory resources that the TxData module can use. Range:(0, 100)",TENANT,DYNAMIC_EFFECTIVE,"关键词匹配: memory_limit, _tx_data_memory"
+内存管理,_tx_share_memory_limit_percentage,0,"Used to control the percentage of tenant memory limit that multiple modules in the transaction layer can collectively use. This primarily includes user data (MemTable), transaction data (TxData), etc.",TENANT,DYNAMIC_EFFECTIVE,"关键词匹配: memory_limit, info:memstore, _tx_share_memory, info:ob_vector_memory"
+CPU调度,_wait_interval_after_parallel_ddl,30s,time interval for waiting other servers to refresh schema after parallel ddl is done,OBSERVER,DYNAMIC_EFFECTIVE,关键词匹配: parallel
+CPU调度,_xa_gc_interval,1h,specifies the scan interval of the gc worker,OBSERVER,DYNAMIC_EFFECTIVE,关键词匹配: info:worker
+内存管理,__easy_memory_limit,4G,"max memory size which can be used by libeasy. The default value is 4G. Range: [256M,)",OBSERVER,DYNAMIC_EFFECTIVE,关键词匹配: memory_limit
+内存管理,__easy_memory_reserved_percentage,0,"the percentage of easy memory reserved size. The default value is 0. Range: [0,100]",OBSERVER,DYNAMIC_EFFECTIVE,关键词匹配: memory_reserved

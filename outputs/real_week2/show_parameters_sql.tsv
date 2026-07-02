@@ -1,0 +1,19 @@
+zone	svr_type	svr_ip	svr_port	name	data_type	value	info	section	scope	source	edit_level	default_value	isdefault
+zone1	observer	172.17.0.2	2882	sql_protocol_min_tls_version	STRING	none	SQL SSL control options, used to specify the minimum SSL/TLS version number. values: none, TLSv1, TLSv1.1, TLSv1.2, TLSv1.3	OBSERVER	CLUSTER	DEFAULT	DYNAMIC_EFFECTIVE	none	1
+zone1	observer	172.17.0.2	2882	sql_net_thread_count	INT	0	the number of global mysql I/O threads. Range: [0, 64] in integer, default value is 0, 0 stands for old value GCONF.net_thread_count	OBSERVER	CLUSTER	DEFAULT	DYNAMIC_EFFECTIVE	0	1
+zone1	observer	172.17.0.2	2882	sql_login_thread_count	INT	0	the number of threads for sql login request. Range: [0, 32] in integer, 0 stands for use default thread count defined in TG.the default thread count for login request in TG is normal:6 mini-mode:2	OBSERVER	CLUSTER	DEFAULT	DYNAMIC_EFFECTIVE	0	1
+zone1	observer	172.17.0.2	2882	location_cache_refresh_sql_timeout	TIME	1s	The timeout used for refreshing location cache by SQL. Range: [1ms, +∞)	LOCATION_CACHE	CLUSTER	DEFAULT	DYNAMIC_EFFECTIVE	1s	1
+zone1	observer	172.17.0.2	2882	enable_sql_operator_dump	BOOL	True	specifies whether sql operators (sort/hash join/material/window function/interm result/...) allowed to write to disk	OBSERVER	CLUSTER	DEFAULT	DYNAMIC_EFFECTIVE	True	1
+zone1	observer	172.17.0.2	2882	enable_sql_audit	BOOL	True	specifies whether SQL audit is turned on. The default value is TRUE. Value: TRUE: turned on FALSE: turned off	OBSERVER	CLUSTER	DEFAULT	DYNAMIC_EFFECTIVE	true	1
+zone1	observer	172.17.0.2	2882	internal_sql_execute_timeout	TIME	30s	the number of microseconds an internal DML request is permitted to execute before it is terminated. Range: [1000us, 1h]	OBSERVER	CLUSTER	DEFAULT	DYNAMIC_EFFECTIVE	30s	1
+zone1	observer	172.17.0.2	2882	mysql_port	INT	2881	port number for mysql connection. Range: (1024, 65536) in integer	OBSERVER	CLUSTER	DEFAULT	DYNAMIC_EFFECTIVE	2881	1
+zone1	observer	172.17.0.2	2882	sql_plan_management_mode	STRING	Disable	Specifies how spm work."Disable" represent disable spm (default value)."OnlineEvolve" represent evolve plan online.	TENANT	TENANT	DEFAULT	DYNAMIC_EFFECTIVE	Disable	1
+zone1	observer	172.17.0.2	2882	tenant_sql_net_thread_count	INT	0	the number of mysql I/O threads for a tenant. Range: [0, 64] in integer, 0 stands for unit_min_cpu	TENANT	TENANT	DEFAULT	DYNAMIC_EFFECTIVE	0	1
+zone1	observer	172.17.0.2	2882	tenant_sql_login_thread_count	INT	0	the number of threads for sql login request of each tenant. Range: [0, 32] in integer, 0 stands for unit_min_cpu	TENANT	TENANT	DEFAULT	DYNAMIC_EFFECTIVE	0	1
+zone1	observer	172.17.0.2	2882	enable_sql_extension	BOOL	False	specifies whether to allow use some oracle mode features in mysql mode	OBSERVER	TENANT	DEFAULT	DYNAMIC_EFFECTIVE	False	1
+zone1	observer	172.17.0.2	2882	plsql_v2_compatibility	BOOL	False	allows to control store routine compile action at DDL stage	OBSERVER	TENANT	DEFAULT	DYNAMIC_EFFECTIVE	False	1
+zone1	observer	172.17.0.2	2882	plsql_debug	BOOL	False	specifies whether or not PL/SQL library units will be compiled for debugging	OBSERVER	TENANT	DEFAULT	DYNAMIC_EFFECTIVE	False	1
+zone1	observer	172.17.0.2	2882	plsql_code_type	STRING	native	specifies the compilation mode for PL/SQL library units	OBSERVER	TENANT	DEFAULT	DYNAMIC_EFFECTIVE	native	1
+zone1	observer	172.17.0.2	2882	audit_log_query_sql	STRING	ALL	how to record the query sql. ALL: record the original query sql. NONE: not to record query sql.	OBSERVER	TENANT	DEFAULT	DYNAMIC_EFFECTIVE	ALL	1
+zone1	observer	172.17.0.2	2882	sql_work_area	CAPACITY	1G	Work area memory limitation for tenant	OBSERVER	TENANT	DEFAULT	STATIC_EFFECTIVE	1G	1
+zone1	observer	172.17.0.2	2882	_enable_mysql_compatible_dates	BOOL	True	Specifies whether to use MySQL-compatible date format that allows for invalid dates.	TENANT	TENANT	DEFAULT	DYNAMIC_EFFECTIVE	False	0

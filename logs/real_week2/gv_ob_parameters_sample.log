@@ -1,0 +1,3 @@
+[2026-07-02T07:31:29Z] SQL: SELECT * FROM oceanbase.GV\$OB_PARAMETERS LIMIT 10
+bash: warning: setlocale: LC_ALL: cannot change locale (en_US.UTF-8)
+SUCCESS gv_ob_parameters_sample

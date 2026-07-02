@@ -1,0 +1,2 @@
+experiment_id,workload_type,param_name,test_value,qps,avg_latency_ms,p95_latency_ms,p99_latency_ms,error_count,start_time,end_time,status,note
+1,tpcc,cpu_quota_concurrency,4,,,,,0,2026-07-02T06:42:54Z,2026-07-02T06:42:54Z,dry_run,"BenchmarkSQL 未安装，已生成 dry-run 结果"

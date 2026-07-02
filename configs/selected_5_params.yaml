@@ -1,0 +1,65 @@
+- param_name: cpu_quota_concurrency
+  category: CPU调度
+  original_value: '10'
+  test_value_1: '4'
+  test_value_2: '8'
+  test_value_3: '10'
+  test_value_4: '16'
+  workload_tpcc: 'yes'
+  workload_tpch: 'yes'
+  expected_impact: 影响并发执行、后台任务调度和高负载下排队时间
+  risk_level: medium
+  need_restart: 'no'
+  note: 需要人工确认官方文档默认值和范围；脚本不会自动执行 ALTER SYSTEM SET
+- param_name: memstore_limit_percentage
+  category: 内存管理
+  original_value: '0'
+  test_value_1: '0'
+  test_value_2: '20'
+  test_value_3: '40'
+  test_value_4: '60'
+  workload_tpcc: 'yes'
+  workload_tpch: 'yes'
+  expected_impact: 影响缓存命中、冻结频率和内存压力
+  risk_level: medium
+  need_restart: 'no'
+  note: 需要人工确认官方文档默认值和范围；脚本不会自动执行 ALTER SYSTEM SET
+- param_name: clog_io_isolation_mode
+  category: 磁盘IO
+  original_value: '1'
+  test_value_1: '1'
+  test_value_2: '2'
+  test_value_3: '1'
+  test_value_4: '1'
+  workload_tpcc: 'yes'
+  workload_tpch: 'yes'
+  expected_impact: 影响日志写入、刷盘、压缩和磁盘吞吐
+  risk_level: medium
+  need_restart: 'no'
+  note: 需要人工确认官方文档默认值和范围；脚本不会自动执行 ALTER SYSTEM SET
+- param_name: enable_sql_audit
+  category: SQL执行
+  original_value: 'True'
+  test_value_1: conservative
+  test_value_2: 'True'
+  test_value_3: aggressive
+  test_value_4: manual_confirm
+  workload_tpcc: 'yes'
+  workload_tpch: 'yes'
+  expected_impact: 影响 SQL 执行路径、审计开销和长查询调度
+  risk_level: medium
+  need_restart: 'no'
+  note: 需要人工确认官方文档默认值和范围；脚本不会自动执行 ALTER SYSTEM SET
+- param_name: large_query_worker_percentage
+  category: CPU调度
+  original_value: '30'
+  test_value_1: '10'
+  test_value_2: '20'
+  test_value_3: '30'
+  test_value_4: '40'
+  workload_tpcc: 'yes'
+  workload_tpch: 'yes'
+  expected_impact: 影响并发执行、后台任务调度和高负载下排队时间
+  risk_level: medium
+  need_restart: 'no'
+  note: 需要人工确认官方文档默认值和范围；脚本不会自动执行 ALTER SYSTEM SET

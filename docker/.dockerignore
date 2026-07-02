@@ -1,0 +1,52 @@
+# Git
+.git
+.gitignore
+.gitattributes
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+dist/
+build/
+.eggs/
+venv/
+ENV/
+env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+logs/
+*.log
+
+# Documentation
+README.md
+docs/
+
+# Tests
+tests/
+
+# Notebooks
+notebooks/
+.ipynb_checkpoints/
+
+# Data
+data/
+data_backup/
+
+# MLflow
+experiments/
+mlruns/

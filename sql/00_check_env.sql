@@ -1,0 +1,6 @@
+SELECT * FROM oceanbase.DBA_OB_SERVERS;
+SELECT * FROM oceanbase.DBA_OB_TENANTS;
+SHOW PARAMETERS LIKE 'memory_limit';
+SHOW PARAMETERS LIKE 'system_memory';
+SHOW PARAMETERS LIKE 'cpu_count';
+SELECT COUNT(*) AS param_count FROM oceanbase.GV$OB_PARAMETERS;

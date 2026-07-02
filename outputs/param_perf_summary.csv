@@ -1,0 +1,3 @@
+workload_type,param_name,status,rows,avg_qps,avg_latency_ms,avg_elapsed_ms
+tpcc,cpu_quota_concurrency,dry_run,1,,,
+tpch,cpu_quota_concurrency,dry_run,22,,,
