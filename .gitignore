@@ -69,6 +69,7 @@ models/
 # Benchmark results
 benchmarks/
 results/
+outputs/real_week2/.mpl_cache/
 
 # Temporary files
 tmp/
