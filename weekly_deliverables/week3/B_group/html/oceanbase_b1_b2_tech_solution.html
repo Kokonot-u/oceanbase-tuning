@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第三周 B1/B2 技术方案 · OceanBase 智能参数调优</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#EEF0EE;
+    --paper-2:#E5E8E4;
+    --ink:#11161C;
+    --ink-soft:#2A323B;
+    --console:#0B1620;
+    --console-2:#101F2B;
+    --console-line:#1E323E;
+    --teal:#127A79;
+    --teal-deep:#0B5F5E;
+    --teal-bright:#4FE0CE;
+    --amber:#C97F1F;
+    --amber-soft:#EAD9BC;
+    --slate:#57616D;
+    --line:#D6D9D1;
+    --line-strong:#B9BEB4;
+    --card:#FBFBF9;
+    --radius:2px;
+    --serif:'Source Serif 4', 'Songti SC', serif;
+    --grotesk:'Space Grotesk','PingFang SC',sans-serif;
+    --mono:'IBM Plex Mono','SFMono-Regular',monospace;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto;} }
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--serif);
+    font-size:16.5px;
+    line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 32px;}
+  @media (max-width:640px){ .wrap{padding:0 18px;} }
+
+  /* ---------- NAV ---------- */
+  .nav{
+    position:sticky;top:0;z-index:50;
+    background:rgba(238,240,238,0.86);
+    backdrop-filter:blur(10px);
+    -webkit-backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-inner{
+    max-width:1080px;margin:0 auto;padding:0 32px;
+    height:56px;display:flex;align-items:center;justify-content:space-between;
+    font-family:var(--mono);font-size:12.5px;letter-spacing:.02em;
+  }
+  .nav-brand{font-weight:600;color:var(--ink);white-space:nowrap;}
+  .nav-brand span{color:var(--teal);}
+  .nav-links{display:flex;gap:22px;overflow-x:auto;scrollbar-width:none;}
+  .nav-links::-webkit-scrollbar{display:none;}
+  .nav-links a{
+    color:var(--slate);text-decoration:none;white-space:nowrap;
+    padding:4px 2px;border-bottom:1px solid transparent;
+    transition:color .15s ease, border-color .15s ease;
+  }
+  .nav-links a:hover, .nav-links a.active{color:var(--ink);border-color:var(--teal);}
+  @media (max-width:760px){ .nav-inner{padding:0 18px;} .nav-links{gap:14px;} }
+
+  /* ---------- HERO ---------- */
+  .hero{padding:76px 0 54px;border-bottom:1px solid var(--line);}
+  .eyebrow{
+    font-family:var(--mono);font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--teal-deep);display:flex;align-items:center;gap:10px;margin-bottom:22px;
+  }
+  .eyebrow::before{content:"";width:22px;height:1px;background:var(--teal);display:inline-block;}
+  h1.title{
+    font-family:var(--grotesk);font-weight:600;
+    font-size:clamp(32px, 5.4vw, 56px);
+    line-height:1.15;letter-spacing:-0.01em;margin:0 0 22px;color:var(--ink);
+  }
+  .lede{
+    font-size:clamp(16.5px,1.9vw,19px);color:var(--ink-soft);max-width:62ch;margin:0 0 30px;
+  }
+  .meta-row{
+    display:flex;flex-wrap:wrap;gap:10px 12px;font-family:var(--mono);font-size:12.5px;color:var(--slate);
+    padding-top:20px;border-top:1px dashed var(--line-strong);
+  }
+  .meta-row .tag{
+    border:1px solid var(--line-strong);padding:4px 10px;border-radius:var(--radius);background:var(--card);
+  }
+  .status-badge{
+    display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:12px;
+    color:var(--amber);border:1px solid var(--amber-soft);background:#FBF3E6;
+    padding:6px 12px;border-radius:999px;margin-bottom:26px;
+  }
+  .status-badge .dot{width:6px;height:6px;border-radius:50%;background:var(--amber);}
+
+  .pipeline-mini{display:flex;align-items:center;gap:0;margin-top:38px;flex-wrap:wrap;}
+  .pipe-step{
+    font-family:var(--mono);font-size:12px;border:1px solid var(--line-strong);
+    background:var(--card);padding:9px 14px;border-radius:var(--radius);color:var(--ink-soft);
+  }
+  .pipe-step b{color:var(--ink);font-weight:600;}
+  .pipe-arrow{color:var(--teal);padding:0 10px;font-size:15px;}
+
+  /* ---------- SECTION SHELL ---------- */
+  section{padding:64px 0;border-bottom:1px solid var(--line);}
+  section:last-of-type{border-bottom:none;}
+  .sec-head{display:flex;align-items:baseline;gap:16px;margin-bottom:12px;flex-wrap:wrap;}
+  .sec-num{font-family:var(--mono);font-size:13px;color:var(--teal);}
+  h2.sec-title{
+    font-family:var(--grotesk);font-weight:600;font-size:clamp(24px,3.2vw,34px);
+    margin:0;color:var(--ink);letter-spacing:-0.01em;
+  }
+  .sec-sub{color:var(--slate);max-width:70ch;margin:6px 0 34px;font-size:15.5px;}
+
+  /* ---------- CARDS: baseline readouts ---------- */
+  .card-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:8px;}
+  @media (max-width:820px){ .card-grid{grid-template-columns:1fr;} }
+  .readout{
+    background:var(--card);border:1px solid var(--line-strong);border-radius:var(--radius);
+    padding:22px 20px;
+  }
+  .readout h3{
+    font-family:var(--mono);font-size:13px;text-transform:uppercase;letter-spacing:.04em;
+    color:var(--teal-deep);margin:0 0 14px;display:flex;justify-content:space-between;align-items:center;
+  }
+  .readout dl{margin:0;display:grid;grid-template-columns:auto auto;gap:6px 12px;}
+  .readout dt{font-family:var(--mono);font-size:12px;color:var(--slate);align-self:center;}
+  .readout dd{
+    margin:0;font-family:var(--mono);font-size:16px;font-weight:600;color:var(--ink);
+    text-align:right;align-self:center;
+  }
+  .env-strip{
+    font-family:var(--mono);font-size:12.5px;color:var(--ink-soft);
+    background:var(--card);border:1px solid var(--line-strong);border-radius:var(--radius);
+    padding:14px 18px;margin-bottom:22px;display:flex;flex-wrap:wrap;gap:6px 22px;
+  }
+  .env-strip b{color:var(--teal-deep);}
+
+  .top5-wrap{margin-top:30px;}
+  .top5-wrap h4{font-family:var(--grotesk);font-size:15px;margin:0 0 12px;color:var(--ink);}
+  .top5-list{display:grid;gap:1px;background:var(--line-strong);border:1px solid var(--line-strong);border-radius:var(--radius);overflow:hidden;}
+  .top5-item{background:var(--card);padding:12px 16px;display:grid;grid-template-columns:1.4fr 0.5fr 2.1fr;gap:14px;align-items:center;}
+  @media (max-width:700px){ .top5-item{grid-template-columns:1fr;gap:4px;padding:14px 16px;} }
+  .top5-item .pname{font-family:var(--mono);font-size:13.5px;color:var(--ink);font-weight:600;}
+  .top5-item .ptype{font-family:var(--mono);font-size:11px;color:var(--teal-deep);border:1px solid var(--teal);padding:2px 7px;border-radius:999px;justify-self:start;}
+  .top5-item .phint{font-size:14px;color:var(--ink-soft);}
+
+  /* ---------- DIAGRAM PANELS ---------- */
+  .diagram-panel{
+    border:1px solid var(--line-strong);border-radius:var(--radius);background:var(--card);
+    padding:20px 18px 10px;margin:30px 0 10px;
+  }
+  .diagram-panel svg{width:100%;height:auto;display:block;}
+  .diagram-caption{
+    font-family:var(--mono);font-size:12px;color:var(--slate);padding:10px 4px 4px;text-align:center;
+  }
+  .console-panel{
+    background:radial-gradient(1200px 400px at 50% -10%, var(--console-2), var(--console) 60%);
+    border:1px solid var(--console-line);border-radius:6px;padding:26px 20px 14px;margin:30px 0 10px;
+  }
+  .console-panel svg{width:100%;height:auto;display:block;}
+  .console-caption{
+    font-family:var(--mono);font-size:12px;color:#7FA6A6;text-align:center;padding:12px 6px 2px;
+  }
+  .loop-line{stroke-dasharray:6 8; animation: dash 3.2s linear infinite;}
+  @keyframes dash{ to{ stroke-dashoffset:-140; } }
+  @media (prefers-reduced-motion: reduce){ .loop-line{animation:none;} }
+
+  /* ---------- FEATURE / GROUP CARDS ---------- */
+  .feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:26px;}
+  @media (max-width:820px){ .feat-grid{grid-template-columns:1fr;} }
+  .feat-card{border:1px solid var(--line-strong);background:var(--card);border-radius:var(--radius);padding:20px;}
+  .feat-card .k{font-family:var(--mono);font-size:11px;color:var(--teal-deep);text-transform:uppercase;letter-spacing:.05em;}
+  .feat-card h4{font-family:var(--grotesk);font-size:16px;margin:8px 0 10px;color:var(--ink);}
+  .feat-card ul{margin:0;padding-left:18px;font-size:14px;color:var(--ink-soft);}
+  .feat-card li{margin-bottom:5px;}
+  .feat-card code{font-family:var(--mono);font-size:12.5px;background:var(--paper-2);padding:1px 5px;border-radius:2px;}
+
+  /* ---------- INTERFACE / CODE BLOCKS ---------- */
+  .iface-block{margin-top:22px;}
+  .iface-block h4{font-family:var(--grotesk);font-size:15px;margin:0 0 10px;color:var(--ink);}
+  .code-block{
+    background:var(--console);color:#D6E7E5;border-radius:6px;padding:18px 20px;
+    font-family:var(--mono);font-size:13px;line-height:1.75;overflow-x:auto;
+    border:1px solid var(--console-line);
+  }
+  .code-block .field{color:var(--teal-bright);}
+  .code-block .comment{color:#5C7A78;}
+  .code-block .num{color:var(--amber);}
+
+  table.data-table{width:100%;border-collapse:collapse;margin-top:10px;font-size:13.5px;}
+  table.data-table th, table.data-table td{
+    border:1px solid var(--line-strong);padding:9px 12px;text-align:left;vertical-align:top;
+  }
+  table.data-table th{
+    font-family:var(--mono);font-size:11.5px;text-transform:uppercase;letter-spacing:.03em;
+    background:var(--paper-2);color:var(--ink-soft);
+  }
+  table.data-table td{background:var(--card);color:var(--ink-soft);}
+  table.data-table td code{font-family:var(--mono);font-size:12px;color:var(--teal-deep);}
+
+  .divider-flow{
+    display:flex;align-items:center;gap:14px;margin:46px 0;font-family:var(--mono);font-size:12.5px;color:var(--slate);
+  }
+  .divider-flow .ln{flex:1;height:1px;background:var(--line-strong);}
+  .divider-flow .lbl{border:1px solid var(--line-strong);padding:6px 12px;border-radius:999px;background:var(--card);white-space:nowrap;}
+
+  .callout{
+    border-left:3px solid var(--amber);background:#FBF3E6;padding:14px 18px;margin-top:24px;
+    font-size:14.5px;color:var(--ink-soft);border-radius:0 var(--radius) var(--radius) 0;
+  }
+  .callout b{color:var(--amber);font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.04em;display:block;margin-bottom:4px;}
+
+  .step-list{list-style:none;margin:24px 0 0;padding:0;display:grid;gap:10px;}
+  .step-list li{
+    display:grid;grid-template-columns:34px 1fr;gap:14px;align-items:start;
+    border:1px solid var(--line-strong);background:var(--card);border-radius:var(--radius);padding:12px 16px;
+  }
+  .step-list .idx{font-family:var(--mono);color:var(--teal);font-weight:600;font-size:13px;}
+  .step-list p{margin:0;font-size:14.5px;color:var(--ink-soft);}
+  .step-list b{color:var(--ink);}
+
+  /* ---------- COMPARE TABLE ---------- */
+  .table-scroll{overflow-x:auto;margin-top:10px;border:1px solid var(--line-strong);border-radius:var(--radius);}
+  table.compare{width:100%;border-collapse:collapse;min-width:920px;font-size:13.5px;}
+  table.compare th, table.compare td{border:1px solid var(--line);padding:12px 14px;text-align:left;vertical-align:top;}
+  table.compare thead th{
+    font-family:var(--grotesk);font-weight:600;font-size:14px;background:var(--console);color:#EAF4F2;
+    position:sticky;top:56px;
+  }
+  table.compare thead th:first-child{background:var(--console-2);}
+  table.compare tbody th{
+    font-family:var(--mono);font-size:11.5px;text-transform:uppercase;letter-spacing:.03em;
+    background:var(--paper-2);color:var(--ink-soft);white-space:nowrap;
+  }
+  table.compare tbody td{background:var(--card);color:var(--ink-soft);}
+  table.compare tbody td.highlight{background:#F2F7F5;color:var(--ink);}
+
+  /* ---------- CONCLUSIONS ---------- */
+  .conclusion-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:26px;}
+  @media (max-width:760px){ .conclusion-grid{grid-template-columns:1fr;} }
+  .conclusion-card{
+    border:1px solid var(--line-strong);background:var(--card);border-radius:var(--radius);
+    padding:22px;position:relative;
+  }
+  .conclusion-card .num{
+    font-family:var(--grotesk);font-size:34px;font-weight:700;color:var(--teal);opacity:.9;
+    line-height:1;margin-bottom:10px;display:block;
+  }
+  .conclusion-card p{margin:0;font-size:14.5px;color:var(--ink-soft);}
+  .conclusion-card b{color:var(--ink);}
+
+  footer{padding:44px 0 60px;}
+  footer h4{font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--slate);margin:0 0 14px;}
+  footer ol{margin:0;padding-left:20px;color:var(--slate);font-size:13px;line-height:1.9;}
+  footer .foot-meta{margin-top:28px;font-family:var(--mono);font-size:11.5px;color:var(--slate);border-top:1px dashed var(--line-strong);padding-top:18px;}
+
+  /* ---------- SUBHEAD ---------- */
+  .subhead{
+    font-family:var(--grotesk);font-weight:600;font-size:15px;margin:36px 0 14px;color:var(--ink);
+    display:flex;align-items:center;gap:10px;
+  }
+  .subhead::before{content:"";width:16px;height:1px;background:var(--teal);display:inline-block;}
+
+  /* ---------- 2-COL FEATURE GRID ---------- */
+  .feat-grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:8px;}
+  @media (max-width:760px){ .feat-grid-2{grid-template-columns:1fr;} }
+  .feat-card.pos .k{color:var(--teal-deep);}
+  .feat-card.neg .k{color:var(--amber);}
+
+  /* ---------- STATUS GRID (completion) ---------- */
+  .status-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:8px;}
+  @media (max-width:760px){ .status-grid{grid-template-columns:1fr;} }
+  .status-col{border:1px solid var(--line-strong);background:var(--card);border-radius:var(--radius);padding:20px 22px;}
+  .status-col h4{font-family:var(--grotesk);font-size:15px;margin:0 0 14px;}
+  .status-col.done h4{color:var(--teal-deep);}
+  .status-col.todo h4{color:var(--amber);}
+  .status-col ul{margin:0;padding:0;list-style:none;display:grid;gap:9px;}
+  .status-col li{font-size:14px;color:var(--ink-soft);padding-left:22px;position:relative;}
+  .status-col.done li::before{content:"✓";position:absolute;left:0;top:0;color:var(--teal);font-weight:700;}
+  .status-col.todo li::before{content:"○";position:absolute;left:1px;top:1px;color:var(--amber);font-weight:700;}
+
+  .reveal{opacity:0;transform:translateY(10px);transition:opacity .5s ease, transform .5s ease;}
+  .reveal.in-view{opacity:1;transform:none;}
+  @media (prefers-reduced-motion: reduce){ .reveal{opacity:1;transform:none;transition:none;} }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="nav-brand">B1<span>/</span>B2<span> · 技术方案</span></div>
+    <div class="nav-links">
+      <a href="#baseline">基线对齐</a>
+      <a href="#b1">B1 影响因子</a>
+      <a href="#b2">B2 强化学习</a>
+      <a href="#compare">论文对比</a>
+      <a href="#official">官方对比</a>
+      <a href="#collab">跨组协同</a>
+      <a href="#conclusions">落地结论</a>
+      <a href="#refs">参考资料</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow">OceanBase 智能参数调优 · B 组 · 第三周技术方案</div>
+    <h1 class="title">B1 参数影响因子分析 /<br>B2 深度强化学习调优<br>技术方案</h1>
+    <p class="lede">
+      把三篇论文的方法论落到当前 OceanBase 项目的真实数据链路上：用文档语义先验缩小证据空间，
+      用影响因子分析筛出值得调的参数，再用强化学习在受控动作空间内做闭环搜索——
+      而不是对着 347 个候选参数盲目试错。
+    </p>
+    <div class="pipeline-mini">
+      <div class="pipe-step">DB-BERT <b>文档 Hint</b></div>
+      <span class="pipe-arrow">→</span>
+      <div class="pipe-step">OtterTune <b>B1 影响因子</b></div>
+      <span class="pipe-arrow">→</span>
+      <div class="pipe-step">CDBTune <b>B2 强化学习</b></div>
+    </div>
+    <div class="meta-row">
+      <span class="tag">负责人 Wang</span>
+      <span class="tag">outputs/real_week2/</span>
+      <span class="tag">docs/real_week2/</span>
+      <span class="tag">docs/real_week3/b1_b2_interface_definition_v0.1.md</span>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- ============ BASELINE ============ -->
+  <section id="baseline">
+    <div class="sec-head"><span class="sec-num">00</span><h2 class="sec-title">与 real_week2 的现状对齐</h2></div>
+    <p class="sec-sub">
+      本方案不是重新起步，而是把第二周已经产出的真实数据当作 B1/B2 的初始状态：环境已就绪，
+      候选参数已筛出，三条 workload 的 baseline 已经真实压测完成，仅参数修改尚未执行。
+    </p>
+
+    <div class="env-strip">
+      <span><b>OceanBase</b> 5.7.25-OceanBase_CE-v4.4.2.1</span>
+      <span><b>cluster</b> obstandalone</span>
+      <span><b>tenant</b> test</span>
+      <span><b>database</b> week2_bench_wang</span>
+      <span><b>候选参数</b> 347 个（来自真实 SHOW PARAMETERS 导出）</span>
+    </div>
+
+    <div class="card-grid">
+      <div class="readout">
+        <h3>轻量 SQL</h3>
+        <dl>
+          <dt>平均延迟</dt><dd>139.228 ms</dd>
+          <dt>P95</dt><dd>178.12 ms</dd>
+          <dt>P99</dt><dd>239.711 ms</dd>
+          <dt>吞吐</dt><dd>7.17 ops/s</dd>
+        </dl>
+      </div>
+      <div class="readout">
+        <h3>TPC-C</h3>
+        <dl>
+          <dt>平均延迟</dt><dd>312.3 ms</dd>
+          <dt>P95</dt><dd>716.0 ms</dd>
+          <dt>P99</dt><dd>726.0 ms</dd>
+          <dt>吞吐</dt><dd>1.826 txn/s</dd>
+          <dt>tpmC</dt><dd>46.95</dd>
+        </dl>
+      </div>
+      <div class="readout">
+        <h3>TPC-H · 22 查询</h3>
+        <dl>
+          <dt>总耗时</dt><dd>3370.68 ms</dd>
+          <dt>平均</dt><dd>153.213 ms</dd>
+          <dt>P95</dt><dd>192.592 ms</dd>
+          <dt>P99</dt><dd>285.852 ms</dd>
+          <dt>吞吐</dt><dd>6.5269 q/s</dd>
+        </dl>
+      </div>
+    </div>
+
+    <div class="top5-wrap">
+      <h4>Top100 中的初始 Top5 候选参数</h4>
+      <div class="top5-list">
+        <div class="top5-item"><span class="pname">cpu_quota_concurrency</span><span class="ptype">数值</span><span class="phint">并发调度配额</span></div>
+        <div class="top5-item"><span class="pname">memstore_limit_percentage</span><span class="ptype">数值/百分比</span><span class="phint">内存水位与冻结阈值</span></div>
+        <div class="top5-item"><span class="pname">clog_io_isolation_mode</span><span class="ptype">枚举</span><span class="phint">日志 IO 隔离模式</span></div>
+        <div class="top5-item"><span class="pname">enable_sql_audit</span><span class="ptype">布尔</span><span class="phint">SQL 审计开关</span></div>
+        <div class="top5-item"><span class="pname">large_query_worker_percentage</span><span class="ptype">数值/百分比</span><span class="phint">大查询工作线程占比</span></div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <b>状态说明</b>
+      当前所有参数实验仍处于 baseline / 计划阶段：三条 workload 已真实执行并记录，
+      但共享 test 租户尚未开放安全的参数修改窗口。B1/B2 的设计必须把这一约束当作一等公民，而不是事后补丁。
+    </div>
+  </section>
+
+  <!-- ============ B1 ============ -->
+  <section id="b1">
+    <div class="sec-head"><span class="sec-num">01</span><h2 class="sec-title">B1 · 参数影响因子分析</h2></div>
+    <p class="sec-sub">
+      目标：把 Top100「命中关键词的候选表」升级为「可解释的证据链」——不只告诉 B2 调哪个参数，
+      还要说清楚为什么调、在什么 workload 下调。四条证据线并行采集，融合后再排序输出。
+    </p>
+
+    <div class="diagram-panel">
+      <svg viewBox="0 0 920 480" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="B1 证据融合流程图">
+        <defs>
+          <marker id="arrowLight" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M0,0 L10,5 L0,10 z" fill="#127A79"/>
+          </marker>
+        </defs>
+        <!-- connectors -->
+        <path d="M124,90 C300,90 300,255 414,255" fill="none" stroke="#B9BEB4" stroke-width="1.6"/>
+        <path d="M124,200 C300,200 300,255 414,255" fill="none" stroke="#B9BEB4" stroke-width="1.6"/>
+        <path d="M124,310 C300,310 300,255 414,255" fill="none" stroke="#B9BEB4" stroke-width="1.6"/>
+        <path d="M124,420 C300,420 300,255 414,255" fill="none" stroke="#B9BEB4" stroke-width="1.6"/>
+        <path d="M506,255 L768,255" fill="none" stroke="#127A79" stroke-width="2" marker-end="url(#arrowLight)"/>
+
+        <!-- input nodes -->
+        <g font-family="IBM Plex Mono, monospace">
+          <circle cx="90" cy="90" r="34" fill="#FBFBF9" stroke="#11161C" stroke-width="1.6"/>
+          <text x="90" y="95" text-anchor="middle" font-size="12" font-weight="600" fill="#11161C">KW</text>
+          <text x="90" y="140" text-anchor="middle" font-size="12.5" fill="#2A323B" font-family="Source Serif 4, serif">关键词 / 元信息分数</text>
+
+          <circle cx="90" cy="200" r="34" fill="#FBFBF9" stroke="#11161C" stroke-width="1.6"/>
+          <text x="90" y="205" text-anchor="middle" font-size="12" font-weight="600" fill="#11161C">DOC</text>
+          <text x="90" y="250" text-anchor="middle" font-size="12.5" fill="#2A323B" font-family="Source Serif 4, serif">文档语义 Hint</text>
+
+          <circle cx="90" cy="310" r="34" fill="#FBFBF9" stroke="#11161C" stroke-width="1.6"/>
+          <text x="90" y="315" text-anchor="middle" font-size="12" font-weight="600" fill="#11161C">WL</text>
+          <text x="90" y="360" text-anchor="middle" font-size="12.5" fill="#2A323B" font-family="Source Serif 4, serif">Workload 相关性</text>
+
+          <circle cx="90" cy="420" r="34" fill="#FBFBF9" stroke="#11161C" stroke-width="1.6"/>
+          <text x="90" y="425" text-anchor="middle" font-size="12" font-weight="600" fill="#11161C">HIST</text>
+          <text x="90" y="470" text-anchor="middle" font-size="12.5" fill="#2A323B" font-family="Source Serif 4, serif">历史实验重要性</text>
+
+          <!-- hub -->
+          <circle cx="460" cy="255" r="46" fill="#0B1620" stroke="#127A79" stroke-width="2"/>
+          <text x="460" y="250" text-anchor="middle" font-size="12.5" fill="#4FE0CE" font-weight="600">证据</text>
+          <text x="460" y="266" text-anchor="middle" font-size="12.5" fill="#4FE0CE" font-weight="600">融合</text>
+
+          <!-- output -->
+          <rect x="768" y="223" width="130" height="64" rx="4" fill="#FBFBF9" stroke="#127A79" stroke-width="1.8"/>
+          <text x="833" y="250" text-anchor="middle" font-size="12.5" font-weight="600" fill="#11161C">TopK 参数</text>
+          <text x="833" y="268" text-anchor="middle" font-size="11" fill="#57616D">+ 动作边界</text>
+        </g>
+      </svg>
+      <div class="diagram-caption">四条证据线（关键词 / 文档 Hint / workload 相关性 / 历史重要性）并行采集 → 加权融合 → 输出带边界的 TopK 参数表</div>
+    </div>
+
+    <div class="feat-grid">
+      <div class="feat-card">
+        <div class="k">参数特征</div>
+        <h4>来自 top100_performance_params_real.csv</h4>
+        <ul>
+          <li><code>category</code> 参数分类</li>
+          <li><code>scope</code> cluster / tenant</li>
+          <li><code>edit_level</code> 静态 / 动态生效</li>
+          <li><code>risk_level</code> 风险等级</li>
+          <li><code>value_range</code> 取值范围</li>
+        </ul>
+      </div>
+      <div class="feat-card">
+        <div class="k">Workload 特征</div>
+        <h4>三类真实 workload</h4>
+        <ul>
+          <li>轻量 SQL（连通性 / 小样本验证）</li>
+          <li>BenchmarkSQL / TPC-C（写入密集）</li>
+          <li>TPC-H 22 查询（大查询 / 内存密集）</li>
+          <li>对应运行指标向量</li>
+        </ul>
+      </div>
+      <div class="feat-card">
+        <div class="k">性能特征</div>
+        <h4>来自真实压测结果</h4>
+        <ul>
+          <li><code>avg / P95 / P99</code> latency</li>
+          <li><code>qps / tps</code> 吞吐</li>
+          <li><code>error_count</code> 错误数</li>
+          <li>后续补 CPU / 内存 / IO / 等待事件</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="iface-block">
+      <h4>Top5 参数假设（供后续实验验证）</h4>
+      <table class="data-table">
+        <thead><tr><th>参数</th><th>类型</th><th>机制假设</th><th>优先关注 workload</th></tr></thead>
+        <tbody>
+          <tr><td><code>cpu_quota_concurrency</code></td><td>数值</td><td>并发调度资源分配</td><td>TPC-C 并发排队 / TPC-H 大查询执行</td></tr>
+          <tr><td><code>memstore_limit_percentage</code></td><td>百分比</td><td>内存水位、冻结行为</td><td>TPC-C 写入密集路径</td></tr>
+          <tr><td><code>clog_io_isolation_mode</code></td><td>枚举</td><td>日志 IO 隔离</td><td>TPC-C 写事务日志路径</td></tr>
+          <tr><td><code>enable_sql_audit</code></td><td>布尔</td><td>观测能力 vs 额外开销权衡</td><td>两类 workload 均需评估开销</td></tr>
+          <tr><td><code>large_query_worker_percentage</code></td><td>百分比</td><td>大查询工作线程资源</td><td>TPC-H 大查询执行</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="iface-block">
+      <h4>B1 输出接口（供 B2 直接消费）</h4>
+      <div class="code-block"><span class="comment"># b1_parameter_candidates_exp001.csv</span>
+<span class="field">param_name</span>, category, scope, edit_level, risk_level, value_range,
+<span class="field">evidence_score</span>, hint_source, hint_confidence, applicable_workload
+
+<span class="comment"># b1_feature_matrix_exp001.csv</span>
+workload_metrics + <span class="field">param_values</span> + performance_targets
+
+<span class="comment"># b1_feature_importance_exp001.csv</span>
+param_name, <span class="field">importance_score</span>, method, workload
+
+<span class="comment"># b2_param_search_space_exp001.yaml —— B1 → B2 的交接文件</span>
+topK: [param_name, min, max, type, step, scope, edit_level, risk_level]</div>
+    </div>
+
+    <div class="callout">
+      <b>局限与应对</b>
+      当前既无 OceanBase 调优文档语料，也无历史参数实验样本：文档 Hint 先用规则 + LLM 抽取轻量版，
+      历史重要性列先留空占位，待真实参数实验产出后逐步回填，避免用空数据伪装成成熟模型。
+    </div>
+  </section>
+
+  <div class="divider-flow"><div class="ln"></div><div class="lbl">b2_param_search_space_exp001.yaml</div><div class="ln"></div></div>
+
+  <!-- ============ B2 ============ -->
+  <section id="b2">
+    <div class="sec-head"><span class="sec-num">02</span><h2 class="sec-title">B2 · 深度强化学习智能调优</h2></div>
+    <p class="sec-sub">
+      目标：把调参建模为连续控制问题，agent 只在 B1 缩小后的安全动作空间内闭环搜索——
+      不对 OceanBase 全参数空间做 RL，也不在共享租户上直接放开探索噪声。
+    </p>
+
+    <div class="console-panel">
+      <svg viewBox="0 0 600 460" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="B2 状态-动作-奖励闭环">
+        <defs>
+          <marker id="arrowDark" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M0,0 L10,5 L0,10 z" fill="#4FE0CE"/>
+          </marker>
+        </defs>
+        <!-- loop path (pentagon) -->
+        <path class="loop-line" d="M300,104 C 380,120 428,150 442.7,173.6
+                    C 452,210 452,270 388.2,341.4
+                    C 350,360 250,360 211.8,341.4
+                    C 148,270 148,210 157.3,173.6
+                    C 172,150 220,120 300,104 Z"
+              fill="none" stroke="#4FE0CE" stroke-width="1.6" opacity="0.85" marker-end="url(#arrowDark)"/>
+
+        <!-- dashed spokes to replay buffer -->
+        <line x1="211.8" y1="341.4" x2="278" y2="248" stroke="#3E5C63" stroke-width="1.3" stroke-dasharray="3 5"/>
+        <line x1="322" y1="248" x2="442.7" y2="173.6" stroke="#3E5C63" stroke-width="1.3" stroke-dasharray="3 5" marker-end="url(#arrowDark)"/>
+
+        <g font-family="IBM Plex Mono, monospace" font-size="12.5">
+          <!-- center: replay buffer -->
+          <rect x="240" y="205" width="120" height="60" rx="4" fill="#101F2B" stroke="#3E5C63" stroke-width="1.4"/>
+          <text x="300" y="230" text-anchor="middle" fill="#8FB8B6" font-size="11">Replay</text>
+          <text x="300" y="248" text-anchor="middle" fill="#8FB8B6" font-size="11">Buffer</text>
+
+          <!-- State -->
+          <circle cx="300" cy="70" r="38" fill="#0E1E28" stroke="#4FE0CE" stroke-width="1.8"/>
+          <text x="300" y="75" text-anchor="middle" fill="#EAF4F2" font-weight="600">State</text>
+
+          <!-- Agent -->
+          <circle cx="442.7" cy="173.6" r="38" fill="#0E1E28" stroke="#4FE0CE" stroke-width="1.8"/>
+          <text x="442.7" y="170" text-anchor="middle" fill="#EAF4F2" font-weight="600">Agent</text>
+          <text x="442.7" y="184" text-anchor="middle" fill="#7FA6A6" font-size="9.5">Actor / Critic</text>
+
+          <!-- Action -->
+          <circle cx="388.2" cy="341.4" r="38" fill="#0E1E28" stroke="#4FE0CE" stroke-width="1.8"/>
+          <text x="388.2" y="346" text-anchor="middle" fill="#EAF4F2" font-weight="600">Action</text>
+
+          <!-- Environment -->
+          <circle cx="211.8" cy="341.4" r="38" fill="#0E1E28" stroke="#4FE0CE" stroke-width="1.8"/>
+          <text x="211.8" y="338" text-anchor="middle" fill="#EAF4F2" font-weight="600" font-size="11.5">Environ-</text>
+          <text x="211.8" y="350" text-anchor="middle" fill="#EAF4F2" font-weight="600" font-size="11.5">ment</text>
+
+          <!-- Reward -->
+          <circle cx="157.3" cy="173.6" r="38" fill="#0E1E28" stroke="#4FE0CE" stroke-width="1.8"/>
+          <text x="157.3" y="178" text-anchor="middle" fill="#EAF4F2" font-weight="600">Reward</text>
+        </g>
+      </svg>
+      <div class="console-caption">state → agent（actor / critic, DDPG）→ action → environment（OceanBase 实例）→ reward → 回到 state；每一步 transition 写入 replay buffer，供下一轮训练采样</div>
+    </div>
+
+    <div class="feat-grid">
+      <div class="feat-card">
+        <div class="k">State · 三层</div>
+        <h4>workload + 性能 + 系统指标</h4>
+        <ul>
+          <li>workload one-hot（轻量 SQL / TPC-C / TPC-H）</li>
+          <li>性能指标：avg/P95/P99、qps/tps、error_count（已具备）</li>
+          <li>系统运行指标：CPU / 内存 / 磁盘 IO / 等待事件 / SQL audit 聚合（待 A 组数据补齐）</li>
+        </ul>
+      </div>
+      <div class="feat-card">
+        <div class="k">Action · 安全空间</div>
+        <h4>初期仅 Top5，经过 sanitizer</h4>
+        <ul>
+          <li>范围裁剪至 B1 给出的 min/max</li>
+          <li>连续 / 枚举 / 布尔分别编码</li>
+          <li>只允许低 / 中风险；<code>can_modify=UNKNOWN</code> 先屏蔽</li>
+          <li>每次动作生成 rollback 配置</li>
+        </ul>
+      </div>
+      <div class="feat-card">
+        <div class="k">冷启动策略</div>
+        <h4>样本不足时的过渡方案</h4>
+        <ul>
+          <li>OtterTune 风格 GP / 贝叶斯优化作为 baseline</li>
+          <li>逐步引入 DDPG 主线并与之对比</li>
+          <li>离线可计算 reward 先行，真实执行结果接入后再校准</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="iface-block">
+      <h4>Reward 函数设计</h4>
+      <div class="code-block">reward = <span class="num">0.45</span> * throughput_gain
+       + <span class="num">0.35</span> * latency_reduction_p95
+       + <span class="num">0.10</span> * latency_reduction_p99
+       - <span class="num">0.10</span> * error_penalty
+       - safety_penalty
+
+<span class="comment"># 基线参照点</span>
+<span class="field">TPC-C</span>  tps=1.826   p95=716.0 ms
+<span class="field">TPC-H</span>  qps=6.5269  p95=192.592 ms</div>
+    </div>
+
+    <ul class="step-list">
+      <li><span class="idx">范围</span><p><b>连续参数示例：</b><code>query_memory_limit_percentage [0,100]</code>、<code>log_disk_utilization_threshold [10,100)</code>、<code>io_scheduler_thread_count [1,16]</code> —— 用 DDPG 直接输出连续向量，再做边界裁剪与类型转换。</p></li>
+      <li><span class="idx">生效</span><p>参数生效方式不同：<b>动态 / 静态</b>生效，<b>cluster / tenant</b> scope 差异，均需写入 action mask，避免生成不可执行或需重启的动作。</p></li>
+      <li><span class="idx">安全</span><p>共享 test 租户当前<b>不可直接改参</b>：短期内以离线设计、仿真 reward 为主，待开放安全执行窗口后再接入真实执行结果做闭环训练。</p></li>
+    </ul>
+
+    <div class="iface-block">
+      <h4>B2 输出接口 &amp; 复用组件</h4>
+      <div class="code-block"><span class="comment"># 输出</span>
+parameter_config_{experiment_id}.csv
+parameter_performance_{experiment_id}.csv
+b2_tuning_recommendations
+
+<span class="comment"># replay experience</span>
+{ state, action, reward, next_state }
+
+<span class="comment"># 可复用的 controller 接口</span>
+src/b2_tuning/env.py
+src/b4_validation/param_applier.py
+src/b4_validation/experiment_tracker.py</div>
+    </div>
+  </section>
+
+  <!-- ============ COMPARE ============ -->
+  <section id="compare">
+    <div class="sec-head"><span class="sec-num">03</span><h2 class="sec-title">三篇论文 → B1/B2 的角色映射</h2></div>
+    <p class="sec-sub">DB-BERT 提供文档先验，OtterTune 支撑 B1 的影响因子分析，CDBTune 支撑 B2 的连续动作强化学习——三者不是互斥选项，而是同一条链路上的三段。</p>
+
+    <div class="table-scroll">
+      <table class="compare">
+        <thead>
+          <tr><th>维度</th><th>DB-BERT</th><th>OtterTune</th><th>CDBTune</th><th>对 B1/B2 的作用</th></tr>
+        </thead>
+        <tbody>
+          <tr><th>核心思想</th><td>阅读手册 / 调优文档，抽取参数 hint，再用 RL 评估</td><td>复用历史调优数据做 workload 表征、参数重要性分析与配置推荐</td><td>用深度强化学习直接输出连续参数配置</td><td class="highlight">DB-BERT 给先验，OtterTune 撑 B1，CDBTune 撑 B2</td></tr>
+          <tr><th>输入数据</th><td>文本集合、benchmark、硬件属性、参数集合</td><td>历史参数配置、性能结果、DBMS metrics、目标 workload</td><td>DBMS runtime metrics、当前参数、benchmark 反馈</td><td class="highlight">已具备 Top100 / Top5 / 三条 baseline，待补文档语料与 A 组系统指标</td></tr>
+          <tr><th>参数筛选</th><td>从自然语言中发现参数与值</td><td>Lasso / 多项式特征识别重要 knob</td><td>依赖预选动作空间，通常不负责筛参</td><td class="highlight">B1 融合文档 hint + 统计重要性，给 B2 输出 TopK</td></tr>
+          <tr><th>Workload 建模</th><td>benchmark 作反馈对象，hint 可含 workload 条件</td><td>Factor Analysis + K-means 选代表性 runtime metrics</td><td>state 隐式表示 workload（内部指标）</td><td class="highlight">TPC-C / TPC-H 分开建模；轻量 SQL 仅作连通性验证</td></tr>
+          <tr><th>推荐算法</th><td>Double DQN，离散 hint 翻译 / 偏移 / 加权</td><td>Gaussian Process 推荐下一组配置</td><td>DDPG actor-critic，适合连续动作</td><td class="highlight">B2 以 DDPG 为主线，GP / 规则作冷启动 baseline</td></tr>
+          <tr><th>适合参数类型</th><td>文档可描述的整数 / 数值 / 布尔参数</td><td>可建模的数值 / 类别参数，需足够历史样本</td><td>连续参数与高维配置向量</td><td class="highlight">OceanBase 参数需按连续 / 枚举 / 布尔 / 静态-动态分别编码</td></tr>
+          <tr><th>局限</th><td>依赖文档质量，仍需 benchmark，偏离散决策</td><td>需要大量历史实验，样本少时模型不稳</td><td>样本成本高，安全风险，对 workload 漂移敏感</td><td class="highlight">共享 test 租户不能直接自动改参，需先做离线设计与安全执行窗口</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ============ OFFICIAL COMPARISON ============ -->
+  <section id="official">
+    <div class="sec-head"><span class="sec-num">04</span><h2 class="sec-title">OceanBase 官方方案对比与学术方案补充价值</h2></div>
+    <p class="sec-sub">
+      B1/B2 不是要替代官方调优流程，而是要补上官方流程里"经验依赖、难复用、非自动化"的缺口。
+      先看清官方方案能做到什么、做不到什么，再确定学术方法该补在哪一环。
+    </p>
+
+    <div class="subhead">官方调优 / 诊断流程</div>
+    <ul class="step-list">
+      <li><span class="idx">01</span><p><b>观察 workload 与业务目标</b> —— 明确当前是 OLTP 写入密集还是 OLAP 大查询场景，确定优化目标（延迟 / 吞吐 / 稳定性）。</p></li>
+      <li><span class="idx">02</span><p><b>采集运行数据</b> —— SQL 审计、系统指标（CPU / 内存 / IO）、等待事件、租户资源使用情况。</p></li>
+      <li><span class="idx">03</span><p><b>定位瓶颈</b> —— 逐项排查 CPU、内存、IO、SQL 执行计划、日志写入、租户资源限制中的具体瓶颈点。</p></li>
+      <li><span class="idx">04</span><p><b>人工调整参数</b> —— 依据官方文档与最佳实践手册，由 DBA 凭经验决定改哪个参数、改到什么值。</p></li>
+      <li><span class="idx">05</span><p><b>压测验证与固化</b> —— 执行压测观察效果，效果不佳则回滚，效果达标则固化配置。</p></li>
+    </ul>
+
+    <div class="feat-grid-2">
+      <div class="feat-card pos">
+        <div class="k">官方方案优势</div>
+        <h4>稳、准、可解释</h4>
+        <ul>
+          <li>流程稳定、安全，改动可追溯</li>
+          <li>与 OceanBase 参数体系、运维工具天然一致</li>
+          <li>适合线上问题定位、人工审核与低风险变更</li>
+        </ul>
+      </div>
+      <div class="feat-card neg">
+        <div class="k">官方方案局限</div>
+        <h4>依赖经验，难以复用与自动化</h4>
+        <ul>
+          <li>高度依赖 DBA 个人经验</li>
+          <li>参数多，人工筛选成本高</li>
+          <li>历史调优数据难以沉淀复用</li>
+          <li>缺少自动化搜索与 workload-specific 参数推荐</li>
+          <li>对 B1/B2 这种智能调优闭环支持不足</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="subhead">学术方案的补充价值</div>
+    <div class="feat-grid">
+      <div class="feat-card">
+        <div class="k">DB-BERT</div>
+        <h4>文档 → 结构化 Hint</h4>
+        <ul>
+          <li>把官方文档 / 调优手册转成可计算的 parameter hint</li>
+          <li>补上"参数怎么选"的经验起点</li>
+        </ul>
+      </div>
+      <div class="feat-card">
+        <div class="k">OtterTune</div>
+        <h4>历史数据 → 重要性排序</h4>
+        <ul>
+          <li>用历史调优数据做 workload characterization</li>
+          <li>补上"哪些参数真正重要"的统计依据</li>
+        </ul>
+      </div>
+      <div class="feat-card">
+        <div class="k">CDBTune</div>
+        <h4>安全空间 → 连续搜索</h4>
+        <ul>
+          <li>深度强化学习在受限动作空间内搜索连续配置</li>
+          <li>补上"自动闭环搜索"这一环</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="callout">
+      <b>组合方案</b>
+      官方规则兜底 + 学术算法推荐 + 人工审核执行 —— B1/B2 产出的建议始终经过官方安全边界过滤，最终变更仍由人工审核确认，而不是替代 DBA 决策。
+    </div>
+
+    <div class="iface-block">
+      <h4>方案对比</h4>
+      <div class="table-scroll">
+        <table class="compare">
+          <thead><tr><th>维度</th><th>OceanBase 官方方案</th><th>DB-BERT / OtterTune / CDBTune</th><th>本项目 B1/B2 落地方式</th></tr></thead>
+          <tbody>
+            <tr><th>参数发现</th><td>DBA 依据文档与经验人工筛选</td><td>文档 NLP 抽取 hint + 统计重要性排序</td><td class="highlight">B1 融合两者，输出带 evidence_score 的 TopK</td></tr>
+            <tr><th>Workload 建模</th><td>凭经验判断 OLTP / OLAP 类型</td><td>runtime metrics 降维聚类 / 查询特征建模</td><td class="highlight">按轻量 SQL / TPC-C / TPC-H 分别建模</td></tr>
+            <tr><th>决策方式</th><td>人工试错，逐个参数验证</td><td>GP / DDPG 等算法自动搜索</td><td class="highlight">B2 用 DDPG 在安全动作空间内闭环搜索</td></tr>
+            <tr><th>历史经验复用</th><td>依赖个人经验，难沉淀</td><td>历史调优数据可训练模型复用</td><td class="highlight">积累 exp001+ 实验数据反哺 B1 重要性模型</td></tr>
+            <tr><th>安全性与可解释性</th><td>高（人工审核每一步）</td><td>依赖算法设计，需额外约束</td><td class="highlight">action sanitizer + risk_level 过滤 + rollback</td></tr>
+            <tr><th>自动化程度</th><td>低，人工主导</td><td>高，闭环自动搜索</td><td class="highlight">现阶段离线设计为主，待授权后接入真实闭环</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CROSS-TEAM COLLABORATION ============ -->
+  <section id="collab">
+    <div class="sec-head"><span class="sec-num">05</span><h2 class="sec-title">跨组协同与接口对齐</h2></div>
+    <p class="sec-sub">
+      B1/B2 不是孤立模块：输入依赖 A 组的异常检测数据，输出会影响 B3 的容量预测，执行落地依赖 B4 的实验基础设施。
+      接口对齐得越早，返工成本越低。
+    </p>
+
+    <div class="feat-grid">
+      <div class="feat-card">
+        <div class="k">B1/B2 × A 组</div>
+        <h4>输入依赖</h4>
+        <ul>
+          <li>需要 <code>normal_load</code>、<code>system_tables</code>、<code>anomaly_labels</code></li>
+          <li>需要 CPU / memory / disk / session / wait event / SQL audit 等系统指标</li>
+          <li>这些指标是 B2 State 三层中"系统运行指标"的唯一数据来源</li>
+        </ul>
+      </div>
+      <div class="feat-card">
+        <div class="k">B1/B2 × B3</div>
+        <h4>双向影响</h4>
+        <ul>
+          <li>B1 输出 <code>feature_importance</code>，可辅助 B3 容量预测的特征筛选</li>
+          <li>B2 的调优建议会改变资源使用，需反馈给 B3 重新评估容量变化</li>
+        </ul>
+      </div>
+      <div class="feat-card">
+        <div class="k">B1/B2 × B4</div>
+        <h4>执行依赖</h4>
+        <ul>
+          <li>B4 提供自动化 benchmark、参数应用、实验追踪能力</li>
+          <li>B2 输出的 recommendation 需由 B4 执行、验证、记录 rollback</li>
+          <li>复用 <code>src/b4_validation/param_applier.py</code> 与 <code>experiment_tracker.py</code></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="iface-block">
+      <h4>跨组数据规范</h4>
+      <div class="code-block"><span class="comment"># 主线标识</span>
+以 <span class="field">experiment_id</span> 作为跨模块关联主键
+
+<span class="comment"># 统一文件命名</span>
+parameter_config_{experiment_id}.csv
+parameter_performance_{experiment_id}.csv
+
+<span class="comment"># 后续 release 目录需补齐</span>
+README_dataset.md
+data_schema.yaml</div>
+    </div>
+  </section>
+
+  <!-- ============ CONCLUSIONS ============ -->
+  <section id="conclusions">
+    <div class="sec-head"><span class="sec-num">06</span><h2 class="sec-title">本周可落地结论与完成度</h2></div>
+    <p class="sec-sub">四条结论按优先级排列，决定了接下来接口开发与实验设计的顺序；完成度小结用于同步本周四项任务的实际进度。</p>
+
+    <div class="conclusion-grid">
+      <div class="conclusion-card"><span class="num">01</span><p><b>B1 要给出证据链，而不是一份列表。</b>输出参数元信息、文档 hint、workload 相关性、历史实验重要性的组合，让 B2 知道「为什么调」。</p></div>
+      <div class="conclusion-card"><span class="num">02</span><p><b>B2 只接收 B1 筛出的安全 TopK。</b>不对 OceanBase 全参数空间做 RL，先围绕第二周 Top5 建模并验证闭环。</p></div>
+      <div class="conclusion-card"><span class="num">03</span><p><b>当前 baseline 已足够定义 reward 参照点。</b>TPC-C 以吞吐、P95/P99 延迟为主；TPC-H 以总耗时、平均延迟与尾延迟为主。</p></div>
+      <div class="conclusion-card"><span class="num">04</span><p><b>官方规则 + 学术算法 + 人工审核三者组合，而非互相替代。</b>B1/B2 的角色是补上官方流程里"难复用、非自动化"的缺口，不是绕开安全边界自行决策。</p></div>
+    </div>
+
+    <div class="subhead">当前完成度</div>
+    <div class="status-grid">
+      <div class="status-col done">
+        <h4>已完成</h4>
+        <ul>
+          <li>三篇核心论文精读笔记</li>
+          <li>real_week2 真实数据基线整理</li>
+          <li>B1/B2 技术方案框架</li>
+          <li>B1/B2 接口定义 v0.1</li>
+          <li>HTML 技术方案汇报页</li>
+        </ul>
+      </div>
+      <div class="status-col todo">
+        <h4>待补充</h4>
+        <ul>
+          <li>官方方案对比文档进一步细化</li>
+          <li>与 Huang / Wu 的评审结论记录</li>
+          <li>参数修改实验需等待共享 test 租户授权</li>
+          <li>后续补齐 A 组系统指标后再做真实特征重要性训练</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="wrap" id="refs">
+  <h4>参考资料</h4>
+  <ol>
+    <li>Immanuel Trummer, <i>DB-BERT: A Database Tuning Tool that "Reads the Manual"</i>, SIGMOD 2022 / arXiv:2112.10925.</li>
+    <li>Dana Van Aken, Andrew Pavlo, Geoffrey J. Gordon, Bohan Zhang, <i>Automatic Database Management System Tuning Through Large-scale Machine Learning</i>, SIGMOD 2017.</li>
+    <li>J. Zhang et al., <i>An End-to-End Automatic Cloud Database Tuning System Using Deep Reinforcement Learning</i>, ICDM 2019.</li>
+    <li>Limeng Zhang, M. Ali Babar, <i>Automatic Configuration Tuning on Cloud Database: A Survey</i>, arXiv:2404.06043.</li>
+  </ol>
+  <div class="foot-meta">整理自第三周论文精读笔记，对齐 real_week2 真实数据与 real_week3 接口定义 · 负责人 Wang</div>
+</footer>
+
+<script>
+  // active nav link on scroll
+  const links = document.querySelectorAll('.nav-links a');
+  const sections = Array.from(links).map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+  if('IntersectionObserver' in window){
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(entry=>{
+        if(entry.isIntersecting){
+          const id = '#' + entry.target.id;
+          links.forEach(a => a.classList.toggle('active', a.getAttribute('href') === id));
+        }
+      });
+    }, { rootMargin: '-40% 0px -50% 0px', threshold: 0 });
+    sections.forEach(s => io.observe(s));
+
+    const revealTargets = document.querySelectorAll('.sec-head, .card-grid, .diagram-panel, .console-panel, .feat-grid, .feat-grid-2, .status-grid, .conclusion-grid, .table-scroll, .step-list');
+    revealTargets.forEach(el => el.classList.add('reveal'));
+    const io2 = new IntersectionObserver((entries)=>{
+      entries.forEach(entry=>{
+        if(entry.isIntersecting){ entry.target.classList.add('in-view'); io2.unobserve(entry.target); }
+      });
+    }, { threshold: 0.12 });
+    revealTargets.forEach(el => io2.observe(el));
+  }
+</script>
+
+</body>
+</html>

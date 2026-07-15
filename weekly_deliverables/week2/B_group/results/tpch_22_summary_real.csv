@@ -1,0 +1,2 @@
+run_id,timestamp,query_count,total_elapsed_ms,avg_elapsed_ms,failed_queries,log_file
+tpch_22_real_20260702_172556,2026-07-02T09:26:01Z,22,3370.68,153.213,0,/Users/wzh/Documents/DBdoctor/oceanbase-tuning/logs/real_week2/tpch_22_real_20260702_172556.log

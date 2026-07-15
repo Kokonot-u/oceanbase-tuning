@@ -1,0 +1,2 @@
+run_id,timestamp,db_host,tenant,database,workload,operation,elapsed_ms,qps_or_tps,avg_latency_ms,p50_latency_ms,p95_latency_ms,p99_latency_ms,error_count,rows_inserted,rows_read,rows_updated,notes
+real_week2_20260702_153400,2026-07-02T07:34:31Z,100.83.22.21,test,week2_bench_wang,lightweight_real_sql,summary,30820.778,7.17,139.228,128.58,178.12,239.711,0,1000,21606,54,real obclient workload through Docker; includes client invocation overhead

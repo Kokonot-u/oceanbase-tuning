@@ -1,0 +1,348 @@
+parameter_name,category,current_value,default_value,value_range,core_effect,why_performance_related,risk_level,can_modify,evidence_source,notes,score
+log_disk_throttling_maximum_duration,磁盘IO,2h,2h,UNKNOWN,影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,"命中关键词: io, disk, log",LOW,YES,real_query + previous_export,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=LOGSERVICE; score=15,15
+log_disk_utilization_limit_threshold,磁盘IO,95,95,"[80, 100]",影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,"命中关键词: io, disk, log",LOW,YES,real_query,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=LOGSERVICE; score=15,15
+log_disk_utilization_threshold,磁盘IO,80,80,"[10, 100)",影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,"命中关键词: io, disk, log",LOW,YES,real_query,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=LOGSERVICE; score=15,15
+enable_clog_encryption,磁盘IO,False,False,UNKNOWN,影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,"命中关键词: io, log, clog",LOW,YES,real_query,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=TENANT; score=13,13
+__min_full_resource_pool_memory,内存管理,2147483648,5368709120,UNKNOWN,影响缓存、冻结、内存水位和租户资源使用,"命中关键词: memory, mem, resource",MEDIUM,UNKNOWN,real_query + previous_export,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=LOAD_BALANCE; score=13,13
+clog_io_isolation_mode,磁盘IO,1,1,"1 - Non-isolation mode (disable I/O isolation), 2 - Full isolation mode (enable I/O isolation)",影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,"命中关键词: io, log, clog",MEDIUM,UNKNOWN,real_query,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=13,13
+memory_chunk_cache_size,内存管理,0M,0M,"[0M,], 0 stands for adaptive",影响缓存、冻结、内存水位和租户资源使用,"命中关键词: memory, mem, cache",MEDIUM,UNKNOWN,real_query,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=13,13
+syslog_io_bandwidth_limit,磁盘IO,30MB,30MB,UNKNOWN,影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,"命中关键词: io, log, bandwidth",MEDIUM,UNKNOWN,real_query + previous_export,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=13,13
+ob_vector_memory_limit_percentage,内存管理,0,0,"[0, 100)",影响缓存、冻结、内存水位和租户资源使用,"命中关键词: memory, mem, tenant, resource",HIGH,UNKNOWN,real_query,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=TENANT; score=12,12
+log_disk_size,磁盘IO,5G,0M,"[0, +∞)",影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,"命中关键词: disk, log",HIGH,UNKNOWN,real_query,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=LOGSERVICE; score=11,11
+log_disk_throttling_percentage,磁盘IO,60,60,UNKNOWN,影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,"命中关键词: disk, log",LOW,YES,real_query + previous_export,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=LOGSERVICE; score=11,11
+standby_db_preferred_upstream_log_region,磁盘IO,,UNKNOWN,UNKNOWN,影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,"命中关键词: io, log",LOW,YES,real_query + previous_export,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=LOGSERVICE; score=11,11
+vector_index_memory_saving_mode,内存管理,True,True,UNKNOWN,影响缓存、冻结、内存水位和租户资源使用,"命中关键词: memory, mem, tenant",LOW,YES,real_query + previous_export,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=TENANT; score=11,11
+log_disk_percentage,磁盘IO,0,0,"[0,99] in integer",影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,"命中关键词: disk, log",MEDIUM,UNKNOWN,real_query,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=LOGSERVICE; score=11,11
+query_memory_limit_percentage,内存管理,50,50,"[0,100]",影响缓存、冻结、内存水位和租户资源使用,"命中关键词: memory, mem, tenant",HIGH,UNKNOWN,real_query,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=10,10
+rpc_memory_limit_percentage,内存管理,0,0,UNKNOWN,影响缓存、冻结、内存水位和租户资源使用,"命中关键词: memory, mem, tenant",HIGH,UNKNOWN,real_query + previous_export,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=RPC; score=10,10
+system_memory,内存管理,1G,0M,"[0M,)",影响缓存、冻结、内存水位和租户资源使用,"命中关键词: memory, mem, tenant",HIGH,UNKNOWN,real_query,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=10,10
+io_scheduler_thread_count,CPU调度,4,4,"[1, 16] in integer",影响并发度、后台线程调度、排队和高负载响应时间,"命中关键词: thread, concurrency, scheduler",HIGH,UNKNOWN,real_query,scope=CLUSTER; edit_level=STATIC_EFFECTIVE; section=OBSERVER; score=9,9
+memory_limit,内存管理,6G,0M,"0, [1G,)",影响缓存、冻结、内存水位和租户资源使用,"命中关键词: memory, mem",HIGH,UNKNOWN,real_query,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=9,9
+memory_limit_percentage,内存管理,80,80,"[10, 95]",影响缓存、冻结、内存水位和租户资源使用,"命中关键词: memory, mem",HIGH,UNKNOWN,real_query,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=9,9
+syslog_disk_size,磁盘IO,0M,0M,"[0, +∞)",影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,"命中关键词: disk, log",HIGH,UNKNOWN,real_query,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=9,9
+audit_log_compression,磁盘IO,NONE,NONE,UNKNOWN,影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,"命中关键词: io, log",LOW,YES,real_query + previous_export,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=9,9
+audit_log_encryption,磁盘IO,NONE,NONE,UNKNOWN,影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,"命中关键词: io, log",LOW,YES,real_query,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=9,9
+audit_log_query_sql,SQL执行,ALL,ALL,UNKNOWN,影响 SQL 计划、审计、长查询调度和执行超时,"命中关键词: sql, query",LOW,YES,real_query + previous_export,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=9,9
+compaction_dag_cnt_limit,磁盘IO,50000,50000,"[10000,500000] in integer",影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,"命中关键词: io, compaction",LOW,YES,real_query,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=TENANT; score=9,9
+compaction_high_thread_score,磁盘IO,0,0,"[0,100] in integer",影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,"命中关键词: io, compaction",LOW,YES,real_query,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=TENANT; score=9,9
+compaction_low_thread_score,磁盘IO,0,0,"[0,100] in integer",影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,"命中关键词: io, compaction",LOW,YES,real_query,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=TENANT; score=9,9
+compaction_mid_thread_score,磁盘IO,0,0,"[0,100] in integer",影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,"命中关键词: io, compaction",LOW,YES,real_query,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=TENANT; score=9,9
+compaction_schedule_tablet_batch_cnt,磁盘IO,50000,50000,"[10000,500000] in integer",影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,"命中关键词: io, compaction",LOW,YES,real_query,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=TENANT; score=9,9
+cpu_quota_concurrency,CPU调度,4,4,"[1,20]",影响并发度、后台线程调度、排队和高负载响应时间,"命中关键词: cpu, concurrency",LOW,YES,real_query,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=TENANT; score=9,9
+dump_data_dictionary_to_log_interval,磁盘IO,0s,0s,"(0s,+∞)",影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,"命中关键词: io, log",LOW,YES,real_query,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=TENANT; score=9,9
+load_data_diagnosis_log_compression,磁盘IO,AUTO,AUTO,UNKNOWN,影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,"命中关键词: io, log",LOW,YES,real_query + previous_export,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=9,9
+mds_compaction_high_thread_score,磁盘IO,0,0,"[0,100] in integer",影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,"命中关键词: io, compaction",LOW,YES,real_query,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=TENANT; score=9,9
+mds_compaction_mid_thread_score,磁盘IO,0,0,"[0,100] in integer",影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,"命中关键词: io, compaction",LOW,YES,real_query,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=TENANT; score=9,9
+ob_compaction_schedule_interval,磁盘IO,120s,120s,"[3s,5m]Range: [3s, 5m]",影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,"命中关键词: io, compaction",LOW,YES,real_query,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=TENANT; score=9,9
+ob_deterministic_udf_cache_max_size,内存管理,16M,16M,UNKNOWN,影响缓存、冻结、内存水位和租户资源使用,"命中关键词: memory, mem, cache, tenant",LOW,YES,real_query + previous_export,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=TENANT; score=9,9
+px_workers_per_cpu_quota,CPU调度,10,10,"[0, 20]",影响并发度、后台线程调度、排队和高负载响应时间,"命中关键词: cpu, worker, thread",LOW,YES,real_query,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=TENANT; score=9,9
+result_cache_max_size,内存管理,64M,64M,UNKNOWN,影响缓存、冻结、内存水位和租户资源使用,"命中关键词: memory, mem, cache, tenant",LOW,YES,real_query + previous_export,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=TENANT; score=9,9
+shared_log_retention,磁盘IO,1d,1d,UNKNOWN,影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,"命中关键词: io, log",LOW,YES,real_query + previous_export,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=TRANS; score=9,9
+clog_sync_time_warn_threshold,磁盘IO,100ms,100ms,"[1ms,1000ms]",影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,"命中关键词: io, log, clog",MEDIUM,UNKNOWN,real_query,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=TRANS; score=9,9
+disk_io_thread_count,磁盘IO,8,8,"[2,32] in even integer",影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,"命中关键词: io, disk",MEDIUM,UNKNOWN,real_query,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=9,9
+location_cache_refresh_sql_timeout,SQL执行,1s,1s,"[1ms, +∞)",影响 SQL 计划、审计、长查询调度和执行超时,"命中关键词: sql, timeout",MEDIUM,UNKNOWN,real_query,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=LOCATION_CACHE; score=9,9
+log_storage_warning_tolerance_time,磁盘IO,5s,5s,"[1s,300s]",影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,"命中关键词: io, disk, log",MEDIUM,UNKNOWN,real_query,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=LOGSERVICE; score=9,9
+log_storage_warning_trigger_percentage,磁盘IO,0,0,"[0,50]",影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,"命中关键词: io, disk, log",MEDIUM,UNKNOWN,real_query,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=LOGSERVICE; score=9,9
+memory_reserved,内存管理,500M,500M,"[10M, total size of memory]",影响缓存、冻结、内存水位和租户资源使用,"命中关键词: memory, mem",MEDIUM,UNKNOWN,real_query,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=SSTABLE; score=9,9
+memstore_limit_percentage,内存管理,0,0,"[0, 100)",影响缓存、冻结、内存水位和租户资源使用,"命中关键词: memory, mem, tenant",MEDIUM,UNKNOWN,real_query,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=TENANT; score=9,9
+row_compaction_update_limit,磁盘IO,6,6,"[1, 6400]",影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,"命中关键词: io, compaction",MEDIUM,UNKNOWN,real_query,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=TRANS; score=9,9
+standby_fetch_log_bandwidth_limit,磁盘IO,0MB,0MB,UNKNOWN,影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,"命中关键词: log, bandwidth",MEDIUM,UNKNOWN,real_query + previous_export,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=9,9
+workers_per_cpu_quota,CPU调度,10,10,"[2, 20]",影响并发度、后台线程调度、排队和高负载响应时间,"命中关键词: cpu, worker, thread",MEDIUM,UNKNOWN,real_query,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=TENANT; score=9,9
+freeze_trigger_percentage,内存管理,20,20,UNKNOWN,影响缓存、冻结、内存水位和租户资源使用,"命中关键词: mem, tenant, freeze",LOW,YES,real_query + previous_export,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=TENANT; score=8,8
+log_archive_concurrency,CPU调度,0,0,"[0, 100] in integer",影响并发度、后台线程调度、排队和高负载响应时间,"命中关键词: cpu, worker, thread, concurrency",LOW,YES,real_query,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=LOGSERVICE; score=8,8
+log_restore_concurrency,CPU调度,0,0,"[0, 100] in integer",影响并发度、后台线程调度、排队和高负载响应时间,"命中关键词: cpu, worker, thread, concurrency",LOW,YES,real_query,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=LOGSERVICE; score=8,8
+log_storage_compress_all,磁盘IO,False,False,UNKNOWN,影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,"命中关键词: io, log",LOW,YES,real_query + previous_export,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=LOGSERVICE; score=8,8
+log_storage_compress_func,磁盘IO,lz4_1.0,lz4_1.0,lz4_1,影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,"命中关键词: io, log",LOW,YES,real_query,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=LOGSERVICE; score=8,8
+log_transport_compress_all,磁盘IO,True,False,UNKNOWN,影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,"命中关键词: io, log",LOW,YES,real_query + previous_export,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=LOGSERVICE; score=8,8
+ob_query_switch_leader_retry_timeout,SQL执行,0ms,0ms,"[0ms, +∞)",影响 SQL 计划、审计、长查询调度和执行超时,"命中关键词: query, timeout, connection",LOW,YES,real_query,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=8,8
+range_optimizer_max_mem_size,内存管理,128M,128M,"[0M,+∞), 0 stands for unlimited",影响缓存、冻结、内存水位和租户资源使用,"命中关键词: memory, mem, tenant",LOW,YES,real_query,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=TENANT; score=8,8
+sql_plan_management_mode,SQL执行,Disable,Disable,UNKNOWN,影响 SQL 计划、审计、长查询调度和执行超时,"命中关键词: sql, plan",LOW,YES,real_query + previous_export,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=TENANT; score=8,8
+arbitration_degradation_policy,磁盘IO,LS_POLICY,LS_POLICY,"LS_POLICY, CLUSTER_POLICY LS_POLICY: default policy",影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,"命中关键词: io, log",MEDIUM,UNKNOWN,real_query,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=LOGSERVICE; score=8,8
+datafile_disk_percentage,磁盘IO,0,0,"[0,99] in integer",影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,"命中关键词: disk, datafile",MEDIUM,UNKNOWN,real_query,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=SSTABLE; score=8,8
+audit_log_buffer_size,内存管理,16M,16M,"[16M, total size of memory]",影响缓存、冻结、内存水位和租户资源使用,"命中关键词: memory, mem, buffer",LOW,YES,real_query,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=7,7
+enable_adaptive_plan_cache,内存管理,False,False,UNKNOWN,影响缓存、冻结、内存水位和租户资源使用,"命中关键词: cache, tenant",LOW,YES,real_query + previous_export,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=TENANT; score=7,7
+external_table_csv_max_buffer_size,内存管理,1G,1G,"[0B, +∞), default: 1G",影响缓存、冻结、内存水位和租户资源使用,"命中关键词: tenant, buffer",LOW,YES,real_query,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=TENANT; score=7,7
+lob_enable_block_cache_threshold,内存管理,256K,256K,UNKNOWN,影响缓存、冻结、内存水位和租户资源使用,"命中关键词: cache, tenant",LOW,YES,real_query + previous_export,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=TENANT; score=7,7
+log_transport_compress_func,磁盘IO,lz4_1.0,lz4_1.0,"none, lz4_1",影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,命中关键词: log,LOW,YES,real_query,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=LOGSERVICE; score=7,7
+ob_result_cache_evict_percentage,内存管理,90,90,UNKNOWN,影响缓存、冻结、内存水位和租户资源使用,"命中关键词: memory, mem, cache",LOW,YES,real_query + previous_export,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=7,7
+standby_db_fetch_log_rpc_timeout,磁盘IO,15s,15s,"[2s, +∞)",影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,命中关键词: log,LOW,YES,real_query,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=LOGSERVICE; score=7,7
+tenant_sql_login_thread_count,内存管理,0,0,"[0, 32] in integer, 0 stands for unit_min_cpu",影响缓存、冻结、内存水位和租户资源使用,命中关键词: tenant,LOW,YES,real_query,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=TENANT; score=7,7
+tenant_sql_net_thread_count,内存管理,0,0,"[0, 64] in integer, 0 stands for unit_min_cpu",影响缓存、冻结、内存水位和租户资源使用,命中关键词: tenant,LOW,YES,real_query,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=TENANT; score=7,7
+bf_cache_miss_count_threshold,内存管理,100,100,"[0, )",影响缓存、冻结、内存水位和租户资源使用,命中关键词: cache,MEDIUM,UNKNOWN,real_query,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=CACHE; score=7,7
+bf_cache_priority,内存管理,1,1,"[1, )",影响缓存、冻结、内存水位和租户资源使用,命中关键词: cache,MEDIUM,UNKNOWN,real_query,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=CACHE; score=7,7
+cache_wash_threshold,内存管理,4GB,4GB,"[0,+∞)",影响缓存、冻结、内存水位和租户资源使用,"命中关键词: memory, mem, cache",MEDIUM,UNKNOWN,real_query,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=7,7
+external_table_disk_cache_max_percentage,磁盘IO,50,50,"[0, 95] in integer, with a default of 50",影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,"命中关键词: io, disk, datafile",MEDIUM,UNKNOWN,real_query,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=SSTABLE; score=7,7
+fuse_row_cache_priority,内存管理,1,1,"[1, )",影响缓存、冻结、内存水位和租户资源使用,命中关键词: cache,MEDIUM,UNKNOWN,real_query,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=CACHE; score=7,7
+index_block_cache_priority,内存管理,10,10,"[1, )",影响缓存、冻结、内存水位和租户资源使用,命中关键词: cache,MEDIUM,UNKNOWN,real_query,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=CACHE; score=7,7
+internal_sql_execute_timeout,SQL执行,30s,30s,"[1000us, 1h]",影响 SQL 计划、审计、长查询调度和执行超时,"命中关键词: sql, timeout",MEDIUM,UNKNOWN,real_query,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=7,7
+location_cache_refresh_min_interval,内存管理,100ms,100ms,UNKNOWN,影响缓存、冻结、内存水位和租户资源使用,命中关键词: cache,MEDIUM,UNKNOWN,real_query + previous_export,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=LOCATION_CACHE; score=7,7
+location_cache_refresh_rpc_timeout,内存管理,500ms,500ms,"[1ms, +∞)",影响缓存、冻结、内存水位和租户资源使用,命中关键词: cache,MEDIUM,UNKNOWN,real_query,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=LOCATION_CACHE; score=7,7
+location_fetch_concurrency,磁盘IO,20,20,"[1, 1000]",影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,命中关键词: io,MEDIUM,UNKNOWN,real_query,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=LOCATION_CACHE; score=7,7
+location_refresh_thread_count,磁盘IO,2,2,"(1, 64]",影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,命中关键词: io,MEDIUM,UNKNOWN,real_query,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=LOCATION_CACHE; score=7,7
+opt_tab_stat_cache_priority,内存管理,1,1,"[1, )",影响缓存、冻结、内存水位和租户资源使用,命中关键词: cache,MEDIUM,UNKNOWN,real_query,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=CACHE; score=7,7
+plan_cache_evict_interval,内存管理,5s,5s,"[0s, +∞)",影响缓存、冻结、内存水位和租户资源使用,"命中关键词: cache, tenant",MEDIUM,UNKNOWN,real_query,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=TENANT; score=7,7
+storage_meta_cache_priority,内存管理,10,10,"[1, )",影响缓存、冻结、内存水位和租户资源使用,命中关键词: cache,MEDIUM,UNKNOWN,real_query,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=CACHE; score=7,7
+syslog_sync_size_threshold,磁盘IO,0M,0M,UNKNOWN,影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,"命中关键词: io, disk, log",MEDIUM,UNKNOWN,real_query,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=7,7
+tablet_ls_cache_priority,内存管理,1000,1000,"[1, )",影响缓存、冻结、内存水位和租户资源使用,命中关键词: cache,MEDIUM,UNKNOWN,real_query,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=CACHE; score=7,7
+user_block_cache_priority,内存管理,1,1,"[1, )",影响缓存、冻结、内存水位和租户资源使用,命中关键词: cache,MEDIUM,UNKNOWN,real_query,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=CACHE; score=7,7
+user_row_cache_priority,内存管理,1,1,"[1, )",影响缓存、冻结、内存水位和租户资源使用,命中关键词: cache,MEDIUM,UNKNOWN,real_query,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=CACHE; score=7,7
+virtual_table_location_cache_expire_time,内存管理,8s,8s,"[1s, +∞)",影响缓存、冻结、内存水位和租户资源使用,命中关键词: cache,MEDIUM,UNKNOWN,real_query,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=LOCATION_CACHE; score=7,7
+default_storage_cache_policy,内存管理,AUTO,AUTO,UNKNOWN,影响缓存、冻结、内存水位和租户资源使用,"命中关键词: cache, tenant",LOW,YES,real_query + previous_export,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=6,6
+kv_hbase_client_scanner_timeout_period,SQL执行,60000,60000,"(0, +∞) in integer",影响 SQL 计划、审计、长查询调度和执行超时,"命中关键词: query, timeout",LOW,YES,real_query,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=6,6
+px_node_policy,SQL执行,DATA,DATA,UNKNOWN,影响 SQL 计划、审计、长查询调度和执行超时,"命中关键词: sql, px",LOW,YES,real_query + previous_export,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=6,6
+data_disk_write_limit_percentage,磁盘IO,0,0,UNKNOWN,影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,"命中关键词: io, disk",MEDIUM,UNKNOWN,real_query + previous_export,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=TENANT; score=6,6
+diag_syslog_per_error_limit,磁盘IO,200,200,UNKNOWN,影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,"命中关键词: io, log",MEDIUM,UNKNOWN,real_query + previous_export,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=6,6
+location_cache_cpu_quota,内存管理,5,5,"[0,10] in integer",影响缓存、冻结、内存水位和租户资源使用,"命中关键词: cache, tenant",MEDIUM,UNKNOWN,real_query,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=TENANT; score=6,6
+max_syslog_file_count,磁盘IO,4,0,"[0, +∞) in integer",影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,"命中关键词: disk, log",MEDIUM,UNKNOWN,real_query,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=6,6
+mysql_port,SQL执行,2881,2881,"(1024, 65536) in integer",影响 SQL 计划、审计、长查询调度和执行超时,"命中关键词: sql, connection",MEDIUM,UNKNOWN,real_query,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=6,6
+net_thread_count,CPU调度,0,0,"[0, 128] in integer, 0 stands for max(6, CPU_NUM/8)",影响并发度、后台线程调度、排队和高负载响应时间,"命中关键词: cpu, thread",MEDIUM,UNKNOWN,real_query,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=6,6
+ob_ratelimit_stat_period,磁盘IO,1s,1s,UNKNOWN,影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,"命中关键词: io, bandwidth",MEDIUM,UNKNOWN,real_query + previous_export,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=6,6
+server_balance_cpu_mem_tolerance_percent,内存管理,5,5,"[1, 100] in percentage",影响缓存、冻结、内存水位和租户资源使用,"命中关键词: memory, mem",MEDIUM,UNKNOWN,real_query,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=LOAD_BALANCE; score=6,6
+server_balance_disk_tolerance_percent,磁盘IO,1,1,"[1, 100] in percentage",影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,"命中关键词: io, disk",MEDIUM,UNKNOWN,real_query,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=LOAD_BALANCE; score=6,6
+syslog_compress_func,磁盘IO,none,none,UNKNOWN,影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,"命中关键词: io, log",MEDIUM,UNKNOWN,real_query + previous_export,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=6,6
+syslog_file_uncompressed_count,磁盘IO,0,0,"[0, +∞) in integer",影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,"命中关键词: disk, log",MEDIUM,UNKNOWN,real_query,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=6,6
+cpu_count,CPU调度,16,0,"[0,+∞) in integer",影响并发度、后台线程调度、排队和高负载响应时间,命中关键词: cpu,HIGH,UNKNOWN,real_query,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=5,5
+rootservice_async_task_queue_size,CPU调度,16384,16384,"[8, 131072] in integer",影响并发度、后台线程调度、排队和高负载响应时间,命中关键词: queue,HIGH,UNKNOWN,real_query,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=ROOT_SERVICE; score=5,5
+rootservice_async_task_thread_count,CPU调度,4,4,"[1, 10]",影响并发度、后台线程调度、排队和高负载响应时间,命中关键词: thread,HIGH,UNKNOWN,real_query,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=ROOT_SERVICE; score=5,5
+_append_update_global_indexes_for_dynamic_partition,磁盘IO,AUTO,OFF,UNKNOWN,影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,命中关键词: io,LOW,YES,real_query,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=5,5
+_enable_ddl_worker_isolation,CPU调度,True,False,UNKNOWN,影响并发度、后台线程调度、排队和高负载响应时间,"命中关键词: worker, thread",LOW,YES,real_query + previous_export,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=ROOT_SERVICE; score=5,5
+_enable_mysql_compatible_dates,SQL执行,True,False,UNKNOWN,影响 SQL 计划、审计、长查询调度和执行超时,命中关键词: sql,LOW,YES,real_query + previous_export,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=TENANT; score=5,5
+_parallel_ddl_control,CPU调度,"TRUNCATE_TABLE:ON, SET_COMMENT:ON, CREATE_INDEX:ON, CREATE_VIEW:ON, DROP_TABLE:ON",UNKNOWN,UNKNOWN,影响并发度、后台线程调度、排队和高负载响应时间,命中关键词: parallel,LOW,YES,real_query + previous_export,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=ROOT_SERVICE; score=5,5
+arbitration_timeout,磁盘IO,5s,5s,"[3s,+∞]",影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,命中关键词: io,LOW,YES,real_query,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=TRANS; score=5,5
+archive_lag_target,磁盘IO,120s,120s,"[0ms,7200s]",影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,"命中关键词: io, log",LOW,YES,real_query,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=LOGSERVICE; score=5,5
+attach_shared_sstable_thread_score,CPU调度,0,0,"[0,100] in integer",影响并发度、后台线程调度、排队和高负载响应时间,命中关键词: thread,LOW,YES,real_query,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=5,5
+audit_log_enable,磁盘IO,False,False,UNKNOWN,影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,命中关键词: log,LOW,YES,real_query + previous_export,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=5,5
+audit_log_format,磁盘IO,CSV,CSV,UNKNOWN,影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,命中关键词: log,LOW,YES,real_query + previous_export,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=5,5
+audit_log_max_size,磁盘IO,0M,0M,UNKNOWN,影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,命中关键词: log,LOW,YES,real_query + previous_export,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=5,5
+audit_log_path,磁盘IO,,UNKNOWN,UNKNOWN,影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,命中关键词: log,LOW,YES,real_query + previous_export,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=5,5
+audit_log_prune_seconds,磁盘IO,0,0,"[0,)",影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,命中关键词: log,LOW,YES,real_query,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=TENANT; score=5,5
+audit_log_rotate_on_size,磁盘IO,256M,256M,"[0,)",影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,命中关键词: log,LOW,YES,real_query,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=5,5
+audit_log_strategy,磁盘IO,ASYNCHRONOUS,ASYNCHRONOUS,UNKNOWN,影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,命中关键词: log,LOW,YES,real_query + previous_export,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=5,5
+audit_sys_operations,磁盘IO,False,False,UNKNOWN,影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,命中关键词: io,LOW,YES,real_query + previous_export,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=5,5
+choose_migration_source_policy,磁盘IO,region,region,UNKNOWN,影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,命中关键词: io,LOW,YES,real_query + previous_export,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=TENANT; score=5,5
+connection_control_failed_connections_threshold,磁盘IO,0,0,UNKNOWN,影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,命中关键词: io,LOW,YES,real_query + previous_export,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=5,5
+connection_control_max_connection_delay,磁盘IO,2147483647,2147483647,UNKNOWN,影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,命中关键词: io,LOW,YES,real_query + previous_export,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=5,5
+connection_control_min_connection_delay,磁盘IO,1000,1000,UNKNOWN,影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,命中关键词: io,LOW,YES,real_query + previous_export,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=5,5
+ddl_thread_score,CPU调度,0,0,"[0,100] in integer",影响并发度、后台线程调度、排队和高负载响应时间,命中关键词: thread,LOW,YES,real_query,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=5,5
+default_micro_block_format_version,磁盘IO,1,1,UNKNOWN,影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,命中关键词: io,LOW,YES,real_query + previous_export,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=TENANT; score=5,5
+default_table_organization,磁盘IO,INDEX,INDEX,UNKNOWN,影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,命中关键词: io,LOW,YES,real_query + previous_export,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=TENANT; score=5,5
+enable_lock_priority,磁盘IO,False,False,UNKNOWN,影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,命中关键词: io,LOW,YES,real_query + previous_export,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=TRANS; score=5,5
+enable_logonly_replica,磁盘IO,False,False,True:turned on  False: turned off,影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,命中关键词: log,LOW,YES,real_query,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=TENANT; score=5,5
+enable_manual_storage_cache_policy,内存管理,True,True,UNKNOWN,影响缓存、冻结、内存水位和租户资源使用,命中关键词: cache,LOW,YES,real_query + previous_export,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=5,5
+enable_mlog_auto_maintenance,磁盘IO,True,False,UNKNOWN,影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,命中关键词: log,LOW,YES,real_query,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=TENANT; score=5,5
+enable_sql_extension,SQL执行,False,False,UNKNOWN,影响 SQL 计划、审计、长查询调度和执行超时,命中关键词: sql,LOW,YES,real_query + previous_export,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=5,5
+ha_high_thread_score,CPU调度,0,0,"[0,100] in integer",影响并发度、后台线程调度、排队和高负载响应时间,命中关键词: thread,LOW,YES,real_query,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=5,5
+ha_low_thread_score,CPU调度,0,0,"[0,100] in integer",影响并发度、后台线程调度、排队和高负载响应时间,命中关键词: thread,LOW,YES,real_query,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=5,5
+ha_mid_thread_score,CPU调度,0,0,"[0,100] in integer",影响并发度、后台线程调度、排队和高负载响应时间,命中关键词: thread,LOW,YES,real_query,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=5,5
+inc_sstable_upload_thread_score,CPU调度,0,0,"[0,100] in integer",影响并发度、后台线程调度、排队和高负载响应时间,命中关键词: thread,LOW,YES,real_query,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=5,5
+job_queue_processes,CPU调度,1000,1000,UNKNOWN,影响并发度、后台线程调度、排队和高负载响应时间,"命中关键词: queue, scheduler",LOW,YES,real_query + previous_export,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=5,5
+kv_ttl_duty_duration,磁盘IO,,UNKNOWN,UNKNOWN,影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,命中关键词: io,LOW,YES,real_query + previous_export,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=ROOT_SERVICE; score=5,5
+load_data_diagnosis_log_max_size,磁盘IO,256M,256M,"[0,)",影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,命中关键词: log,LOW,YES,real_query,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=5,5
+load_vector_index_on_follower,内存管理,True,True,UNKNOWN,影响缓存、冻结、内存水位和租户资源使用,"命中关键词: memory, mem, tenant",LOW,YES,real_query + previous_export,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=TENANT; score=5,5
+ls_gc_delay_time,磁盘IO,0s,0s,"[0s, +∞)",影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,"命中关键词: io, log",LOW,YES,real_query,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=LOGSERVICE; score=5,5
+max_partition_num,磁盘IO,8192,8192,UNKNOWN,影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,命中关键词: io,LOW,YES,real_query + previous_export,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=TENANT; score=5,5
+mlog_trim_interval,磁盘IO,1d,1d,"[5s, 30d]",影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,命中关键词: log,LOW,YES,real_query,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=TENANT; score=5,5
+ob_proxy_readonly_transaction_routing_policy,磁盘IO,False,false,UNKNOWN,影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,命中关键词: io,LOW,YES,real_query + previous_export,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=5,5
+open_cursors,SQL执行,50,50,"[0, 65535] in integer",影响 SQL 计划、审计、长查询调度和执行超时,命中关键词: cursor,LOW,YES,real_query,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=5,5
+partition_balance_schedule_interval,磁盘IO,0,2h,"[0s, +∞)",影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,命中关键词: io,LOW,YES,real_query,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=LOAD_BALANCE; score=5,5
+plsql_code_type,SQL执行,native,native,UNKNOWN,影响 SQL 计划、审计、长查询调度和执行超时,命中关键词: sql,LOW,YES,real_query + previous_export,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=5,5
+plsql_debug,SQL执行,False,False,UNKNOWN,影响 SQL 计划、审计、长查询调度和执行超时,命中关键词: sql,LOW,YES,real_query + previous_export,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=5,5
+query_response_time_flush,磁盘IO,False,False,TRUE: trigger flush FALSE: do not trigger,影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,命中关键词: flush,LOW,YES,real_query,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=TENANT; score=5,5
+query_response_time_range_base,SQL执行,10,10,"[2,10000]",影响 SQL 计划、审计、长查询调度和执行超时,命中关键词: query,LOW,YES,real_query,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=TENANT; score=5,5
+query_response_time_stats,SQL执行,True,True,TRUE: turned on FALSE: turned off,影响 SQL 计划、审计、长查询调度和执行超时,命中关键词: query,LOW,YES,real_query,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=TENANT; score=5,5
+replica_parallel_migration_mode,CPU调度,auto,auto,UNKNOWN,影响并发度、后台线程调度、排队和高负载响应时间,命中关键词: parallel,LOW,YES,real_query + previous_export,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=TENANT; score=5,5
+result_cache_max_result,内存管理,5,5,UNKNOWN,影响缓存、冻结、内存水位和租户资源使用,命中关键词: cache,LOW,YES,real_query + previous_export,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=5,5
+spill_compression_codec,磁盘IO,LZ4,NONE,UNKNOWN,影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,命中关键词: io,LOW,YES,real_query + previous_export,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=5,5
+temporary_file_max_disk_size,磁盘IO,0M,0M,"[0,+∞)",影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,命中关键词: disk,LOW,YES,real_query,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=TENANT; score=5,5
+ttl_thread_score,CPU调度,0,0,"[0,100] in integer",影响并发度、后台线程调度、排队和高负载响应时间,命中关键词: thread,LOW,YES,real_query,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=5,5
+undo_retention,磁盘IO,1800,1800,"[0, 4294967295]",影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,命中关键词: io,LOW,YES,real_query,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=TENANT; score=5,5
+writing_throttling_maximum_duration,磁盘IO,2h,2h,UNKNOWN,影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,命中关键词: io,LOW,YES,real_query + previous_export,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=TRANS; score=5,5
+zone_disk_balance_tolerance_percentage,磁盘IO,10,10,"[1, 100] in percentage",影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,命中关键词: disk,LOW,YES,real_query,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=LOAD_BALANCE; score=5,5
+alert_log_level,磁盘IO,INFO,INFO,UNKNOWN,影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,命中关键词: log,MEDIUM,UNKNOWN,real_query + previous_export,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=5,5
+async_ps_cursor_max_count,SQL执行,0,0,"[0, 1024] in integer",影响 SQL 计划、审计、长查询调度和执行超时,命中关键词: cursor,MEDIUM,UNKNOWN,real_query,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=5,5
+autoinc_cache_refresh_interval,内存管理,3600s,3600s,"[100ms, +∞)",影响缓存、冻结、内存水位和租户资源使用,命中关键词: cache,MEDIUM,UNKNOWN,real_query,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=5,5
+balancer_log_interval,磁盘IO,1m,1m,"[1s, +∞)",影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,命中关键词: log,MEDIUM,UNKNOWN,real_query,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=LOAD_BALANCE; score=5,5
+config_additional_dir,磁盘IO,etc2;etc3,etc2;etc3,UNKNOWN,影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,命中关键词: io,MEDIUM,UNKNOWN,real_query + previous_export,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=5,5
+data_disk_usage_limit_percentage,磁盘IO,90,90,"[50,100] in integer",影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,命中关键词: disk,MEDIUM,UNKNOWN,real_query,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=5,5
+dead_socket_detection_timeout,磁盘IO,3s,3s,"[0, 2h]",影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,命中关键词: io,MEDIUM,UNKNOWN,real_query,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=5,5
+debug_sync_timeout,SQL执行,0,0,"[0, +∞]",影响 SQL 计划、审计、长查询调度和执行超时,命中关键词: timeout,MEDIUM,UNKNOWN,real_query,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=5,5
+enable_async_syslog,磁盘IO,True,True,UNKNOWN,影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,命中关键词: log,MEDIUM,UNKNOWN,real_query + previous_export,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=5,5
+enable_major_freeze,内存管理,True,True,True:turned on,影响缓存、冻结、内存水位和租户资源使用,命中关键词: freeze,MEDIUM,UNKNOWN,real_query,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=ROOT_SERVICE; score=5,5
+enable_record_trace_log,磁盘IO,False,True,UNKNOWN,影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,命中关键词: log,MEDIUM,UNKNOWN,real_query + previous_export,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=5,5
+enable_rereplication,磁盘IO,True,True,True:turned on  False: turned off,影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,命中关键词: io,MEDIUM,UNKNOWN,real_query,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=LOAD_BALANCE; score=5,5
+enable_rpc_authentication_bypass,磁盘IO,True,True,UNKNOWN,影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,命中关键词: io,MEDIUM,UNKNOWN,real_query + previous_export,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=5,5
+enable_sql_audit,SQL执行,True,true,TRUE: turned on FALSE: turned off,影响 SQL 计划、审计、长查询调度和执行超时,命中关键词: sql,MEDIUM,UNKNOWN,real_query,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=5,5
+enable_sql_operator_dump,SQL执行,True,True,UNKNOWN,影响 SQL 计划、审计、长查询调度和执行超时,命中关键词: sql,MEDIUM,UNKNOWN,real_query + previous_export,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=5,5
+enable_syslog_recycle,磁盘IO,True,False,True：turned on,影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,命中关键词: log,MEDIUM,UNKNOWN,real_query,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=5,5
+enable_syslog_wf,磁盘IO,False,True,UNKNOWN,影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,命中关键词: log,MEDIUM,UNKNOWN,real_query + previous_export,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=5,5
+global_background_cpu_quota,CPU调度,-1,-1,UNKNOWN,影响并发度、后台线程调度、排队和高负载响应时间,命中关键词: cpu,MEDIUM,UNKNOWN,real_query + previous_export,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=5,5
+large_query_worker_percentage,CPU调度,30,30,"[0, 100] in percentage",影响并发度、后台线程调度、排队和高负载响应时间,命中关键词: worker,MEDIUM,UNKNOWN,real_query,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=TENANT; score=5,5
+logservice_access_point,磁盘IO,,UNKNOWN,UNKNOWN,影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,命中关键词: log,MEDIUM,UNKNOWN,real_query + previous_export,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=5,5
+migration_disable_time,磁盘IO,3600s,3600s,"[1s, +∞)",影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,命中关键词: io,MEDIUM,UNKNOWN,real_query,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=ROOT_SERVICE; score=5,5
+min_observer_version,磁盘IO,4.4.2.1,4.4.2.1,UNKNOWN,影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,命中关键词: io,MEDIUM,UNKNOWN,real_query + previous_export,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=ROOT_SERVICE; score=5,5
+resource_hard_limit,内存管理,100,100,UNKNOWN,影响缓存、冻结、内存水位和租户资源使用,命中关键词: resource,MEDIUM,UNKNOWN,real_query + previous_export,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=LOAD_BALANCE; score=5,5
+rpc_client_authentication_method,磁盘IO,NONE,NONE,UNKNOWN,影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,命中关键词: io,MEDIUM,UNKNOWN,real_query + previous_export,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=5,5
+rpc_server_authentication_method,磁盘IO,ALL,ALL,UNKNOWN,影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,命中关键词: io,MEDIUM,UNKNOWN,real_query + previous_export,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=5,5
+server_balance_critical_disk_waterlevel,磁盘IO,80,80,UNKNOWN,影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,命中关键词: disk,MEDIUM,UNKNOWN,real_query + previous_export,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=LOAD_BALANCE; score=5,5
+server_cpu_quota_max,CPU调度,0,0,"[0, 16]",影响并发度、后台线程调度、排队和高负载响应时间,命中关键词: cpu,MEDIUM,UNKNOWN,real_query,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=TENANT; score=5,5
+server_cpu_quota_min,CPU调度,0,0,"[0, 16]",影响并发度、后台线程调度、排队和高负载响应时间,命中关键词: cpu,MEDIUM,UNKNOWN,real_query,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=TENANT; score=5,5
+sql_login_thread_count,CPU调度,0,0,"[0, 32] in integer, 0 stands for use default thread count defined in TG",影响并发度、后台线程调度、排队和高负载响应时间,命中关键词: thread,MEDIUM,UNKNOWN,real_query,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=5,5
+sql_net_thread_count,CPU调度,0,0,"[0, 64] in integer, default value is 0, 0 stands for old value GCONF",影响并发度、后台线程调度、排队和高负载响应时间,命中关键词: thread,MEDIUM,UNKNOWN,real_query,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=5,5
+sql_protocol_min_tls_version,磁盘IO,none,none,UNKNOWN,影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,命中关键词: io,MEDIUM,UNKNOWN,real_query + previous_export,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=5,5
+ss_cache_max_percentage,内存管理,30,30,"(0,100] in integer",影响缓存、冻结、内存水位和租户资源使用,命中关键词: cache,MEDIUM,UNKNOWN,real_query,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=SSTABLE; score=5,5
+ss_cache_maxsize_percpu,CPU调度,128G,128G,"(0, +∞)",影响并发度、后台线程调度、排队和高负载响应时间,命中关键词: cpu,MEDIUM,UNKNOWN,real_query,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=SSTABLE; score=5,5
+sync_io_thread_count,CPU调度,0,0,"[0,1024] in integer",影响并发度、后台线程调度、排队和高负载响应时间,命中关键词: thread,MEDIUM,UNKNOWN,real_query,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=5,5
+sys_bkgd_migration_change_member_list_timeout,内存管理,20s,20s,"[0s,24h]",影响缓存、冻结、内存水位和租户资源使用,命中关键词: mem,MEDIUM,UNKNOWN,real_query,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=5,5
+sys_bkgd_migration_retry_num,磁盘IO,3,3,"[3, 100] in integer",影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,命中关键词: io,MEDIUM,UNKNOWN,real_query,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=5,5
+syslog_level,磁盘IO,WDIAG,WDIAG,UNKNOWN,影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,命中关键词: log,MEDIUM,UNKNOWN,real_query + previous_export,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=5,5
+tenant_task_queue_size,CPU调度,16384,16384,"[1024,+∞)",影响并发度、后台线程调度、排队和高负载响应时间,命中关键词: queue,MEDIUM,UNKNOWN,real_query,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=5,5
+trace_log_slow_query_watermark,磁盘IO,1s,1s,"[1ms,+∞)",影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,"命中关键词: io, log",MEDIUM,UNKNOWN,real_query,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=5,5
+weak_read_version_refresh_interval,磁盘IO,100ms,100ms,"[50ms, +∞)",影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,命中关键词: io,MEDIUM,UNKNOWN,real_query,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=5,5
+datafile_size,磁盘IO,5G,0M,"[0, +∞)",影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,命中关键词: datafile,HIGH,UNKNOWN,real_query,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=SSTABLE; score=4,4
+enable_global_background_resource_isolation,内存管理,False,False,UNKNOWN,影响缓存、冻结、内存水位和租户资源使用,"命中关键词: tenant, resource",HIGH,UNKNOWN,real_query + previous_export,scope=CLUSTER; edit_level=STATIC_EFFECTIVE; section=OBSERVER; score=4,4
+high_priority_net_thread_count,CPU调度,0,0,"[0, 64] in integer",影响并发度、后台线程调度、排队和高负载响应时间,命中关键词: thread,HIGH,UNKNOWN,real_query,scope=CLUSTER; edit_level=STATIC_EFFECTIVE; section=OBSERVER; score=4,4
+approx_count_distinct_precision,磁盘IO,10,10,UNKNOWN,影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,命中关键词: io,LOW,YES,real_query + previous_export,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=TENANT; score=4,4
+default_progressive_merge_num,内存管理,0,0,"[0,)",影响缓存、冻结、内存水位和租户资源使用,命中关键词: tenant,LOW,YES,real_query,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=TENANT; score=4,4
+enable_mv_binlog_minimal_mode,磁盘IO,False,False,UNKNOWN,影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,命中关键词: log,LOW,YES,real_query,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=TENANT; score=4,4
+external_table_io_hole_size,磁盘IO,1M,1M,UNKNOWN,影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,命中关键词: io,LOW,YES,real_query + previous_export,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=TENANT; score=4,4
+external_table_io_range_size,磁盘IO,8M,8M,UNKNOWN,影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,命中关键词: io,LOW,YES,real_query + previous_export,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=TENANT; score=4,4
+global_index_auto_split_policy,内存管理,ALL,ALL,UNKNOWN,影响缓存、冻结、内存水位和租户资源使用,命中关键词: tenant,LOW,YES,real_query + previous_export,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=TENANT; score=4,4
+major_compact_trigger,内存管理,0,0,"[0,65535] in integer",影响缓存、冻结、内存水位和租户资源使用,"命中关键词: tenant, freeze",LOW,YES,real_query,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=TENANT; score=4,4
+major_freeze_duty_time,内存管理,02:00,02:00,"[00:00, 24:00)",影响缓存、冻结、内存水位和租户资源使用,命中关键词: freeze,LOW,YES,real_query,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=DAILY_MERGE; score=4,4
+optimizer_index_cost_adj,SQL执行,0,0,UNKNOWN,影响 SQL 计划、审计、长查询调度和执行超时,命中关键词: optimizer,LOW,YES,real_query + previous_export,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=TENANT; score=4,4
+plsql_v2_compatibility,SQL执行,False,False,UNKNOWN,影响 SQL 计划、审计、长查询调度和执行超时,命中关键词: sql,LOW,YES,real_query + previous_export,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=4,4
+recover_table_concurrency,CPU调度,0,0,"[0,16] in integer",影响并发度、后台线程调度、排队和高负载响应时间,命中关键词: concurrency,LOW,YES,real_query,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=4,4
+suspend_storage_cache_task,内存管理,False,False,UNKNOWN,影响缓存、冻结、内存水位和租户资源使用,命中关键词: cache,LOW,YES,real_query + previous_export,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=4,4
+_bloom_filter_ratio,磁盘IO,3,35,"[0,100]",影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,命中关键词: io,MEDIUM,UNKNOWN,real_query,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=TENANT; score=4,4
+balancer_task_timeout,SQL执行,20m,20m,"[1s, +∞)",影响 SQL 计划、审计、长查询调度和执行超时,命中关键词: timeout,MEDIUM,UNKNOWN,real_query,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=LOAD_BALANCE; score=4,4
+datafile_maxsize,磁盘IO,0,0,"[0, +∞)",影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,命中关键词: datafile,MEDIUM,UNKNOWN,real_query,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=SSTABLE; score=4,4
+datafile_next,磁盘IO,0,0,"[0, +∞)",影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,命中关键词: datafile,MEDIUM,UNKNOWN,real_query,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=SSTABLE; score=4,4
+dtl_buffer_size,内存管理,64K,64K,UNKNOWN,影响缓存、冻结、内存水位和租户资源使用,命中关键词: buffer,MEDIUM,UNKNOWN,real_query + previous_export,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=4,4
+enable_logservice,磁盘IO,False,False,UNKNOWN,影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,命中关键词: log,MEDIUM,UNKNOWN,real_query + previous_export,scope=CLUSTER; edit_level=READONLY; section=OBSERVER; score=4,4
+large_query_threshold,SQL执行,5s,5s,"[0ms, +∞)",影响 SQL 计划、审计、长查询调度和执行超时,命中关键词: query,MEDIUM,UNKNOWN,real_query,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=TENANT; score=4,4
+px_task_size,SQL执行,2M,2M,UNKNOWN,影响 SQL 计划、审计、长查询调度和执行超时,命中关键词: px,MEDIUM,UNKNOWN,real_query + previous_export,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=4,4
+rpc_timeout,SQL执行,2s,2s,UNKNOWN,影响 SQL 计划、审计、长查询调度和执行超时,命中关键词: timeout,MEDIUM,UNKNOWN,real_query + previous_export,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=RPC; score=4,4
+ssl_client_authentication,磁盘IO,False,False,UNKNOWN,影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,命中关键词: io,MEDIUM,UNKNOWN,real_query + previous_export,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=4,4
+sql_work_area,内存管理,1G,1G,UNKNOWN,影响缓存、冻结、内存水位和租户资源使用,"命中关键词: memory, mem, tenant",HIGH,UNKNOWN,real_query + previous_export,scope=TENANT; edit_level=STATIC_EFFECTIVE; section=OBSERVER; score=3,3
+_enable_filter_reordering,内存管理,False,True,UNKNOWN,影响缓存、冻结、内存水位和租户资源使用,命中关键词: tenant,LOW,YES,real_query + previous_export,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=TENANT; score=3,3
+_prexec_prepare_with_params,内存管理,True,False,UNKNOWN,影响缓存、冻结、内存水位和租户资源使用,命中关键词: tenant,LOW,YES,real_query + previous_export,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=TENANT; score=3,3
+_system_trig_enabled,内存管理,False,True,UNKNOWN,影响缓存、冻结、内存水位和租户资源使用,命中关键词: tenant,LOW,YES,real_query + previous_export,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=TENANT; score=3,3
+auto_split_tablet_size,内存管理,2GB,2GB,"[128M, +∞)",影响缓存、冻结、内存水位和租户资源使用,命中关键词: tenant,LOW,YES,real_query,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=TENANT; score=3,3
+default_load_mode,内存管理,DISABLED,DISABLED,UNKNOWN,影响缓存、冻结、内存水位和租户资源使用,命中关键词: tenant,LOW,YES,real_query + previous_export,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=TENANT; score=3,3
+default_skip_index_level,内存管理,0,0,UNKNOWN,影响缓存、冻结、内存水位和租户资源使用,命中关键词: tenant,LOW,YES,real_query + previous_export,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=TENANT; score=3,3
+default_table_merge_engine,内存管理,PARTIAL_UPDATE,PARTIAL_UPDATE,UNKNOWN,影响缓存、冻结、内存水位和租户资源使用,命中关键词: tenant,LOW,YES,real_query + previous_export,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=TENANT; score=3,3
+default_table_store_format,内存管理,row,row,UNKNOWN,影响缓存、冻结、内存水位和租户资源使用,命中关键词: tenant,LOW,YES,real_query + previous_export,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=TENANT; score=3,3
+direct_load_allow_fallback,内存管理,True,True,UNKNOWN,影响缓存、冻结、内存水位和租户资源使用,命中关键词: tenant,LOW,YES,real_query + previous_export,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=TENANT; score=3,3
+enable_auto_split,内存管理,False,False,UNKNOWN,影响缓存、冻结、内存水位和租户资源使用,命中关键词: tenant,LOW,YES,real_query + previous_export,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=TENANT; score=3,3
+enable_ls_leader_balance,内存管理,True,True,True:turned on  False: turned off,影响缓存、冻结、内存水位和租户资源使用,命中关键词: tenant,LOW,YES,real_query,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=TENANT; score=3,3
+enable_monotonic_weak_read,内存管理,False,false,UNKNOWN,影响缓存、冻结、内存水位和租户资源使用,命中关键词: tenant,LOW,YES,real_query + previous_export,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=TENANT; score=3,3
+enable_pl_rich_error_msg,内存管理,False,False,UNKNOWN,影响缓存、冻结、内存水位和租户资源使用,命中关键词: tenant,LOW,YES,real_query,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=TENANT; score=3,3
+enable_ps_parameterize,内存管理,False,True,UNKNOWN,影响缓存、冻结、内存水位和租户资源使用,命中关键词: tenant,LOW,YES,real_query + previous_export,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=TENANT; score=3,3
+json_document_max_depth,内存管理,100,100,UNKNOWN,影响缓存、冻结、内存水位和租户资源使用,命中关键词: tenant,LOW,YES,real_query + previous_export,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=TENANT; score=3,3
+kv_group_commit_batch_size,内存管理,10,10,"1 means sinlge operaion in each batch, equally to disable group commit",影响缓存、冻结、内存水位和租户资源使用,命中关键词: tenant,LOW,YES,real_query,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=TENANT; score=3,3
+kv_group_commit_rw_mode,内存管理,ALL,ALL,"'ALL' means enable all operations, 'READ' mean only enable read operation in group commit, 'WRITE'  means only write operations in group commit",影响缓存、冻结、内存水位和租户资源使用,命中关键词: tenant,LOW,YES,real_query,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=TENANT; score=3,3
+max_stale_time_for_weak_consistency,内存管理,5s,5s,"[5s, +∞)",影响缓存、冻结、内存水位和租户资源使用,命中关键词: tenant,LOW,YES,real_query,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=TENANT; score=3,3
+mds_minor_compact_trigger,内存管理,2,2,"[2,16] in integer",影响缓存、冻结、内存水位和租户资源使用,命中关键词: tenant,LOW,YES,real_query,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=TENANT; score=3,3
+minor_compact_trigger,内存管理,2,2,"[0,16] in integer",影响缓存、冻结、内存水位和租户资源使用,命中关键词: tenant,LOW,YES,real_query,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=TENANT; score=3,3
+ob_encoding_granularity,内存管理,65536,65536,"[8192,1048576]",影响缓存、冻结、内存水位和租户资源使用,命中关键词: tenant,LOW,YES,real_query,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=TENANT; score=3,3
+storage_rowsets_size,内存管理,8192,8192,"(0,1048576]",影响缓存、冻结、内存水位和租户资源使用,命中关键词: tenant,LOW,YES,real_query,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=TENANT; score=3,3
+workarea_size_policy,内存管理,AUTO,AUTO,UNKNOWN,影响缓存、冻结、内存水位和租户资源使用,命中关键词: tenant,LOW,YES,real_query + previous_export,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=TENANT; score=3,3
+zone_deploy_mode,内存管理,homo,homo,UNKNOWN,影响缓存、冻结、内存水位和租户资源使用,"命中关键词: tenant, resource",LOW,YES,real_query,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=3,3
+all_server_list,内存管理,172.17.0.2:2882,UNKNOWN,UNKNOWN,影响缓存、冻结、内存水位和租户资源使用,命中关键词: cache,MEDIUM,UNKNOWN,real_query + previous_export,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=LOCATION_CACHE; score=3,3
+balancer_tolerance_percentage,磁盘IO,10,10,"[1, 100) in percentage",影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,"命中关键词: io, disk",MEDIUM,UNKNOWN,real_query,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=LOAD_BALANCE; score=3,3
+enable_tcp_keepalive,SQL执行,True,true,UNKNOWN,影响 SQL 计划、审计、长查询调度和执行超时,"命中关键词: sql, connection",MEDIUM,UNKNOWN,real_query + previous_export,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=3,3
+leak_mod_to_check,内存管理,NONE,NONE,UNKNOWN,影响缓存、冻结、内存水位和租户资源使用,"命中关键词: memory, mem",MEDIUM,UNKNOWN,real_query + previous_export,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=3,3
+rootservice_list,磁盘IO,172.17.0.2:2882:2881,UNKNOWN,UNKNOWN,影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,命中关键词: io,HIGH,UNKNOWN,real_query + previous_export,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=2,2
+_enable_das_batch_rescan_flag,磁盘IO,15,0,UNKNOWN,影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,命中关键词: io,LOW,YES,real_query + previous_export,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=2,2
+_enable_spf_batch_rescan,SQL执行,True,False,UNKNOWN,影响 SQL 计划、审计、长查询调度和执行超时,命中关键词: plan,LOW,YES,real_query + previous_export,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=2,2
+_ob_immediate_row_conflict_check,SQL执行,False,True,UNKNOWN,影响 SQL 计划、审计、长查询调度和执行超时,命中关键词: sql,LOW,YES,real_query + previous_export,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=2,2
+balancer_idle_time,内存管理,10s,10s,"[10s, +∞)",影响缓存、冻结、内存水位和租户资源使用,命中关键词: tenant,LOW,YES,real_query,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=LOAD_BALANCE; score=2,2
+compatible,磁盘IO,4.4.2.1,4.4.2.1,UNKNOWN,影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,命中关键词: io,LOW,YES,real_query + previous_export,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=ROOT_SERVICE; score=2,2
+enable_database_sharding_none,磁盘IO,False,False,UNKNOWN,影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,命中关键词: io,LOW,YES,real_query + previous_export,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=LOAD_BALANCE; score=2,2
+enable_rebalance,内存管理,True,True,True:turned on  False: turned off,影响缓存、冻结、内存水位和租户资源使用,命中关键词: tenant,LOW,YES,real_query,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=LOAD_BALANCE; score=2,2
+enable_transfer,内存管理,True,True,True:turned on  False:turned off,影响缓存、冻结、内存水位和租户资源使用,命中关键词: tenant,LOW,YES,real_query,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=LOAD_BALANCE; score=2,2
+external_kms_info,磁盘IO,,UNKNOWN,UNKNOWN,影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,命中关键词: io,LOW,YES,real_query + previous_export,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=2,2
+kv_transport_compress_func,SQL执行,none,none,"none, lz4_1",影响 SQL 计划、审计、长查询调度和执行超时,命中关键词: query,LOW,YES,real_query,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=2,2
+kv_transport_compress_threshold,磁盘IO,10K,10K,"[0, +∞)",影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,命中关键词: io,LOW,YES,real_query,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=2,2
+ls_scale_out_factor,内存管理,1,1,"[1, +∞)]",影响缓存、冻结、内存水位和租户资源使用,命中关键词: tenant,LOW,YES,real_query,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=LOAD_BALANCE; score=2,2
+recover_table_dop,CPU调度,0,0,"[0,) in integer",影响并发度、后台线程调度、排队和高负载响应时间,命中关键词: parallel,LOW,YES,real_query,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=2,2
+tde_method,磁盘IO,none,none,UNKNOWN,影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,命中关键词: io,LOW,YES,real_query + previous_export,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=2,2
+writing_throttling_trigger_percentage,内存管理,60,60,UNKNOWN,影响缓存、冻结、内存水位和租户资源使用,命中关键词: mem,LOW,YES,real_query + previous_export,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=TRANS; score=2,2
+data_storage_error_tolerance_time,磁盘IO,300s,300s,UNKNOWN,影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,命中关键词: disk,MEDIUM,UNKNOWN,real_query + previous_export,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=2,2
+data_storage_warning_tolerance_time,磁盘IO,5s,5s,UNKNOWN,影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,命中关键词: disk,MEDIUM,UNKNOWN,real_query + previous_export,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=2,2
+default_compress_func,磁盘IO,zstd_1.3.8,zstd_1.3.8,UNKNOWN,影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,命中关键词: io,MEDIUM,UNKNOWN,real_query + previous_export,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=2,2
+default_row_format,SQL执行,dynamic,dynamic,UNKNOWN,影响 SQL 计划、审计、长查询调度和执行超时,命中关键词: sql,MEDIUM,UNKNOWN,real_query + previous_export,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=2,2
+enable_ddl,磁盘IO,True,True,True:turned on,影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,命中关键词: io,MEDIUM,UNKNOWN,real_query,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=ROOT_SERVICE; score=2,2
+enable_ob_ratelimit,磁盘IO,False,False,UNKNOWN,影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,命中关键词: io,MEDIUM,UNKNOWN,real_query + previous_export,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=2,2
+ignore_replay_checksum_error,内存管理,True,True,True:ignored,影响缓存、冻结、内存水位和租户资源使用,命中关键词: mem,MEDIUM,UNKNOWN,real_query,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=TRANS; score=2,2
+lease_time,磁盘IO,10s,10s,"[1s, 5m]",影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,命中关键词: io,MEDIUM,UNKNOWN,real_query,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=ROOT_SERVICE; score=2,2
+max_string_print_length,磁盘IO,500,500,"[0,]",影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,命中关键词: log,MEDIUM,UNKNOWN,real_query,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=2,2
+micro_block_merge_verify_level,磁盘IO,2,2,UNKNOWN,影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,命中关键词: io,MEDIUM,UNKNOWN,real_query + previous_export,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=2,2
+ob_java_connector_path,磁盘IO,,UNKNOWN,UNKNOWN,影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,命中关键词: io,MEDIUM,UNKNOWN,real_query + previous_export,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=2,2
+ob_java_home,磁盘IO,,UNKNOWN,UNKNOWN,影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,命中关键词: io,MEDIUM,UNKNOWN,real_query + previous_export,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=2,2
+ob_java_opts,磁盘IO,,UNKNOWN,UNKNOWN,影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,命中关键词: io,MEDIUM,UNKNOWN,real_query + previous_export,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=2,2
+redundancy_level,磁盘IO,NORMAL,NORMAL,UNKNOWN,影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,命中关键词: disk,MEDIUM,UNKNOWN,real_query + previous_export,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=SSTABLE; score=2,2
+ssl_external_kms_info,磁盘IO,,UNKNOWN,UNKNOWN,影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,命中关键词: io,MEDIUM,UNKNOWN,real_query + previous_export,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=2,2
+tablet_meta_table_scan_batch_count,磁盘IO,999,999,"(0,65536]",影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,命中关键词: io,MEDIUM,UNKNOWN,real_query,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=ROOT_SERVICE; score=2,2
+tcp_keepcnt,磁盘IO,10,10,"[1,+∞)",影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,命中关键词: io,MEDIUM,UNKNOWN,real_query,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=2,2
+tcp_keepidle,磁盘IO,7200s,7200s,"[1s, +∞]",影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,命中关键词: io,MEDIUM,UNKNOWN,real_query,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=2,2
+tcp_keepintvl,磁盘IO,6s,6s,"[1s, +∞]",影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,命中关键词: io,MEDIUM,UNKNOWN,real_query,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=2,2
+trx_2pc_retry_interval,磁盘IO,100ms,100ms,"[1ms,5000ms]",影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,命中关键词: io,MEDIUM,UNKNOWN,real_query,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=TRANS; score=2,2
+rootservice_ready_check_interval,CPU调度,3s,3s,"[100000us, 1m]",影响并发度、后台线程调度、排队和高负载响应时间,命中关键词: ,HIGH,UNKNOWN,real_query,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=ROOT_SERVICE; score=1,1
+stack_size,磁盘IO,512K,512K,"[512K, 20M]",影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,命中关键词: io,HIGH,UNKNOWN,real_query,scope=CLUSTER; edit_level=STATIC_EFFECTIVE; section=OBSERVER; score=1,1
+audit_trail,CPU调度,,UNKNOWN,UNKNOWN,影响并发度、后台线程调度、排队和高负载响应时间,命中关键词: ,LOW,YES,real_query + previous_export,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=1,1
+backup_data_file_size,CPU调度,4G,4G,"[512M, 4G] in integer",影响并发度、后台线程调度、排队和高负载响应时间,命中关键词: ,LOW,YES,real_query,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=1,1
+default_auto_increment_mode,CPU调度,order,order,UNKNOWN,影响并发度、后台线程调度、排队和高负载响应时间,命中关键词: ,LOW,YES,real_query + previous_export,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=1,1
+default_enable_extended_rowid,CPU调度,False,false,UNKNOWN,影响并发度、后台线程调度、排队和高负载响应时间,命中关键词: ,LOW,YES,real_query + previous_export,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=1,1
+enable_early_lock_release,CPU调度,True,True,UNKNOWN,影响并发度、后台线程调度、排队和高负载响应时间,命中关键词: ,LOW,YES,real_query + previous_export,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=1,1
+enable_gts_standalone,CPU调度,False,False,True: turned on,影响并发度、后台线程调度、排队和高负载响应时间,命中关键词: ,LOW,YES,real_query,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=LOAD_BALANCE; score=1,1
+enable_hbase_rowkey_ttl,CPU调度,False,False,UNKNOWN,影响并发度、后台线程调度、排队和高负载响应时间,命中关键词: ,LOW,YES,real_query,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=ROOT_SERVICE; score=1,1
+enable_kv_ttl,CPU调度,False,False,UNKNOWN,影响并发度、后台线程调度、排队和高负载响应时间,命中关键词: ,LOW,YES,real_query + previous_export,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=ROOT_SERVICE; score=1,1
+enable_user_defined_rewrite_rules,CPU调度,False,False,True: enable  False: disable,影响并发度、后台线程调度、排队和高负载响应时间,命中关键词: ,LOW,YES,real_query,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=1,1
+kv_ttl_history_recycle_interval,CPU调度,7d,7d,"[1d, 180d]",影响并发度、后台线程调度、排队和高负载响应时间,命中关键词: ,LOW,YES,real_query,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=ROOT_SERVICE; score=1,1
+merger_check_interval,CPU调度,10m,10m,"[10s, 60m]",影响并发度、后台线程调度、排队和高负载响应时间,命中关键词: ,LOW,YES,real_query,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=DAILY_MERGE; score=1,1
+ob_enable_batched_multi_statement,CPU调度,False,False,UNKNOWN,影响并发度、后台线程调度、排队和高负载响应时间,命中关键词: ,LOW,YES,real_query + previous_export,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=1,1
+ob_enable_java_udf,CPU调度,False,False,UNKNOWN,影响并发度、后台线程调度、排队和高负载响应时间,命中关键词: ,LOW,YES,real_query + previous_export,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=1,1
+ob_enable_python_udf,CPU调度,False,False,UNKNOWN,影响并发度、后台线程调度、排队和高负载响应时间,命中关键词: ,LOW,YES,real_query + previous_export,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=1,1
+ob_ssl_invited_common_names,CPU调度,NONE,NONE,UNKNOWN,影响并发度、后台线程调度、排队和高负载响应时间,命中关键词: ,LOW,YES,real_query + previous_export,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=1,1
+ob_vector_search_strategy,CPU调度,RECALL_FIRST,RECALL_FIRST,UNKNOWN,影响并发度、后台线程调度、排队和高负载响应时间,命中关键词: ,LOW,YES,real_query,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=1,1
+package_state_sync_max_size,CPU调度,8192,8192,"[0, 16777216] in integer",影响并发度、后台线程调度、排队和高负载响应时间,命中关键词: ,LOW,YES,real_query,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=1,1
+schema_history_archive_expire_time,CPU调度,0,0,"{0} & [30d, 365d]",影响并发度、后台线程调度、排队和高负载响应时间,命中关键词: ,LOW,YES,real_query,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=1,1
+schema_history_expire_time,CPU调度,7d,7d,"[1m, 30d]",影响并发度、后台线程调度、排队和高负载响应时间,命中关键词: ,LOW,YES,real_query,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=1,1
+sts_credential,CPU调度,,UNKNOWN,UNKNOWN,影响并发度、后台线程调度、排队和高负载响应时间,命中关键词: ,LOW,YES,real_query + previous_export,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=1,1
+vector_index_optimize_duty_time,CPU调度,"[00:00:00, 24:00:00]","[00:00:00, 24:00:00]",UNKNOWN,影响并发度、后台线程调度、排队和高负载响应时间,命中关键词: ,LOW,YES,real_query + previous_export,scope=TENANT; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=1,1
+_enable_dbms_job_package,CPU调度,False,True,UNKNOWN,影响并发度、后台线程调度、排队和高负载响应时间,命中关键词: ,MEDIUM,UNKNOWN,real_query + previous_export,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=1,1
+_ob_enable_pl_dynamic_stack_check,CPU调度,True,False,UNKNOWN,影响并发度、后台线程调度、排队和高负载响应时间,命中关键词: ,MEDIUM,UNKNOWN,real_query + previous_export,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=1,1
+_use_odps_jni_connector,CPU调度,True,False,UNKNOWN,影响并发度、后台线程调度、排队和高负载响应时间,命中关键词: ,MEDIUM,UNKNOWN,real_query + previous_export,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=1,1
+builtin_db_data_verify_cycle,CPU调度,20,20,"[0, 360] in integer",影响并发度、后台线程调度、排队和高负载响应时间,命中关键词: ,MEDIUM,UNKNOWN,real_query,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=1,1
+cluster,CPU调度,obcluster,obcluster,UNKNOWN,影响并发度、后台线程调度、排队和高负载响应时间,命中关键词: ,MEDIUM,UNKNOWN,real_query + previous_export,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=1,1
+cluster_id,CPU调度,1781681497,0,UNKNOWN,影响并发度、后台线程调度、排队和高负载响应时间,命中关键词: ,MEDIUM,UNKNOWN,real_query + previous_export,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=1,1
+default_compress,CPU调度,archive,archive,UNKNOWN,影响并发度、后台线程调度、排队和高负载响应时间,命中关键词: ,MEDIUM,UNKNOWN,real_query + previous_export,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=1,1
+enable_cgroup,CPU调度,True,True,UNKNOWN,影响并发度、后台线程调度、排队和高负载响应时间,命中关键词: ,MEDIUM,UNKNOWN,real_query + previous_export,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=1,1
+enable_dblink,CPU调度,True,True,UNKNOWN,影响并发度、后台线程调度、排队和高负载响应时间,命中关键词: ,MEDIUM,UNKNOWN,real_query + previous_export,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=1,1
+enable_ob_error_msg_style,CPU调度,True,True,"False means we use the ORA-xx format, True means we use the OBE-xx format",影响并发度、后台线程调度、排队和高负载响应时间,命中关键词: ,MEDIUM,UNKNOWN,real_query,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=1,1
+enable_perf_event,CPU调度,True,True,UNKNOWN,影响并发度、后台线程调度、排队和高负载响应时间,命中关键词: ,MEDIUM,UNKNOWN,real_query + previous_export,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=1,1
+enable_record_trace_id,CPU调度,False,False,UNKNOWN,影响并发度、后台线程调度、排队和高负载响应时间,命中关键词: ,MEDIUM,UNKNOWN,real_query + previous_export,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=1,1
+enable_rich_error_msg,CPU调度,True,false,UNKNOWN,影响并发度、后台线程调度、排队和高负载响应时间,命中关键词: ,MEDIUM,UNKNOWN,real_query + previous_export,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=1,1
+enable_sys_table_ddl,CPU调度,False,False,True: allowed,影响并发度、后台线程调度、排队和高负载响应时间,命中关键词: ,MEDIUM,UNKNOWN,real_query,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=ROOT_SERVICE; score=1,1
+enable_sys_unit_standalone,CPU调度,False,False,True:turned on  False: turned off,影响并发度、后台线程调度、排队和高负载响应时间,命中关键词: ,MEDIUM,UNKNOWN,real_query,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=LOAD_BALANCE; score=1,1
+enable_upgrade_mode,CPU调度,False,False,True: turned on,影响并发度、后台线程调度、排队和高负载响应时间,命中关键词: ,MEDIUM,UNKNOWN,real_query,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=1,1
+ls_meta_table_check_interval,CPU调度,1s,1s,"[1ms,+∞)",影响并发度、后台线程调度、排队和高负载响应时间,命中关键词: ,MEDIUM,UNKNOWN,real_query,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=ROOT_SERVICE; score=1,1
+ob_enable_java_env,CPU调度,False,False,UNKNOWN,影响并发度、后台线程调度、排队和高负载响应时间,命中关键词: ,MEDIUM,UNKNOWN,real_query + previous_export,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=1,1
+ob_enable_utl_http,CPU调度,False,False,UNKNOWN,影响并发度、后台线程调度、排队和高负载响应时间,命中关键词: ,MEDIUM,UNKNOWN,real_query + previous_export,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=1,1
+ob_event_history_recycle_interval,CPU调度,7d,7d,"[1d, 180d]",影响并发度、后台线程调度、排队和高负载响应时间,命中关键词: ,MEDIUM,UNKNOWN,real_query,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=ROOT_SERVICE; score=1,1
+ob_python_home,CPU调度,,UNKNOWN,UNKNOWN,影响并发度、后台线程调度、排队和高负载响应时间,命中关键词: ,MEDIUM,UNKNOWN,real_query + previous_export,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=1,1
+ob_storage_s3_url_encode_type,CPU调度,compliantRfc3986Encoding,compliantRfc3986Encoding,UNKNOWN,影响并发度、后台线程调度、排队和高负载响应时间,命中关键词: ,MEDIUM,UNKNOWN,real_query + previous_export,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=1,1
+obconfig_url,CPU调度,,UNKNOWN,UNKNOWN,影响并发度、后台线程调度、排队和高负载响应时间,命中关键词: ,MEDIUM,UNKNOWN,real_query + previous_export,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=1,1
+plugins_load,CPU调度,,UNKNOWN,UNKNOWN,影响并发度、后台线程调度、排队和高负载响应时间,命中关键词: ,MEDIUM,UNKNOWN,real_query + previous_export,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=1,1
+recyclebin_object_expire_time,CPU调度,0s,0s,"[0s, +∞)",影响并发度、后台线程调度、排队和高负载响应时间,命中关键词: ,MEDIUM,UNKNOWN,real_query,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=ROOT_SERVICE; score=1,1
+rpc_port,CPU调度,2882,2882,"(1024, 65536) in integer",影响并发度、后台线程调度、排队和高负载响应时间,命中关键词: ,MEDIUM,UNKNOWN,real_query,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=1,1
+schema_history_recycle_interval,CPU调度,10m,10m,"[0s, +∞)",影响并发度、后台线程调度、排队和高负载响应时间,命中关键词: ,MEDIUM,UNKNOWN,real_query,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=LOAD_BALANCE; score=1,1
+server_check_interval,CPU调度,30s,30s,"[1s, +∞)",影响并发度、后台线程调度、排队和高负载响应时间,命中关键词: ,MEDIUM,UNKNOWN,real_query,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=ROOT_SERVICE; score=1,1
+server_permanent_offline_time,CPU调度,3600s,3600s,"[20s,+∞)",影响并发度、后台线程调度、排队和高负载响应时间,命中关键词: ,MEDIUM,UNKNOWN,real_query,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=ROOT_SERVICE; score=1,1
+sys_bkgd_net_percentage,CPU调度,60,60,"[0, 100] in integer",影响并发度、后台线程调度、排队和高负载响应时间,命中关键词: ,MEDIUM,UNKNOWN,real_query,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=1,1
+tablet_meta_table_check_interval,CPU调度,30m,30m,"[1m,+∞)",影响并发度、后台线程调度、排队和高负载响应时间,命中关键词: ,MEDIUM,UNKNOWN,real_query,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=ROOT_SERVICE; score=1,1
+tablet_size,CPU调度,128M,128M,UNKNOWN,影响并发度、后台线程调度、排队和高负载响应时间,命中关键词: ,MEDIUM,UNKNOWN,real_query + previous_export,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=1,1
+unit_gc_wait_time,CPU调度,1m,1m,"[0,  30d]",影响并发度、后台线程调度、排队和高负载响应时间,命中关键词: ,MEDIUM,UNKNOWN,real_query,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=1,1
+utl_file_open_max,CPU调度,50,50,UNKNOWN,影响并发度、后台线程调度、排队和高负载响应时间,命中关键词: ,MEDIUM,UNKNOWN,real_query + previous_export,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=1,1
+zone,CPU调度,zone1,UNKNOWN,UNKNOWN,影响并发度、后台线程调度、排队和高负载响应时间,命中关键词: ,MEDIUM,UNKNOWN,real_query + previous_export,scope=CLUSTER; edit_level=DYNAMIC_EFFECTIVE; section=OBSERVER; score=1,1
