@@ -1,0 +1,6 @@
+﻿experiment_id,metric_name,rmse,mae,residual_std,train_samples,model_version
+real_week4,cpu_usage,2.737286,2.212021,2.731866,169,patchtst-lite-v0.1
+real_week4,memory_usage,1.346524,1.089577,1.350787,169,patchtst-lite-v0.1
+real_week4,io_wait,1.326442,1.081636,1.326493,169,patchtst-lite-v0.1
+real_week4,qps,1.308844,1.027303,1.314906,169,patchtst-lite-v0.1
+real_week4,latency_ms,3.285716,2.567565,3.948574,169,patchtst-lite-v0.1
