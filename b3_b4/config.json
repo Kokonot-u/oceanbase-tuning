@@ -1,0 +1,27 @@
+{
+  "experiment_id": "real_week4",
+  "operator": "Huang",
+  "b3": {
+    "input_csv": "inputs/normal_features_tpcc_10w_sample.csv",
+    "time_col": "timestamp",
+    "granularity_seconds": 60,
+    "target_metrics": ["cpu_usage", "memory_usage", "io_wait", "qps", "latency_ms"],
+    "input_window": 48,
+    "train_horizon": 24,
+    "patch_len": 12,
+    "patch_stride": 6,
+    "ridge_alpha": 10.0,
+    "short_term_hours": 24,
+    "long_term_days": 7,
+    "long_term_output_step_seconds": 3600,
+    "model_version": "patchtst-lite-v0.1"
+  },
+  "b4": {
+    "recommendations_csv": "inputs/b2_tuning_recommendations_real_week4.csv",
+    "baseline_perf_csv": "inputs/baseline_perf/param_perf_dataset_real.csv",
+    "mode": "simulation",
+    "workloads": ["TPC-C", "TPC-H"],
+    "promote_min_reward": 0.0,
+    "promote_min_throughput_gain": 0.02
+  }
+}

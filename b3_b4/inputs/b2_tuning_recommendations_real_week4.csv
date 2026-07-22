@@ -1,0 +1,21 @@
+policy_id,experiment_id,workload_type,parameter_name,recommended_value,expected_metric,estimated_throughput_gain,estimated_p95_reduction,estimated_reward,requires_approval,evidence
+policy_01_tpc-c,real_week4_offline,TPC-C,log_disk_utilization_limit_threshold,90,tps,0.048096,0.050496,0.043104,0,日志写入、刷盘和 IO 隔离对写事务路径更敏感。
+policy_02_tpc-c,real_week4_offline,TPC-C,log_disk_utilization_threshold,55,tps,0.048096,0.050496,0.043104,0,日志写入、刷盘和 IO 隔离对写事务路径更敏感。
+policy_03_tpc-c,real_week4_offline,TPC-C,log_disk_throttling_maximum_duration,2,tps,0.045696,0.048096,0.041004,0,日志写入、刷盘和 IO 隔离对写事务路径更敏感。
+policy_04_tpc-c,real_week4_offline,TPC-C,enable_clog_encryption,True,tps,0.036656,0.039056,0.033094,0,日志写入、刷盘和 IO 隔离对写事务路径更敏感。
+policy_05_tpc-c,real_week4_offline,TPC-C,log_disk_throttling_percentage,60,tps,0.034816,0.037216,0.031484,0,日志写入、刷盘和 IO 隔离对写事务路径更敏感。
+policy_06_tpc-c,real_week4_offline,TPC-C,standby_db_preferred_upstream_log_region,50,tps,0.034816,0.037216,0.031484,0,日志写入、刷盘和 IO 隔离对写事务路径更敏感。
+policy_08_tpc-c,real_week4_offline,TPC-C,vector_index_memory_saving_mode,True,tps,0.033808,0.036208,0.030602,0,内存水位、缓存和冻结行为会影响写入路径与大查询中间结果。
+policy_07_tpc-c,real_week4_offline,TPC-C,clog_io_isolation_mode,2,tps,0.034684,0.037084,-0.115063,1,日志写入、刷盘和 IO 隔离对写事务路径更敏感。
+policy_09_tpc-c,real_week4_offline,TPC-C,memory_chunk_cache_size,0.5,tps,0.033676,0.036076,-0.115945,1,内存水位、缓存和冻结行为会影响写入路径与大查询中间结果。
+policy_10_tpc-c,real_week4_offline,TPC-C,syslog_io_bandwidth_limit,30,tps,0.032284,0.034684,-0.117163,1,日志写入、刷盘和 IO 隔离对写事务路径更敏感。
+policy_01_tpc-h,real_week4_offline,TPC-H,log_disk_utilization_limit_threshold,90,qps,0.032064,0.075744,0.04662,0,日志写入、刷盘和 IO 隔离对写事务路径更敏感。
+policy_02_tpc-h,real_week4_offline,TPC-H,log_disk_utilization_threshold,55,qps,0.032064,0.075744,0.04662,0,日志写入、刷盘和 IO 隔离对写事务路径更敏感。
+policy_03_tpc-h,real_week4_offline,TPC-H,log_disk_throttling_maximum_duration,2,qps,0.030464,0.072144,0.04437,0,日志写入、刷盘和 IO 隔离对写事务路径更敏感。
+policy_04_tpc-h,real_week4_offline,TPC-H,enable_clog_encryption,True,qps,0.024437,0.058584,0.035895,0,日志写入、刷盘和 IO 隔离对写事务路径更敏感。
+policy_05_tpc-h,real_week4_offline,TPC-H,log_disk_throttling_percentage,60,qps,0.023211,0.055824,0.03417,0,日志写入、刷盘和 IO 隔离对写事务路径更敏感。
+policy_06_tpc-h,real_week4_offline,TPC-H,standby_db_preferred_upstream_log_region,50,qps,0.023211,0.055824,0.03417,0,日志写入、刷盘和 IO 隔离对写事务路径更敏感。
+policy_08_tpc-h,real_week4_offline,TPC-H,vector_index_memory_saving_mode,True,qps,0.022539,0.054312,0.033225,0,内存水位、缓存和冻结行为会影响写入路径与大查询中间结果。
+policy_07_tpc-h,real_week4_offline,TPC-H,clog_io_isolation_mode,2,qps,0.023123,0.055626,-0.112386,1,日志写入、刷盘和 IO 隔离对写事务路径更敏感。
+policy_09_tpc-h,real_week4_offline,TPC-H,memory_chunk_cache_size,0.5,qps,0.022451,0.054114,-0.113331,1,内存水位、缓存和冻结行为会影响写入路径与大查询中间结果。
+policy_10_tpc-h,real_week4_offline,TPC-H,syslog_io_bandwidth_limit,30,qps,0.021523,0.052026,-0.114636,1,日志写入、刷盘和 IO 隔离对写事务路径更敏感。
