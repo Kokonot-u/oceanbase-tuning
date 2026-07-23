@@ -23,7 +23,7 @@ def main() -> int:
     txn_count = re.search(r"Transaction Count =\s*([0-9]+)", text)
     tpmc = float(measured.group(1)) if measured else 0.0
     tpm_total = float(measured_total.group(1)) if measured_total else 0.0
-    result_csv = Path(log_file).parents[1] / ".." / "outputs" / "real_week2" / run_id / "data" / "result.csv"
+    result_csv = Path(out_csv).parent / run_id / "data" / "result.csv"
     latencies = []
     if result_csv.exists():
         with result_csv.open(newline="", encoding="utf-8") as f:

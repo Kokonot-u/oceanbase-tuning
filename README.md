@@ -28,24 +28,19 @@
 .
 ├── b1_b2/          # B1/B2 模块聚合入口
 ├── b3_b4/          # B3/B4 模块聚合入口
-├── config/         # 数据库连接配置示例
+├── config/         # 最小数据库连接配置示例
 ├── docker/         # OceanBase 本地 Docker 部署和管理脚本
-├── docs/           # 项目过程文档、实验报告、接口文档
-├── logs/           # 真实实验原始运行日志
-├── outputs/        # 实验结果和脚本默认读写目录
-├── scripts/        # 参数导出、benchmark、结果构建脚本
-├── sql/            # OceanBase 参数导出与指标采集 SQL
-├── src/            # 各模块源码
-├── tests/          # 自动化测试
+├── notebooks/      # 探索性分析 notebook
 └── tools/          # BenchmarkSQL 等外部工具
 ```
 
 说明：
 
-- `b1_b2/` 是 B1/B2 的模块化入口，集中保存对应代码、文档、接口和精选结果。
-- `b3_b4/` 是 B3/B4 的模块化入口，集中保存对应代码、文档、接口和精选结果。
-- `outputs/` 是全项目实验结果目录，部分脚本会直接读写该目录，不建议随意移动。
-- `logs/` 保存真实实验原始日志，用于结果追溯。
+- `b1_b2/` 是 B1/B2 的模块化入口，集中保存对应代码、配置、SQL、文档、日志、接口和结果。
+- `b3_b4/` 是 B3/B4 的模块化入口，由对应同学维护。
+- `config/` 仅保留根目录最小连接配置示例；模块内配置副本位于 `b1_b2/config/`。
+- `docker/` 保留 OceanBase 本地环境脚本。
+- `notebooks/` 保留探索性分析入口。
 
 
 
@@ -63,16 +58,16 @@ pip install -r requirements.txt
 python docker/scripts/verify_connection.py
 ```
 
-运行 Week4 B1/B2 结果构建：s
+运行 Week4 B1/B2 结果构建：
 
 ```bash
-python scripts/real_week4/build_b1_b2_week4_outputs.py
+python b1_b2/code/scripts/real_week4/build_b1_b2_week4_outputs.py
 ```
 
 运行测试：
 
 ```bash
-python -m pytest tests/test_week4_b1_b2.py -q
+python -m pytest b1_b2/code/tests/test_week4_b1_b2.py -q
 ```
 
 ## OceanBase 本地环境
@@ -96,7 +91,7 @@ python docker/scripts/verify_connection.py
 
 ```text
 docker/README.md
-docs/benchmarksql_setup_guide.md
+b1_b2/docs/week2/week2_real_experiment_report.md
 ```
 
 ## 当前边界
@@ -104,7 +99,7 @@ docs/benchmarksql_setup_guide.md
 - 当前实验以小规模 baseline 和离线分析为主，尚未形成大规模参数搜索数据集。
 - B2 调优结果目前是离线推荐，真实执行前需要 B4 自动化验证、人工审批和 rollback 校验。
 - TPC-H 当前使用脚本生成数据，正式对比实验建议切换到官方 `dbgen`。
-- `outputs/` 与 `logs/` 保留为实验可追溯材料，不建议直接删除。
+- B1/B2 的实验结果和日志已经迁入 `b1_b2/results/` 与 `b1_b2/logs/`。
 
 ## 后续计划
 

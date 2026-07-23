@@ -1,10 +1,11 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
-OUT_DIR="${ROOT}/outputs/real_week2"
-LOG_DIR="${ROOT}/logs/real_week2"
-BMSQL_DIR="${ROOT}/tools/benchmarksql"
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../../.." && pwd)"
+PROJECT_ROOT="$(cd "${ROOT}/.." && pwd)"
+OUT_DIR="${ROOT}/results/week2"
+LOG_DIR="${ROOT}/logs/week2"
+BMSQL_DIR="${BENCHMARKSQL_HOME:-${PROJECT_ROOT}/tools/benchmarksql}"
 RUN_DIR="${BMSQL_DIR}/run"
 mkdir -p "${OUT_DIR}" "${LOG_DIR}"
 
@@ -78,6 +79,6 @@ if [ -n "${RESULT_DIR}" ]; then
   fi
 fi
 
-python3 "${ROOT}/scripts/real_week2/summarize_benchmarksql_tpcc.py" "${LOG_FILE}" "${OUT_DIR}/tpcc_benchmarksql_real.csv" "${RUN_ID}" "${HOST}" "${USER}" "${DATABASE}"
+python3 "${ROOT}/code/scripts/real_week2/summarize_benchmarksql_tpcc.py" "${LOG_FILE}" "${OUT_DIR}/tpcc_benchmarksql_real.csv" "${RUN_ID}" "${HOST}" "${USER}" "${DATABASE}"
 echo "end_time=$(date -u '+%Y-%m-%dT%H:%M:%SZ')" >> "${LOG_FILE}"
 echo "BenchmarkSQL TPC-C finished: ${OUT_DIR}/tpcc_benchmarksql_real.csv"

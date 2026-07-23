@@ -2,7 +2,7 @@
 
 负责人：Wang  
 模块：B组 B1 参数影响因子分析 / B2 深度强化学习智能调优  
-关联第二周真实数据：`outputs/real_week2/`、`docs/real_week2/`、`docs/real_week3/b1_b2_interface_definition_v0.1.md`
+关联第二周真实数据：`b1_b2/results/week2/`、`b1_b2/docs/week2/`、`b1_b2/interfaces/week3/b1_b2_interface_definition_v0.1.md`
 
 ## 0. 与第二周 real_week2 数据的对齐基线
 

@@ -4,19 +4,23 @@
 范围：B1 参数影响因子分析、B2 深度强化学习智能调优
 
 本目录是 B1/B2 模块的独立维护入口，集中放 Wang 负责的代码、接口、文档和关键结果。  
-原始项目目录仍保留在 `src/`、`scripts/`、`docs/`、`outputs/` 中；这里是便于导师和组内同学查看的模块视图。
+根目录旧 `scripts/`、`tests/` 的 B1/B2 相关内容已迁入本目录；这里是便于导师和组内同学查看的模块视图。
 
 ## 目录结构
 
 ```text
 b1_b2/
+├── config/
 ├── code/
+│   ├── configs/
 │   ├── src/
 │   │   ├── b1_analysis/
 │   │   └── b2_tuning/
+│   ├── sql/
 │   ├── scripts/
 │   │   ├── real_week2/
-│   │   └── real_week4/
+│   │   ├── real_week4/
+│   │   └── legacy/
 │   └── tests/
 ├── docs/
 │   ├── week2/
@@ -27,6 +31,8 @@ b1_b2/
 │   └── week4/
 ├── presentations/
 │   └── week3/
+├── logs/
+│   └── week2/
 └── results/
     ├── week2/
     └── week4/

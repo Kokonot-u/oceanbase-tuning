@@ -1,4 +1,0 @@
-run_id,timestamp,db_host,tenant,database,workload,parameter_name,parameter_value,elapsed_ms,qps_or_tps,avg_latency_ms,p95_latency_ms,p99_latency_ms,error_count,notes
-real_week2_20260702_153400,2026-07-02T07:34:31Z,100.83.22.21,test,week2_bench_wang,lightweight_real_sql,baseline,current_real_values,30820.778,7.17,139.228,178.12,239.711,0,真实 baseline；未修改参数
-benchmarksql_tpcc_20260702_171628,2026-07-02T09:22:59Z,100.83.22.21,test,week2_bench_wang,BenchmarkSQL_TPC-C,baseline,current_real_values,,1.826,312.3,716.0,726.0,0,真实 BenchmarkSQL TPC-C；tpmC=46.95; tpmTOTAL=109.56; txn_count=20
-tpch_22_real_20260702_172556,2026-07-02T09:26:01Z,100.83.22.21,test,week2_bench_wang,TPC-H-22-lightweight-real,baseline,current_real_values,3370.68,6.5269,153.213,192.592,285.852,0,真实执行 22 条 TPC-H 风格查询；小规模确定性数据集，非官方 dbgen scale factor

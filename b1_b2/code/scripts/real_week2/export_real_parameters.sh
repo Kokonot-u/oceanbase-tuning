@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 set -u
-ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
-OUT_DIR="$ROOT/outputs/real_week2"
-LOG_DIR="$ROOT/logs/real_week2"
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../../.." && pwd)"
+OUT_DIR="$ROOT/results/week2"
+LOG_DIR="$ROOT/logs/week2"
 mkdir -p "$OUT_DIR" "$LOG_DIR"
 HOST="${OB_HOST:-100.83.22.21}"
 PORT="${OB_PORT:-2881}"

@@ -9,10 +9,10 @@ from pathlib import Path
 import pandas as pd
 
 
-ROOT = Path(__file__).resolve().parents[2]
-DATASET = ROOT / "outputs" / "real_week2" / "param_perf_dataset_real.csv"
-FIG_DIR = ROOT / "outputs" / "real_week2" / "figures"
-CACHE_DIR = ROOT / "outputs" / "real_week2" / ".mpl_cache"
+ROOT = Path(__file__).resolve().parents[3]
+DATASET = ROOT / "results" / "week2" / "param_perf_dataset_real.csv"
+FIG_DIR = ROOT / "results" / "week2" / "figures"
+CACHE_DIR = ROOT / "results" / "week2" / ".mpl_cache"
 CACHE_DIR.mkdir(parents=True, exist_ok=True)
 os.environ.setdefault("MPLCONFIGDIR", str(CACHE_DIR))
 os.environ.setdefault("XDG_CACHE_HOME", str(CACHE_DIR))

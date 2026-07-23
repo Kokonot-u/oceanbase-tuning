@@ -23,11 +23,11 @@ from typing import Any
 import pandas as pd
 
 
-ROOT = Path(__file__).resolve().parents[2]
-WEEK2 = ROOT / "outputs" / "real_week2"
-OUT = ROOT / "outputs" / "real_week4"
-DOC = ROOT / "docs" / "real_week4"
-B1_B2 = ROOT / "b1_b2"
+ROOT = Path(__file__).resolve().parents[3]
+WEEK2 = ROOT / "results" / "week2"
+OUT = ROOT / "results" / "week4"
+DOC = ROOT / "docs" / "week4"
+B1_B2 = ROOT
 
 
 CATEGORY_WEIGHT = {
@@ -422,8 +422,8 @@ def write_markdown(top30: pd.DataFrame, action_space: pd.DataFrame, policy: pd.D
         "",
         "## 数据来源",
         "",
-        "- 参数候选：`outputs/real_week2/param_candidates_real.csv`，共 347 个性能相关候选参数。",
-        "- 基线性能：`outputs/real_week2/param_perf_dataset_real.csv`，包含轻量 SQL、BenchmarkSQL TPC-C、TPC-H 22 查询。",
+        "- 参数候选：`b1_b2/results/week2/param_candidates_real.csv`，共 347 个性能相关候选参数。",
+        "- 基线性能：`b1_b2/results/week2/param_perf_dataset_real.csv`，包含轻量 SQL、BenchmarkSQL TPC-C、TPC-H 22 查询。",
         "- 当前限制：共享 `test` 租户尚未开放参数修改窗口，因此本报告使用离线启发式特征工程，不声称已经完成真实改参因果验证。",
         "",
         "## Top30 参数影响力",

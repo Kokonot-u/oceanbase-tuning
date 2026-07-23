@@ -14,9 +14,9 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 
-ROOT = Path(__file__).resolve().parents[2]
-OUT_DIR = ROOT / "outputs" / "real_week2"
-LOG_DIR = ROOT / "logs" / "real_week2"
+ROOT = Path(__file__).resolve().parents[3]
+OUT_DIR = ROOT / "results" / "week2"
+LOG_DIR = ROOT / "logs" / "week2"
 HOST = os.environ.get("OB_HOST", "100.83.22.21")
 PORT = os.environ.get("OB_PORT", "2881")
 USER = os.environ.get("OB_USER", "root@test")

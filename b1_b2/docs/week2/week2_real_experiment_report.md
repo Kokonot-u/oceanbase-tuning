@@ -37,7 +37,7 @@ SQL 与输出日志见：
 
 真实参数导出通过 `scripts/real_week2/export_real_parameters.sh` 执行，优先使用 `SHOW PARAMETERS`。本次结果：
 
-- `SHOW PARAMETERS`: 成功，生成 `outputs/real_week2/ob_parameters_real.tsv`
+- `SHOW PARAMETERS`: 成功，生成 `b1_b2/results/week2/ob_parameters_real.tsv`
 - `SHOW PARAMETERS LIKE '%cpu%'`: 成功
 - `SHOW PARAMETERS LIKE '%memory%'`: 成功
 - `SHOW PARAMETERS LIKE '%mem%'`: 成功
@@ -52,8 +52,8 @@ SQL 与输出日志见：
 
 基于真实 `SHOW PARAMETERS` 导出，共筛选出 347 个性能相关候选参数，并生成 Top100：
 
-- `outputs/real_week2/param_candidates_real.csv`
-- `outputs/real_week2/top100_performance_params_real.csv`
+- `b1_b2/results/week2/param_candidates_real.csv`
+- `b1_b2/results/week2/top100_performance_params_real.csv`
 
 分类包括 CPU 调度、内存管理、磁盘 IO、SQL 执行。字段包含当前值、默认值、范围、性能相关依据、风险、可修改性和证据来源。
 
@@ -61,8 +61,8 @@ SQL 与输出日志见：
 
 Top5 输出见：
 
-- `outputs/real_week2/top5_params_real.csv`
-- `docs/real_week2/top5_params_explanation.md`
+- `b1_b2/results/week2/top5_params_real.csv`
+- `b1_b2/docs/week2/top5_params_explanation.md`
 
 本次选择：
 
@@ -76,7 +76,7 @@ Top5 输出见：
 
 由于当前连接的是同事共享 test 租户，本次不直接执行 `ALTER SYSTEM` / `ALTER TENANT` / `SET GLOBAL`。参数变更计划和 rollback SQL 已生成：
 
-- `docs/real_week2/parameter_change_plan.md`
+- `b1_b2/docs/week2/parameter_change_plan.md`
 - `logs/real_week2/rollback.sql`
 
 ## 7. Workload 设计
@@ -148,13 +148,13 @@ Top5 输出见：
 
 结果文件：
 
-- `outputs/real_week2/workload_baseline_real.csv`
-- `outputs/real_week2/workload_summary_real.csv`
-- `outputs/real_week2/tpcc_benchmarksql_real.csv`
-- `outputs/real_week2/tpch_22_real.csv`
-- `outputs/real_week2/tpch_22_summary_real.csv`
-- `outputs/real_week2/param_perf_dataset_real.csv`
-- `outputs/real_week2/param_perf_summary_real.csv`
+- `b1_b2/results/week2/workload_baseline_real.csv`
+- `b1_b2/results/week2/workload_summary_real.csv`
+- `b1_b2/results/week2/tpcc_benchmarksql_real.csv`
+- `b1_b2/results/week2/tpch_22_real.csv`
+- `b1_b2/results/week2/tpch_22_summary_real.csv`
+- `b1_b2/results/week2/param_perf_dataset_real.csv`
+- `b1_b2/results/week2/param_perf_summary_real.csv`
 
 说明：轻量 SQL 和 TPC-H 延迟包含 `docker exec + obclient` 调用开销；BenchmarkSQL 使用 Java/JDBC 长连接，更接近 TPC-C benchmark 测试方式。
 
@@ -164,10 +164,10 @@ Top5 输出见：
 
 本次真实文件统一放在：
 
-- `outputs/real_week2/`
+- `b1_b2/results/week2/`
 - `logs/real_week2/`
 - `scripts/real_week2/`
-- `docs/real_week2/`
+- `b1_b2/docs/week2/`
 
 ## 10. 未完成项和原因
 

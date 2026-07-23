@@ -9,11 +9,11 @@ from pathlib import Path
 import pandas as pd
 
 
-ROOT = Path(__file__).resolve().parents[2]
-REAL_PARAMS = ROOT / "outputs" / "real_week2" / "ob_parameters_real.tsv"
-PREVIOUS_PARAMS = ROOT / "outputs" / "ob_parameters.tsv"
-OUT_DIR = ROOT / "outputs" / "real_week2"
-DOC_DIR = ROOT / "docs" / "real_week2"
+ROOT = Path(__file__).resolve().parents[3]
+REAL_PARAMS = ROOT / "results" / "week2" / "ob_parameters_real.tsv"
+PREVIOUS_PARAMS = ROOT / "results" / "week2" / "ob_parameters.tsv"
+OUT_DIR = ROOT / "results" / "week2"
+DOC_DIR = ROOT / "docs" / "week2"
 
 CATEGORIES = {
     "CPU调度": ["cpu", "worker", "thread", "concurrency", "parallel", "queue", "scheduler"],

@@ -4,8 +4,8 @@
 
 ## 数据来源
 
-- 参数候选：`outputs/real_week2/param_candidates_real.csv`，共 347 个性能相关候选参数。
-- 基线性能：`outputs/real_week2/param_perf_dataset_real.csv`，包含轻量 SQL、BenchmarkSQL TPC-C、TPC-H 22 查询。
+- 参数候选：`b1_b2/results/week2/param_candidates_real.csv`，共 347 个性能相关候选参数。
+- 基线性能：`b1_b2/results/week2/param_perf_dataset_real.csv`，包含轻量 SQL、BenchmarkSQL TPC-C、TPC-H 22 查询。
 - 当前限制：共享 `test` 租户尚未开放参数修改窗口，因此本报告使用离线启发式特征工程，不声称已经完成真实改参因果验证。
 
 ## Top30 参数影响力

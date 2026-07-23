@@ -8,10 +8,10 @@ from pathlib import Path
 import pandas as pd
 
 
-ROOT = Path(__file__).resolve().parents[2]
-OUT_DIR = ROOT / "outputs" / "real_week2"
-DOC_DIR = ROOT / "docs" / "real_week2"
-LOG_DIR = ROOT / "logs" / "real_week2"
+ROOT = Path(__file__).resolve().parents[3]
+OUT_DIR = ROOT / "results" / "week2"
+DOC_DIR = ROOT / "docs" / "week2"
+LOG_DIR = ROOT / "logs" / "week2"
 
 
 def main() -> int:

@@ -1,6 +1,0 @@
-parameter_name,category,current_value,test_value_1,test_value_2,risk_level,can_modify,expected_effect,evidence_source,notes
-cpu_quota_concurrency,CPU调度,4,4,8,LOW,YES,影响并发度、后台线程调度、排队和高负载响应时间,real_query,仅生成参数实验计划；共享 test 租户默认不直接执行 ALTER SYSTEM/ALTER TENANT
-memstore_limit_percentage,内存管理,0,20,40,MEDIUM,UNKNOWN,影响缓存、冻结、内存水位和租户资源使用,real_query,仅生成参数实验计划；共享 test 租户默认不直接执行 ALTER SYSTEM/ALTER TENANT
-clog_io_isolation_mode,磁盘IO,1,1,2,MEDIUM,UNKNOWN,影响日志写入、刷盘、压缩、磁盘带宽和 IO 隔离,real_query,仅生成参数实验计划；共享 test 租户默认不直接执行 ALTER SYSTEM/ALTER TENANT
-enable_sql_audit,SQL执行,True,True,False,MEDIUM,UNKNOWN,影响 SQL 计划、审计、长查询调度和执行超时,real_query,仅生成参数实验计划；共享 test 租户默认不直接执行 ALTER SYSTEM/ALTER TENANT
-large_query_worker_percentage,CPU调度,30,20,40,MEDIUM,UNKNOWN,影响并发度、后台线程调度、排队和高负载响应时间,real_query,仅生成参数实验计划；共享 test 租户默认不直接执行 ALTER SYSTEM/ALTER TENANT
